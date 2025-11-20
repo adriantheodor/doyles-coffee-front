@@ -1,0 +1,64 @@
+/* HomePage.css */
+
+/* Global color variable for brand consistency */
+:root {
+  --brand-green: #3A7842;
+}
+
+/* Base text color for the entire home page */
+.home-page {
+  color: var(--brand-green);
+}
+
+/* Optional: tweak Bootstrap classes so they use your color too */
+.home-page .text-primary,
+.home-page .text-secondary,
+.home-page .text-muted {
+  color: var(--brand-green) !important;
+}
+
+
+
+/* Optional: give headings a little emphasis */
+.home-page h1,
+.home-page h2,
+.home-page h3 {
+  color: var(--brand-green);
+  font-weight: 700;
+}
+
+/* Optional: subtle footer tone */
+.home-page footer {
+  color: var(--brand-green);
+  opacity: 0.8;
+}
+
+.carousel-inner img {
+  height: 450px;
+  object-fit: contain;
+  background-color: #f8f9fa;
+}
+
+.carousel {
+  border-radius: 12px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(41%) sepia(19%) saturate(982%) hue-rotate(87deg) brightness(92%) contrast(86%);
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  filter: invert(41%) sepia(19%) saturate(982%) hue-rotate(87deg) brightness(105%) contrast(90%);
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
+
+
+@media (max-width: 991px) {
+  .home-page .sticky-top {
+    position: static !important;
+  }
+}
