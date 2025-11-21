@@ -1,6 +1,7 @@
 // src/pages/LoginPage.js
 import React, { useState } from "react";
 import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = ({ onLogin }) => {
@@ -12,18 +13,20 @@ const LoginPage = ({ onLogin }) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // client/src/pages/LoginPage.js (inside handleSubmit)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE}api/auth/login`,
+        `${import.meta.env.VITE_API_BASE}api/auth/login`,
         formData
       );
+
       const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+
       onLogin && onLogin(user);
+
       navigate(user.role === "admin" ? "/admin" : "/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
@@ -64,7 +67,6 @@ const LoginPage = ({ onLogin }) => {
           marginTop: "1rem",
         }}
       >
-        
         <p style={{ margin: 0 }}>Don’t have an account?</p>
         <button onClick={() => navigate("/register")}>Register</button>
       </div>
