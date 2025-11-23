@@ -1,6 +1,7 @@
 // src/pages/LoginPage.js
 import React, { useState } from "react";
 import axios from "axios";
+import { api } from "../utils/api";
 
 import { useNavigate } from "react-router-dom";
 
@@ -16,16 +17,14 @@ const LoginPage = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE}api/auth/login`,
-        formData
-      );
+      const res = await api.post("api/auth/login", formData);
 
       const { token, user } = res.data;
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      onLogin && onLogin(user);
+      onLogin?.(user);
 
       navigate(user.role === "admin" ? "/admin" : "/dashboard");
     } catch (err) {

@@ -1,37 +1,40 @@
 // client/src/components/admin/QuoteRequestsWidget.jsx
 import { useEffect, useState } from "react";
-const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000/";
+import { api } from "../../utils/api";
 
 export default function QuoteRequestsWidget() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [scheduleForm, setScheduleForm] = useState(null);
 
-  // Fetch all quote requests
   const fetchRequests = async () => {
     setLoading(true);
-    const res = await fetch(`${API_BASE}api/quotes`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setRequests(data);
+    try {
+      const res = await api.get("api/quotes", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      setRequests(res.data);
+    } catch (err) {
+      console.error("Failed to fetch requests:", err);
     }
     setLoading(false);
   };
 
   const markCompleted = async (id) => {
-    const res = await fetch(`${API_BASE}api/quotes/${id}/complete`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      await api.put(
+        `api/quotes/${id}/complete`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
-    if (res.ok) {
-      fetchRequests();
-    } else {
+      fetchRequests(); // refresh list
+    } catch (err) {
+      console.error("Error marking completed:", err);
       alert("Could not mark quote as completed.");
     }
   };
@@ -40,14 +43,13 @@ export default function QuoteRequestsWidget() {
     if (!window.confirm("Are you sure you want to delete this quote request?"))
       return;
 
-    const res = await fetch(`${API_BASE}api/quotes/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
+    try {
+      await api.delete(`api/quotes/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
 
-    if (res.ok) {
       fetchRequests();
-    } else {
+    } catch (err) {
       alert("Failed to delete request.");
     }
   };
@@ -58,41 +60,39 @@ export default function QuoteRequestsWidget() {
       return alert("Please select a date and time.");
     }
 
-    const res = await fetch(
-      `${API_BASE}api/quotes/${scheduleForm._id}/schedule`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
+    try {
+      await api.put(
+        `api/quotes/${scheduleForm._id}/schedule`,
+        {
           dateTime: scheduleForm.scheduledDate,
           notes: scheduleForm.adminNotes || "",
-        }),
-      }
-    );
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
 
-    if (res.ok) {
       alert("Meeting scheduled and emails sent!");
       setScheduleForm(null);
       fetchRequests();
-    } else {
+    } catch (err) {
       alert("Failed to schedule meeting.");
     }
   };
 
-  // Simple status updates (contacted/closed)
   const updateStatus = async (id, status) => {
-    const res = await fetch(`${API_BASE}api/quotes/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify({ status }),
-    });
-    if (res.ok) fetchRequests();
+    try {
+      await api.put(
+        `api/quotes/${id}`,
+        { status },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      fetchRequests();
+    } catch (err) {
+      console.error("Error updating status:", err);
+    }
   };
 
   useEffect(() => {
