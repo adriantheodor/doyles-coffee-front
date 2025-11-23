@@ -1,8 +1,7 @@
 // src/pages/LoginPage.js
 import React, { useState } from "react";
-import axios from "axios";
 import { api } from "../utils/api";
-
+import "./LoginPage.css";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = ({ onLogin }) => {
@@ -33,41 +32,54 @@ const LoginPage = ({ onLogin }) => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          value={formData.email}
-          required
-        />
-        <br />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          value={formData.password}
-          required
-        />
-        <br />
-        <button type="submit">Login</button>
-      </form>
+    <div className="login-page">
+      <div className="login-card">
+        <h1>Welcome Back</h1>
+        <p className="subtitle">Please login to your account</p>
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          marginTop: "1rem",
-        }}
-      >
-        <p style={{ margin: 0 }}>Don’t have an account?</p>
-        <button onClick={() => navigate("/register")}>Register</button>
+        {error && <div className="error-msg">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Email Address</label>
+            <input
+              className="form-input"
+              type="email"
+              name="email"
+              placeholder="name@example.com"
+              onChange={handleChange}
+              value={formData.email}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <input
+              className="form-input"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              onChange={handleChange}
+              value={formData.password}
+              required
+            />
+          </div>
+
+          <button type="submit" className="login-btn">
+            Sign In
+          </button>
+        </form>
+
+        <div className="register-link-box">
+          Don’t have an account? 
+          <button 
+            className="register-link-btn" 
+            onClick={() => navigate("/register")}
+          >
+            Register here
+          </button>
+        </div>
       </div>
     </div>
   );
