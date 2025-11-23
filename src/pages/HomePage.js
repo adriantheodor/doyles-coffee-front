@@ -1,7 +1,13 @@
 import QuotePage from "./QuotePage";
 import "./HomePage.css";
 import pic1 from "../assets/pic1.jpeg";
-// ... (keep your other imports)
+import pic2 from "../assets/pic2.jpeg";
+import pic3 from "../assets/pic3.jpeg";
+import pic4 from "../assets/pic4.jpeg";
+import pic5 from "../assets/pic5.jpeg";
+import pic6 from "../assets/pic6.jpeg";
+import pic7 from "../assets/pic7.jpeg";
+import pic8 from "../assets/pic8.jpeg";
 import pic9 from "../assets/pic9.jpeg";
 
 const HomePage = ({ onLogin }) => {
@@ -26,11 +32,55 @@ const HomePage = ({ onLogin }) => {
             <div className="carousel-item active">
               <img src={pic1} className="d-block w-100" alt="Coffee service" />
             </div>
-            {/* ... other images ... */}
+            <div className="carousel-item">
+              <img src={pic2} className="d-block w-100" alt="Snack room" />
+            </div>
+            <div className="carousel-item">
+              <img src={pic3} className="d-block w-100" alt="Vending machine" />
+            </div>
+            <div className="carousel-item">
+              <img src={pic4} className="d-block w-100" alt="Breakroom setup" />
+            </div>
+            <div className="carousel-item">
+              <img src={pic5} className="d-block w-100" alt="Breakroom setup" />
+            </div>
+            <div className="carousel-item">
+              <img src={pic6} className="d-block w-100" alt="Breakroom setup" />
+            </div>
+            <div className="carousel-item">
+              <img src={pic7} className="d-block w-100" alt="Breakroom setup" />
+            </div>
+            <div className="carousel-item">
+              <img src={pic8} className="d-block w-100" alt="Breakroom setup" />
+            </div>
             <div className="carousel-item">
               <img src={pic9} className="d-block w-100" alt="Breakroom setup" />
             </div>
           </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#doylesCarousel"
+            data-bs-slide="prev"
+          >
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#doylesCarousel"
+            data-bs-slide="next"
+          >
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Next</span>
+          </button>
           {/* ... buttons ... */}
         </div>
       </div>
