@@ -32,7 +32,6 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
       <div className="navbar-header">
         {/* We use HashLink for the logo too, so it scrolls to top */}
         <HashLink smooth to="/#top" className="navbar-logo-link">
-          <img src={logo} alt="Doyle's Logo" className="navbar-logo" />
         </HashLink>
 
         <button
