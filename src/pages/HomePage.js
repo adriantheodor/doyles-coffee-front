@@ -106,6 +106,11 @@ const HomePage = ({ onLogin }) => {
         </div>
       </div>
 
+      <div>
+      <h1>Contact</h1>
+      <p>Email Jeff at: <a href="mailto:doylesbreakroomservices@gmail.com">doylesbreakroomservices@gmail.com</a></p>
+    </div>
+
       {/* Footer */}
       <footer className="text-center py-4 bg-white border-top">
         <small className="text-muted">
