@@ -1,5 +1,5 @@
 :root {
-  --brand-green: #3A7842;
+  --brand-green: #3a7842;
   --brand-green-dark: #2f6035;
   --bg-color: #eee;
 }
@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   position: relative; /* Needed for mobile positioning */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-logo {
@@ -74,67 +74,78 @@
     padding: 1rem;
   }
 
+  /* 1. ALIGNMENT FIX: This container holds the Logo (left) and Hamburger (right) */
   .navbar-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* This forces the Logo and Hamburger to share a center line */
+    height: 50px; /* Fixed height ensures consistent alignment */
   }
 
-  /* The Hamburger Button */
+  .navbar-logo {
+    height: 40px; /* Ensure logo isn't too huge */
+    object-fit: contain;
+  }
+
+  /* 2. THICKNESS FIX: Resetting the button completely */
   .hamburger-btn {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 30px !important; 
-    height: 21px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
+    justify-content: space-between; /* Spreads the 3 lines evenly top-to-bottom */
+    width: 30px !important; /* Standard width */
+    height: 20px !important; /* Standard height */
+    background: transparent; /* Removes gray button background */
+    border: none; /* Removes default button border */
+    padding: 0; /* Removes internal spacing */
     margin-left: auto;
+    cursor: pointer;
+    box-shadow: none; /* Removes any default shadows */
   }
 
+  /* 3. THE BARS: Making them thin lines */
   .hamburger-btn .bar {
     width: 100%;
-    height: 3px;
+    height: 2px; /* Very thin lines (was likely 3px or higher) */
     background-color: var(--brand-green);
-    border-radius: 10px;
+    border-radius: 2px; /* Slight roundness, but not a "pill" */
+    display: block;
   }
 
-  /* The Collapsible Menu */
+  /* The Menu Links */
   .navbar-links {
-    display: none; /* Hidden by default on mobile */
+    display: none;
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
     margin-top: 1rem;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #ddd;
     padding-top: 1rem;
+    gap: 0.5rem; /* Adds space between the links */
   }
 
-  /* When the 'open' class is added by React */
   .navbar-links.open {
     display: flex;
   }
 
-  /* Reset margins for vertical stacking */
-  .navbar-custom button,
-  .navbar-custom a {
-    margin-right: 0;
-    margin-bottom: 0.5rem;
-    width: 100%; /* Make clickable area wide */
+  /* Link Styling */
+  .navbar-links button,
+  .navbar-links a {
+    margin: 0;
+    width: 100%;
     text-align: left;
     padding: 10px 0;
+    font-size: 1.1rem;
   }
 
   .user-controls {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    margin-left: 0;
     margin-top: 1rem;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #eee;
     padding-top: 1rem;
+    gap: 0.5rem;
   }
 }
