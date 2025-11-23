@@ -2,7 +2,7 @@
 
 /* Global color variable for brand consistency */
 :root {
-  --brand-green: #3A7842;
+  --brand-green: #3a7842;
 }
 
 /* Base text color for the entire home page */
@@ -16,8 +16,6 @@
 .home-page .text-muted {
   color: var(--brand-green) !important;
 }
-
-
 
 /* Optional: give headings a little emphasis */
 .home-page h1,
@@ -45,17 +43,116 @@
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: invert(41%) sepia(19%) saturate(982%) hue-rotate(87deg) brightness(92%) contrast(86%);
+  filter: invert(41%) sepia(19%) saturate(982%) hue-rotate(87deg)
+    brightness(92%) contrast(86%);
 }
 
 .carousel-control-prev-icon:hover,
 .carousel-control-next-icon:hover {
-  filter: invert(41%) sepia(19%) saturate(982%) hue-rotate(87deg) brightness(105%) contrast(90%);
+  filter: invert(41%) sepia(19%) saturate(982%) hue-rotate(87deg)
+    brightness(105%) contrast(90%);
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
 
+/* --- Contact Section Styles --- */
+.contact-section {
+  padding: 4rem 0; /* Vertical padding for spacing */
+  text-align: center;
+  background-color: #fff; /* Ensure background is white */
+}
 
+.contact-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--brand-green, #3a7842); /* Use your brand color */
+}
+
+.contact-subtext {
+  color: #666;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+/* --- The Container for the Cards --- */
+.contact-grid {
+  display: flex;
+  flex-direction: column; /* Mobile First: Stack them vertically */
+  gap: 2rem; /* Spacing between cards */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --- Individual Card Styling --- */
+.contact-card {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 12px; /* Nice rounded corners */
+  /* Add a subtle shadow to make them pop */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee; /* Subtle border for definition */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for a modern feel */
+.contact-card:hover {
+  transform: translateY(-5px); /* Lift up slightly */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* Shadow gets bigger */
+}
+
+/* --- Icon Circle Styling --- */
+.icon-box {
+  background-color: #e8f5e9; /* Light green background for the circle */
+  color: var(--brand-green, #3a7842); /* Icon color */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Increase icon size */
+.icon-box svg {
+  width: 36px;
+  height: 36px;
+}
+
+.contact-card h3 {
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.contact-card a {
+  color: var(--brand-green, #3a7842);
+  text-decoration: none;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.contact-card a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .contact-grid {
+    flex-direction: row; /* Switch to a horizontal row */
+    justify-content: center; /* Center the cards in the container */
+    align-items: stretch; /* Make all cards the same height */
+    gap: 1.5rem; /* Adjust gap for desktop */
+  }
+
+  .contact-card {
+    flex: 1; /* Make each card take up equal width */
+    max-width: 350px; /* Prevent them from getting too wide */
+  }
+}
 
 @media (max-width: 991px) {
   .home-page .sticky-top {

@@ -135,9 +135,7 @@ const HomePage = ({ onLogin }) => {
                     </div>
                     <h3>Email</h3>
                     <a href="mailto:doylesbreakroomservices@gmail.com">
-                      doylesbreakroomservices
-                      <br />
-                      @gmail.com
+                      doylesbreakroomservices@gmail.com
                     </a>
                   </div>
                 </div>
