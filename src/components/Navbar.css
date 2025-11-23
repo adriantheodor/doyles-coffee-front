@@ -25,7 +25,8 @@
   display: flex;
   align-items: center;
   flex-grow: 1;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 2rem;
 }
 
 .user-controls {
@@ -84,14 +85,14 @@
   .hamburger-btn {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 25px;
+    justify-content: space-between;
+    width: 30px !important; 
+    height: 21px;
     background: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
-    margin: 0;
+    margin-left: auto;
   }
 
   .hamburger-btn .bar {
@@ -124,6 +125,7 @@
     margin-bottom: 0.5rem;
     width: 100%; /* Make clickable area wide */
     text-align: left;
+    padding: 10px 0;
   }
 
   .user-controls {
