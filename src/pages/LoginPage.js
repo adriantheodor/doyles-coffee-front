@@ -72,9 +72,9 @@ const LoginPage = ({ onLogin }) => {
         </form>
 
         <div className="register-link-box">
-          Don’t have an account? 
-          <button 
-            className="register-link-btn" 
+          Don’t have an account?
+          <button
+            className="register-link-btn"
             onClick={() => navigate("/register")}
           >
             Register here

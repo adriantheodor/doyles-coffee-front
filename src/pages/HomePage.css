@@ -10,6 +10,16 @@
   color: var(--brand-green);
 }
 
+.main-header-logo {
+  /* Ensure the image can never be wider than its parent container */
+  max-width: 90%;
+  /* Sets a maximum size for desktop view, but allows it to shrink */
+  width: 250px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 /* Optional: tweak Bootstrap classes so they use your color too */
 .home-page .text-primary,
 .home-page .text-secondary,
@@ -138,6 +148,14 @@
 
 .contact-card a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .main-header-logo {
+    /* On small phones, cap the width relative to the screen, e.g., 75% of the viewport width */
+    width: 75vw;
+    max-width: 200px; /* If you still want a reasonable max size */
+  }
 }
 
 @media (min-width: 768px) {
