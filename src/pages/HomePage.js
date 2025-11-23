@@ -1,18 +1,18 @@
 import QuotePage from "./QuotePage";
 import "./HomePage.css"; // optional: we’ll add a little CSS below
-import pic1 from "../assets/pic1.jpeg"; 
-import pic2 from "../assets/pic2.jpeg"; 
-import pic3 from "../assets/pic3.jpeg"; 
-import pic4 from "../assets/pic4.jpeg"; 
-import pic5 from "../assets/pic5.jpeg"; 
-import pic6 from "../assets/pic6.jpeg"; 
-import pic7 from "../assets/pic7.jpeg"; 
-import pic8 from "../assets/pic8.jpeg"; 
-import pic9 from "../assets/pic9.jpeg"; 
+import pic1 from "../assets/pic1.jpeg";
+import pic2 from "../assets/pic2.jpeg";
+import pic3 from "../assets/pic3.jpeg";
+import pic4 from "../assets/pic4.jpeg";
+import pic5 from "../assets/pic5.jpeg";
+import pic6 from "../assets/pic6.jpeg";
+import pic7 from "../assets/pic7.jpeg";
+import pic8 from "../assets/pic8.jpeg";
+import pic9 from "../assets/pic9.jpeg";
 
 const HomePage = ({ onLogin }) => {
   return (
-    <div className="home-page bg-light min-vh-100 d-flex flex-column">
+    <div id="top" className="home-page bg-light min-vh-100 d-flex flex-column">
       {/* Header Section */}
       <header className="text-center py-5 bg-white shadow-sm">
         <h1 className="fw-bold">Doyle's Coffee & Break Room Services</h1>
@@ -65,7 +65,10 @@ const HomePage = ({ onLogin }) => {
             data-bs-target="#doylesCarousel"
             data-bs-slide="prev"
           >
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
             <span className="visually-hidden">Previous</span>
           </button>
           <button
@@ -74,14 +77,17 @@ const HomePage = ({ onLogin }) => {
             data-bs-target="#doylesCarousel"
             data-bs-slide="next"
           >
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
             <span className="visually-hidden">Next</span>
           </button>
         </div>
       </div>
 
       {/* Main Content Section */}
-      <div className="container flex-grow-1 my-5">
+      <div id="about"className="container flex-grow-1 my-5">
         <div className="row g-4">
           {/* Left Column: About + Quote Request */}
           <div className="col-lg-8">
@@ -98,7 +104,7 @@ const HomePage = ({ onLogin }) => {
 
             {/* Quote Request Section */}
             <section>
-              <div className="card shadow-sm p-4 border-0">
+              <div id="quote" className="card shadow-sm p-4 border-0">
                 <QuotePage />
               </div>
             </section>
@@ -106,15 +112,21 @@ const HomePage = ({ onLogin }) => {
         </div>
       </div>
 
-      <div>
-      <h1>Contact</h1>
-      <p>Email Jeff at: <a href="mailto:doylesbreakroomservices@gmail.com">doylesbreakroomservices@gmail.com</a></p>
-    </div>
+      <div id="contact">
+        <h1>Contact</h1>
+        <p>
+          Email Jeff at:{" "}
+          <a href="mailto:doylesbreakroomservices@gmail.com">
+            doylesbreakroomservices@gmail.com
+          </a>
+        </p>
+      </div>
 
       {/* Footer */}
       <footer className="text-center py-4 bg-white border-top">
         <small className="text-muted">
-          © {new Date().getFullYear()} Doyle’s Coffee & Break Room Services. All rights reserved.
+          © {new Date().getFullYear()} Doyle’s Coffee & Break Room Services. All
+          rights reserved.
         </small>
       </footer>
     </div>

@@ -1,27 +1,27 @@
-import { useState } from "react"; // Import useState
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link'; // Import this!
 import logo from "../assets/logo.jpg";
 import "./Navbar.css";
 
 const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false); // State for mobile menu
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
     navigate('/login');
-    setIsOpen(false); // Close menu on logout
+    setIsOpen(false);
   };
 
-  // Helper to close menu when a link is clicked
+  // Helper to close menu
   const handleLinkClick = (path) => {
     navigate(path);
     setIsOpen(false);
   };
   
-  // Helper for admin section clicks
   const handleSectionClick = (section) => {
       if(setActiveSection) setActiveSection(section);
       setIsOpen(false);
@@ -29,11 +29,12 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
 
   return (
     <nav className="navbar-custom">
-      {/* 1. Logo and Hamburger Row */}
       <div className="navbar-header">
-        <img src={logo} alt="Doyle's Logo" className="navbar-logo" />
+        {/* We use HashLink for the logo too, so it scrolls to top */}
+        <HashLink smooth to="/#top" className="navbar-logo-link">
+            <img src={logo} alt="Doyle's Logo" className="navbar-logo" />
+        </HashLink>
         
-        {/* Hamburger Toggle Button (Visible only on mobile) */}
         <button className="hamburger-btn" onClick={() => setIsOpen(!isOpen)}>
           <span className="bar"></span>
           <span className="bar"></span>
@@ -41,22 +42,22 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
         </button>
       </div>
 
-      {/* 2. Links and Buttons (Collapsible) */}
       <div className={`navbar-links ${isOpen ? "open" : ""}`}>
         
-        {/* Public Links */}
         {!user && (
           <>
-            <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
-            <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
-            <Link to="/quote" onClick={() => setIsOpen(false)}>Get a Quote</Link>
+            {/* Use HashLink with 'smooth' prop */}
+            <HashLink smooth to="/#top" onClick={() => setIsOpen(false)}>Home</HashLink>
+            <HashLink smooth to="/#about" onClick={() => setIsOpen(false)}>About</HashLink>
+            <HashLink smooth to="/#contact" onClick={() => setIsOpen(false)}>Contact</HashLink>
+            <HashLink smooth to="/#quote" onClick={() => setIsOpen(false)}>Get a Quote</HashLink>
+            
+            {/* Login/Register are still separate pages, so use standard Link */}
             <Link to="/login" onClick={() => setIsOpen(false)}>Login</Link>
             <Link to="/register" onClick={() => setIsOpen(false)}>Register</Link>
           </>
         )}
 
-        {/* Admin Links */}
         {user?.role === 'admin' && (
           <>
             <button onClick={() => { handleLinkClick('/admin'); if(setActiveSection) setActiveSection('overview'); }}>
@@ -70,12 +71,10 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
           </>
         )}
 
-        {/* Customer Links */}
         {user?.role === 'customer' && (
           <button onClick={() => handleLinkClick('/customer-dashboard')}>Customer Home</button>
         )}
 
-        {/* User Controls (Welcome, Change PW, Logout) */}
         {user && (
           <div className="user-controls">
             <span className="welcome-text">Welcome, {user.name}</span>
