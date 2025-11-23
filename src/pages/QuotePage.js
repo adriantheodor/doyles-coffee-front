@@ -129,7 +129,7 @@ export default function QuotePage() {
 
       <textarea
         rows={4}
-        placeholder="Notes or current pain points…"
+        placeholder="Notes…"
         value={form.notes}
         onChange={(e) => setForm({ ...form, notes: e.target.value })}
       />
