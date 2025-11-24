@@ -72,19 +72,7 @@
 
 
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  filter: invert(41%) sepia(19%) saturate(982%) hue-rotate(87deg)
-    brightness(92%) contrast(86%);
-}
 
-.carousel-control-prev-icon:hover,
-.carousel-control-next-icon:hover {
-  filter: invert(41%) sepia(19%) saturate(982%) hue-rotate(87deg)
-    brightness(105%) contrast(90%);
-  transform: scale(1.1);
-  transition: all 0.2s ease;
-}
 
 /* --- Contact Section Styles --- */
 .contact-section {
