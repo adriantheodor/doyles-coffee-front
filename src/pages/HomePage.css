@@ -72,12 +72,17 @@
 
 .carousel-inner img {
   height: 450px;
-  object-fit: contain;
+  object-fit: cover;
   background-color: #f8f9fa;
 }
 
 .carousel {
   border-radius: 12px;
+  min-height: 450px;
+}
+
+.carousel-inner {
+  height: 450px; /* Force the carousel-inner div to match the image height */
 }
 
 .carousel-control-prev-icon,
