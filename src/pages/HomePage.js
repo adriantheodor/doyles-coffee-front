@@ -13,10 +13,7 @@ import pic9 from "../assets/pic9.jpeg";
 
 const HomePage = ({ onLogin }) => {
   return (
-    <div
-      id="top"
-      className="home-page bg-light min-vh-100 d-flex flex-column"
-    >
+    <div id="top" className="home-page bg-light min-vh-100 d-flex flex-column">
       <header className="text-center py-5 bg-white shadow-sm">
         <div className="container">
           <img
@@ -32,7 +29,7 @@ const HomePage = ({ onLogin }) => {
         </div>
       </header>
       {/* Carousel Section */}
-      <div className="container-fluid my-4 px-3 px-sm-5">
+      <div className="container my-4">
         <div
           id="doylesCarousel"
           className="carousel slide shadow-sm"
@@ -41,10 +38,6 @@ const HomePage = ({ onLogin }) => {
           {/* ... (Keep your carousel code exactly the same) ... */}
           <div className="carousel-inner rounded-4 overflow-hidden">
             <div className="carousel-item active">
-              <img src={pic6} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-
-            <div className="carousel-item">
               <img src={pic1} className="d-block w-100" alt="Coffee service" />
             </div>
             <div className="carousel-item">
@@ -59,17 +52,22 @@ const HomePage = ({ onLogin }) => {
             <div className="carousel-item">
               <img src={pic5} className="d-block w-100" alt="Breakroom setup" />
             </div>
-            
+            <div className="carousel-item">
+              <img src={pic6} className="d-block w-100" alt="Breakroom setup" />
+            </div>
             <div className="carousel-item">
               <img src={pic7} className="d-block w-100" alt="Breakroom setup" />
             </div>
             <div className="carousel-item">
               <img src={pic8} className="d-block w-100" alt="Breakroom setup" />
             </div>
+            {/* ... other images ... */}
             <div className="carousel-item">
               <img src={pic9} className="d-block w-100" alt="Breakroom setup" />
             </div>
           </div>
+
+          {/* Carousel Controls */}
           <button
             className="carousel-control-prev"
             type="button"
@@ -94,7 +92,6 @@ const HomePage = ({ onLogin }) => {
             ></span>
             <span className="visually-hidden">Next</span>
           </button>
-          {/* ... buttons ... */}
         </div>
       </div>
       {/* Main Content Section */}
