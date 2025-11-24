@@ -13,22 +13,23 @@ import pic9 from "../assets/pic9.jpeg";
 
 const HomePage = ({ onLogin }) => {
   return (
-    <div id="top" className="home-page bg-light min-vh-100 d-flex flex-column">
-      
+    <div
+      id="top"
+      className="home-page bg-light min-vh-100 d-flex flex-column"
+      style={{ overflowX: "hidden" }}
+    >
       <header className="text-center py-5 bg-white shadow-sm">
         <div className="container">
-            
-            <img 
-              src={logo} 
-              alt="Doyle's Services Logo" 
-              className="main-header-logo" 
-            />
-            
-            
-            <h1 className="fw-bold mt-3">Doyle's Coffee & Breakroom Services</h1>
-            <p className="text-muted fs-5">
-              Premium coffee and break room solutions for your workplace.
-            </p>
+          <img
+            src={logo}
+            alt="Doyle's Services Logo"
+            className="main-header-logo"
+          />
+
+          <h1 className="fw-bold mt-3">Doyle's Coffee & Breakroom Services</h1>
+          <p className="text-muted fs-5">
+            Premium coffee and break room solutions for your workplace.
+          </p>
         </div>
       </header>
       {/* Carousel Section */}
