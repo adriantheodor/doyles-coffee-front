@@ -70,9 +70,10 @@
   opacity: 0.8;
 }
 
-
-
-
+.carousel-inner img {
+  height: 450px;   /* adjust the height however you prefer */
+  object-fit: cover;
+}
 
 /* --- Contact Section Styles --- */
 .contact-section {

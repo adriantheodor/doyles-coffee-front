@@ -34,10 +34,14 @@ const HomePage = ({ onLogin }) => {
           id="doylesCarousel"
           className="carousel slide shadow-sm"
           data-bs-ride="carousel"
+          data-bs-interval="3000"
         >
           {/* ... (Keep your carousel code exactly the same) ... */}
           <div className="carousel-inner rounded-4 overflow-hidden">
             <div className="carousel-item active">
+              <img src={pic6} className="d-block w-100" alt="Breakroom setup" />
+            </div>
+            <div className="carousel-item">
               <img src={pic1} className="d-block w-100" alt="Coffee service" />
             </div>
             <div className="carousel-item">
@@ -53,9 +57,6 @@ const HomePage = ({ onLogin }) => {
               <img src={pic5} className="d-block w-100" alt="Breakroom setup" />
             </div>
             <div className="carousel-item">
-              <img src={pic6} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item">
               <img src={pic7} className="d-block w-100" alt="Breakroom setup" />
             </div>
             <div className="carousel-item">
@@ -66,8 +67,6 @@ const HomePage = ({ onLogin }) => {
               <img src={pic9} className="d-block w-100" alt="Breakroom setup" />
             </div>
           </div>
-
-          
         </div>
       </div>
       {/* Main Content Section */}
