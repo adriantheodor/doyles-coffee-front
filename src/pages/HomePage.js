@@ -96,7 +96,7 @@ const HomePage = ({ onLogin }) => {
         </div>
       </div>
       {/* Main Content Section */}
-      <div id="about" className="container flex-grow-1 my-5">
+      <div id="about" className="container-fluid flex-grow-1 my-5 px-3 px-sm-5">
         {/* FIX 1: Added 'justify-content-center' to center the column on the screen */}
         <div className="row g-4 justify-content-center">
           {/* FIX 2: Changed 'col-lg-8' to 'col-lg-10' so it's wider but centered */}
