@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import logo from "../assets/logo.jpg";
+import pic1 from "../assets/pic1.jpeg";
+import pic2 from "../assets/pic2.jpeg";
+import pic3 from "../assets/pic3.jpeg";
+import pic4 from "../assets/pic4.jpeg";
+import pic5 from "../assets/pic5.jpeg";
+import pic6 from "../assets/pic6.jpeg";
+import pic7 from "../assets/pic7.jpeg";
+import pic8 from "../assets/pic8.jpeg";
+import pic9 from "../assets/pic9.jpeg";
+
+
 
 // --- Placeholder Assets and Styles (Replacing missing imports) ---
 
 // Placeholder URLs for images (cannot rely on local imports like ../assets/...)
 const ASSETS = {
-  logo: "../assets/logo",
-  pic1: "../assets/pic1",
-  pic2: "../assets/pic2",
-  pic3: "../assets/pic3",
-  pic4: "../assets/pic4",
-  pic5: "../assets/pic5",
-  pic6: "../assets/pic6",
-  pic7: "../assets/pic7",
-  pic8: "../assets/pic8",
-  pic9: "../assets/pic9",
+  logo: logo,
+  pic1: pic1,
+  pic2: pic2,
+  pic3: pic3,
+  pic4: pic4,
+  pic5: pic5,
+  pic6: pic6,
+  pic7: pic7,
+  pic8: pic8,
+  pic9: pic9,
 };
 
 // --- Component 1: PhotoCarousel (Integrated for single-file compilation) ---
