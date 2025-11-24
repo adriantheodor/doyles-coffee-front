@@ -38,32 +38,32 @@ const HomePage = ({ onLogin }) => {
         >
           {/* ... (Keep your carousel code exactly the same) ... */}
           <div className="carousel-inner rounded-4 overflow-hidden">
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic6} className="d-block w-100" alt="Breakroom setup" />
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic1} className="d-block w-100" alt="Coffee service" />
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic2} className="d-block w-100" alt="Snack room" />
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic3} className="d-block w-100" alt="Vending machine" />
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic4} className="d-block w-100" alt="Breakroom setup" />
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic5} className="d-block w-100" alt="Breakroom setup" />
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic7} className="d-block w-100" alt="Breakroom setup" />
             </div>
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic8} className="d-block w-100" alt="Breakroom setup" />
             </div>
             {/* ... other images ... */}
-            <div className="carousel-item">
+            <div className="carousel-item active">
               <img src={pic9} className="d-block w-100" alt="Breakroom setup" />
             </div>
           </div>
