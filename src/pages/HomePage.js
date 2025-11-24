@@ -16,7 +16,6 @@ const HomePage = ({ onLogin }) => {
     <div
       id="top"
       className="home-page bg-light min-vh-100 d-flex flex-column"
-      style={{ overflowX: "hidden" }}
     >
       <header className="text-center py-5 bg-white shadow-sm">
         <div className="container">
