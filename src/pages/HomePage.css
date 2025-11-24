@@ -72,6 +72,7 @@
 
 .carousel-inner img {
   height: 450px;
+  object-fit: contain;
   background-color: #f8f9fa;
 }
 
