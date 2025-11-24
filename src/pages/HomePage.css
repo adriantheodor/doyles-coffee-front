@@ -10,6 +10,20 @@
   color: var(--brand-green);
 }
 
+
+.home-page input[type="text"],
+.home-page input[type="email"],
+.home-page input[type="tel"],
+.home-page input[type="number"],
+.home-page textarea,
+.home-page button {
+  width: 100%; /* Ensure inputs fill their available width */
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  box-sizing: border-box; /* Important: include padding/border in total width */
+}
+
 .main-header-logo {
   /* Ensure the image can never be wider than its parent container */
   max-width: 90%;

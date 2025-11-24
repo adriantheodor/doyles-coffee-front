@@ -62,9 +62,9 @@ export default function QuotePage() {
         value={form.companyName}
         onChange={(e) => setForm({ ...form, companyName: e.target.value })}
       />
-      <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}
-      >
+      <div className="form-row-responsive">
+        {" "}
+        {/* Changed to a class */}
         <input
           required
           placeholder="Contact Name"
@@ -79,9 +79,9 @@ export default function QuotePage() {
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
       </div>
-      <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}
-      >
+      <div className="form-row-responsive">
+        {" "}
+        {/* Changed to a class */}
         <input
           placeholder="Phone"
           value={form.phone}
