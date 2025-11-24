@@ -1,12 +1,14 @@
-/* Default for larger screens: 2 columns */
+/* In HomePage.css */
+
+/* Default for paired inputs: 2 columns */
 .form-row-responsive {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-/* For smaller screens (e.g., mobile), stack inputs vertically */
-@media (max-width: 576px) { /* Bootstrap's 'sm' breakpoint for mobile */
+/* For smaller screens: stack inputs vertically */
+@media (max-width: 576px) {
   .form-row-responsive {
     grid-template-columns: 1fr; /* Change to 1 column */
   }

@@ -56,19 +56,17 @@ export default function QuotePage() {
       }}
     >
       <h1>Request a Quote</h1>
+
+      {/* 1. Single Input: Company Name (NO GRID WRAPPER NEEDED) */}
+      <input
+        required
+        placeholder="Company Name"
+        value={form.companyName}
+        onChange={(e) => setForm({ ...form, companyName: e.target.value })}
+      />
+
+      {/* 2. Paired Inputs: Contact Name / Email (USES GRID) */}
       <div className="form-row-responsive">
-        <input
-          required
-          placeholder="Company Name"
-          value={form.companyName}
-          onChange={(e) => setForm({ ...form, companyName: e.target.value })}
-        />
-        {/* ADD a placeholder empty div to force the input to take up exactly 50% on desktop */}
-        <div style={{ visibility: "hidden", height: 0 }} />
-      </div>
-      <div className="form-row-responsive">
-        {" "}
-        {/* Changed to a class */}
         <input
           required
           placeholder="Contact Name"
@@ -83,9 +81,9 @@ export default function QuotePage() {
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
       </div>
+
+      {/* 3. Paired Inputs: Phone / Address (USES GRID) */}
       <div className="form-row-responsive">
-        {" "}
-        {/* Changed to a class */}
         <input
           placeholder="Phone"
           value={form.phone}
@@ -97,49 +95,23 @@ export default function QuotePage() {
           onChange={(e) => setForm({ ...form, address: e.target.value })}
         />
       </div>
-      <div className="form-row-responsive">
+
+      {/* 4. Single Input: Approx. Headcount (NO GRID WRAPPER NEEDED) */}
       <input
         placeholder="Approx. Headcount"
         value={form.headcount}
         onChange={(e) => setForm({ ...form, headcount: e.target.value })}
       />
-      {/* ADD a placeholder empty div to force the input to take up exactly 50% on desktop */}
-      <div style={{ visibility: 'hidden', height: 0 }} />
-    </div>
 
+      {/* 5. Services Fieldset (KEEP AS IS, IT'S FULL WIDTH) */}
       <fieldset
         style={{ border: "1px solid #ddd", borderRadius: 8, padding: "1rem" }}
       >
         <legend>Services</legend>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem 0" }}>
-          {[
-            "Coffee & Tea",
-            "Water",
-            "Snacks/Pantry",
-            "Paper Goods",
-            "Equipment Lease",
-            "Maintenance Only",
-          ].map((s) => (
-            <label
-              key={s}
-              style={{
-                display: "flex",
-                gap: 8,
-                width: "50%",
-                minWidth: "150px",
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={form.services.includes(s)}
-                onChange={() => toggleService(s)}
-              />{" "}
-              {s}
-            </label>
-          ))}
-        </div>
+        {/* ... (services content) ... */}
       </fieldset>
 
+      {/* 6. Textarea and Button (NO GRID WRAPPER NEEDED) */}
       <textarea
         rows={4}
         placeholder="Notes…"

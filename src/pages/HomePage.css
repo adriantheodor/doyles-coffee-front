@@ -10,6 +10,21 @@
   color: var(--brand-green);
 }
 
+/* In HomePage.css */
+
+/* Default for paired inputs: 2 columns */
+.form-row-responsive {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* For smaller screens: stack inputs vertically */
+@media (max-width: 576px) {
+  .form-row-responsive {
+    grid-template-columns: 1fr; /* Change to 1 column */
+  }
+}
 
 .home-page input[type="text"],
 .home-page input[type="email"],
@@ -162,6 +177,12 @@
 
 .contact-card a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+  .form-row-responsive {
+    grid-template-columns: 1fr; /* Change to 1 column */
+  }
 }
 
 @media (max-width: 480px) {
