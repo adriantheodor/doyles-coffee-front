@@ -72,13 +72,13 @@
 
 .carousel-inner img {
   height: 450px;
-  object-fit: cover;
   background-color: #f8f9fa;
 }
 
 .carousel {
   border-radius: 12px;
   min-height: 450px;
+  position: relative;
 }
 
 .carousel-inner {
