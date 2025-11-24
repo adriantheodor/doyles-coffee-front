@@ -32,7 +32,7 @@ const HomePage = ({ onLogin }) => {
         </div>
       </header>
       {/* Carousel Section */}
-      <div className="container my-4">
+      <div className="container-fluid my-4 px-3 px-sm-5">
         <div
           id="doylesCarousel"
           className="carousel slide shadow-sm"
