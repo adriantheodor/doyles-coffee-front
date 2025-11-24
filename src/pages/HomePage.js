@@ -28,8 +28,6 @@ const ASSETS = {
   pic9: pic9,
 };
 
-// --- Component 1: PhotoCarousel (Integrated for single-file compilation) ---
-
 const PhotoCarousel = ({ images }) => {
   // HOOKS MUST BE CALLED AT THE TOP LEVEL (before any conditional returns)
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -69,12 +67,13 @@ const PhotoCarousel = ({ images }) => {
 
   return (
     <div className="relative w-full rounded-xl shadow-2xl overflow-hidden group">
-      {/* Main Image Container */}
-      <div className="relative h-64 sm:h-96 md:h-[500px] w-full transition-all duration-700 ease-in-out">
+      {/* Grid Fix: Forces all images into the same cell for reliable overlap */}
+      <div className="grid grid-cols-1 grid-rows-1 h-64 sm:h-96 md:h-[500px] w-full transition-all duration-700 ease-in-out">
         {images.map((image, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            // Forces placement in the single grid cell
+            className={`col-start-1 row-start-1 transition-opacity duration-700 ease-in-out ${
               index === currentIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
@@ -87,7 +86,7 @@ const PhotoCarousel = ({ images }) => {
                 e.target.src = "https://placehold.co/1200x500/667EEA/fff?text=Image+Load+Error";
               }}
             />
-            {/* Caption Overlay */}
+            {/* Caption Overlay - must be absolute within this image wrapper */}
             {image.caption && (
               <div className="absolute bottom-0 w-full bg-black bg-opacity-50 p-4 text-white text-center">
                 <p className="text-lg font-semibold">{image.caption}</p>
@@ -97,7 +96,7 @@ const PhotoCarousel = ({ images }) => {
         ))}
       </div>
 
-      {/* Navigation Buttons (Desktop/Tablet) */}
+      {/* Navigation Buttons (Desktop/Tablet) - These remain absolutely positioned relative to the outermost container */}
       <button
         onClick={goToPrevious}
         className="absolute top-1/2 left-4 transform -translate-y-1/2 p-3 bg-white/20 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/50 focus:outline-none focus:ring-4 focus:ring-white/50 z-10 hidden sm:block"
@@ -155,11 +154,12 @@ const PhotoCarousel = ({ images }) => {
 
 const QuotePage = () => {
   return (
+    // Note: The green button color is intentionally left as green-500 for a strong CTA contrast
     <div className="text-center p-6 bg-gray-100 rounded-xl border border-dashed border-gray-400">
-      <h3 className="text-2xl font-extrabold text-blue-800 mb-3">
+      <h3 className="text-2xl font-extrabold text-primary mb-3">
         Ready for a Free Quote?
       </h3>
-      <p className="text-gray-600 mb-4">
+      <p className="text-secondary mb-4">
         (Placeholder for the Quote Request Form component, which was named QuotePage.)
       </p>
       <button className="px-8 py-3 bg-green-500 text-white font-semibold rounded-full shadow-lg hover:bg-green-600 transition-all transform hover:scale-105">
@@ -176,51 +176,173 @@ const HomePage = ({ onLogin }) => {
   
   // Custom styles defined inline to replace HomePage.css (using <style> tag)
   const customStyles = `
-    .main-header-logo {
-      width: 150px;
-      height: 50px;
-      object-fit: contain;
-      border-radius: 8px;
+    /* Global color variable for brand consistency */
+    :root {
+      --brand-green: #3a7842;
     }
-    .contact-grid {
+    
+    /* Base text color for the entire home page */
+    .home-page {
+      color: var(--brand-green);
+    }
+
+    /* Form Row Responsive (Keeping CSS implementation for grid) */
+    .form-row-responsive {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
-    .contact-card {
-      background-color: #f8f9fa; /* light */
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    @media (max-width: 576px) {
+      .form-row-responsive {
+        grid-template-columns: 1fr; /* Change to 1 column */
+      }
+    }
+
+    /* Input and Button Base Styles */
+    .home-page input[type="text"],
+    .home-page input[type="email"],
+    .home-page input[type="tel"],
+    .home-page input[type="number"],
+    .home-page textarea,
+    .home-page button {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.25rem;
+      box-sizing: border-box;
+    }
+
+    /* Logo Sizing */
+    .main-header-logo {
+      max-width: 90%;
+      width: 250px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    @media (max-width: 480px) {
+      .main-header-logo {
+        width: 75vw;
+        max-width: 200px;
+      }
+    }
+
+    /* Color Overrides (Important for brand consistency) */
+    /* !important is used here to override Tailwind/Bootstrap utilities in this specific scenario */
+    .home-page .text-primary,
+    .home-page .text-secondary,
+    .home-page .text-muted {
+      color: var(--brand-green) !important;
+    }
+
+    .home-page h1,
+    .home-page h2,
+    .home-page h3 {
+      color: var(--brand-green);
+      font-weight: 700;
+    }
+    .home-page footer {
+      color: var(--brand-green);
+      opacity: 0.8;
+    }
+
+    /* --- Contact Section Styles --- */
+    .contact-section {
+      padding: 4rem 0; /* Vertical padding for spacing */
       text-align: center;
-      transition: transform 0.2s;
+      background-color: #fff; /* Ensure background is white */
     }
+
+    .contact-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--brand-green, #3a7842); /* Use your brand color */
+    }
+
+    .contact-subtext {
+      color: #666;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    /* --- The Container for the Cards --- */
+    .contact-grid {
+      display: flex;
+      flex-direction: column; /* Mobile First: Stack them vertically */
+      gap: 2rem; /* Spacing between cards */
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* --- Individual Card Styling --- */
+    .contact-card {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-radius: 12px; /* Nice rounded corners */
+      /* Add a subtle shadow to make them pop */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #eee; /* Subtle border for definition */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Hover effect for a modern feel */
     .contact-card:hover {
-        transform: translateY(-5px);
+      transform: translateY(-5px); /* Lift up slightly */
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* Shadow gets bigger */
     }
-    .contact-card h3 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin-top: 0.75rem;
-        margin-bottom: 0.5rem;
-        color: #343a40; /* dark */
-    }
-    .contact-card a {
-        color: #007bff; /* primary */
-        text-decoration: none;
-    }
-    .contact-card a:hover {
-        text-decoration: underline;
-    }
+
+    /* --- Icon Circle Styling --- */
     .icon-box {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 48px;
-        height: 48px;
-        background-color: #007bff; /* primary */
-        color: white;
-        border-radius: 50%;
+      background-color: #e8f5e9; /* Light green background for the circle */
+      color: var(--brand-green, #3a7842); /* Icon color */
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Increase icon size */
+    .icon-box svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .contact-card a {
+      color: var(--brand-green, #3a7842);
+      text-decoration: none;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* Contact Grid Desktop adjustment (Min-width: 768px) */
+    @media (min-width: 768px) {
+      .contact-grid {
+        flex-direction: row; 
+        justify-content: center; 
+        align-items: stretch; /* Makes all cards the same height */
+        gap: 1.5rem; 
+      }
+      .contact-card {
+        flex: 1; 
+        max-width: 350px; 
+      }
     }
   `;
 
@@ -240,6 +362,7 @@ const HomePage = ({ onLogin }) => {
 
   return (
     <>
+      {/* Inject custom CSS into the head */}
       <style>{customStyles}</style>
       <div id="top" className="home-page bg-light min-vh-100 d-flex flex-column">
         <header className="text-center py-5 bg-white shadow-sm">
@@ -247,7 +370,8 @@ const HomePage = ({ onLogin }) => {
             <img
               src={ASSETS.logo}
               alt="Doyle's Services Logo"
-              className="main-header-logo"
+              // Using the custom class defined in <style> for accurate responsive sizing
+              className="main-header-logo" 
             />
 
             <h1 className="fw-bold mt-3">Doyle's Coffee & Breakroom Services</h1>
@@ -257,7 +381,7 @@ const HomePage = ({ onLogin }) => {
           </div>
         </header>
         
-        {/* New Carousel Section */}
+        {/* Carousel Section */}
         <div className="container my-4">
           <PhotoCarousel images={carouselImages} />
         </div>
@@ -268,7 +392,9 @@ const HomePage = ({ onLogin }) => {
             <div className="col-lg-10">
               {/* About Section */}
               <section className="mb-5">
+                {/* text-primary will now render in --brand-green */}
                 <h2 className="mb-3 text-primary">About Us</h2>
+                {/* text-secondary will now render in --brand-green */}
                 <p className="text-secondary">
                   At Doyle’s Coffee & Break Room Services, we provide everything
                   your team needs to stay energized — from coffee and snacks to
@@ -280,7 +406,6 @@ const HomePage = ({ onLogin }) => {
               {/* Quote Request Section */}
               <section className="mb-5">
                 <div id="quote" className="card shadow-sm p-4 border-0 rounded-xl">
-                  {/* Using the inline defined QuotePage component */}
                   <QuotePage /> 
                 </div>
               </section>
@@ -288,14 +413,17 @@ const HomePage = ({ onLogin }) => {
               {/* Contact Section */}
               <section id="contact" className="contact-section">
                 <div className="contact-content">
+                  {/* text-primary will now render in --brand-green */}
                   <h2 className="mb-3 text-primary">Contact Us</h2>
-                  <p className="contact-subtext text-secondary mb-5">
+                  <p className="contact-subtext mb-5">
                     Ready to upgrade your break room? Reach out to us today.
                   </p>
 
+                  {/* contact-grid handles responsive layout via custom CSS */}
                   <div className="contact-grid">
                     {/* Address Block */}
                     <div className="contact-card">
+                      {/* icon-box handles size, color, and background via custom CSS */}
                       <div className="icon-box">
                         <svg
                           width="24"
