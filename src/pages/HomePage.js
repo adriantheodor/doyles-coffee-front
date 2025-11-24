@@ -11,7 +11,212 @@ import pic7 from "../assets/pic7.jpeg";
 import pic8 from "../assets/pic8.jpeg";
 import pic9 from "../assets/pic9.jpeg";
 
+const ASSETS = {
+  logo: "https://placehold.co/150x50/3498db/fff?text=Doyle's+Logo",
+  pic1: "../assets/pic1.jpeg",
+  pic2: "../assets/pic2.jpeg",
+  pic3: "../assets/pic3.jpeg",
+  pic4: "../assets/pic4.jpeg",
+  pic5: "../assets/pic5.jpeg",
+  pic6: "../assets/pic6.jpeg",
+  pic7: "../assets/pic7.jpeg",
+  pic8: "../assets/pic8.jpeg",
+  pic9: "../assets/pic9.jpeg",
+};
+
+const PhotoCarousel = ({ images }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="p-4 text-center bg-red-100 border border-red-400 text-red-700 rounded-lg">
+        No images available for the carousel.
+      </div>
+    );
+  }
+
+  const goToPrevious = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const goToNext = () => {
+    const isLastSlide = currentIndex === images.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      goToNext();
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [currentIndex, images.length]);
+
+  return (
+    <div className="relative w-full rounded-xl shadow-2xl overflow-hidden group">
+      {/* Main Image Container */}
+      <div className="relative h-64 sm:h-96 md:h-[500px] w-full transition-all duration-700 ease-in-out">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              index === currentIndex
+                ? "opacity-100"
+                : "opacity-0 pointer-events-none"
+            }`}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                  "https://placehold.co/1200x500/667EEA/fff?text=Image+Load+Error";
+              }}
+            />
+            {/* Caption Overlay */}
+            {image.caption && (
+              <div className="absolute bottom-0 w-full bg-black bg-opacity-50 p-4 text-white text-center">
+                <p className="text-lg font-semibold">{image.caption}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Buttons (Desktop/Tablet) */}
+      <button
+        onClick={goToPrevious}
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 p-3 bg-white/20 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/50 focus:outline-none focus:ring-4 focus:ring-white/50 z-10 hidden sm:block"
+        aria-label="Previous image"
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M15 19l-7-7 7-7"
+          ></path>
+        </svg>
+      </button>
+
+      <button
+        onClick={goToNext}
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 p-3 bg-white/20 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/50 focus:outline-none focus:ring-4 focus:ring-white/50 z-10 hidden sm:block"
+        aria-label="Next image"
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </button>
+
+      {/* Mobile Navigation (Always visible buttons below the image) */}
+      <div className="flex justify-between p-4 sm:hidden bg-white/90">
+        <button
+          onClick={goToPrevious}
+          className="p-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          aria-label="Previous image (mobile)"
+        >
+          Prev
+        </button>
+        <button
+          onClick={goToNext}
+          className="p-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          aria-label="Next image (mobile)"
+        >
+          Next
+        </button>
+      </div>
+
+      {/* Indicators (Dots) */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className={`h-3 w-3 rounded-full transition-all duration-300 focus:outline-none ${
+              index === currentIndex
+                ? "bg-white ring-2 ring-indigo-500"
+                : "bg-gray-400 hover:bg-white/70"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const HomePage = ({ onLogin }) => {
+  const carouselImages = [
+    {
+      src: ASSETS.pic6,
+      alt: "Professional coffee service setup",
+      caption: "Premium Coffee Service",
+    },
+    {
+      src: ASSETS.pic2,
+      alt: "Variety of snacks and beverages in a breakroom",
+      caption: "Fully Stocked Breakrooms",
+    },
+    {
+      src: ASSETS.pic3,
+      alt: "Modern vending machine",
+      caption: "24/7 Vending Solutions",
+    },
+    {
+      src: ASSETS.pic4,
+      alt: "Clean and well-organized breakroom area",
+      caption: "Custom Breakroom Design",
+    },
+    {
+      src: ASSETS.pic5,
+      alt: "Coffee machine detail shot",
+      caption: "High-Quality Equipment",
+    },
+    {
+      src: ASSETS.pic1,
+      alt: "Office employees enjoying a break",
+      caption: "Boost Employee Morale",
+    },
+    {
+      src: ASSETS.pic7,
+      alt: "Fresh fruit selection in a micro-market",
+      caption: "Healthy Snack Options",
+    },
+    {
+      src: ASSETS.pic8,
+      alt: "Detailed shot of coffee beans and cups",
+      caption: "Locally Sourced Beans",
+    },
+    {
+      src: ASSETS.pic9,
+      alt: "A fully stocked refrigerator with drinks",
+      caption: "Reliable Inventory Management",
+    },
+  ];
+
   return (
     <div id="top" className="home-page bg-light min-vh-100 d-flex flex-column">
       <header className="text-center py-5 bg-white shadow-sm">
@@ -28,71 +233,8 @@ const HomePage = ({ onLogin }) => {
           </p>
         </div>
       </header>
-      {/* Carousel Section */}
       <div className="container my-4">
-        <div
-          id="doylesCarousel"
-          className="carousel slide shadow-sm"
-          data-bs-ride="carousel"
-        >
-          {/* ... (Keep your carousel code exactly the same) ... */}
-          <div className="carousel-inner rounded-4 overflow-hidden">
-            <div className="carousel-item active">
-              <img src={pic1} className="d-block w-100" alt="Coffee service" />
-            </div>
-            <div className="carousel-item">
-              <img src={pic2} className="d-block w-100" alt="Snack room" />
-            </div>
-            <div className="carousel-item">
-              <img src={pic3} className="d-block w-100" alt="Vending machine" />
-            </div>
-            <div className="carousel-item">
-              <img src={pic4} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item">
-              <img src={pic5} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item">
-              <img src={pic6} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item">
-              <img src={pic7} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item">
-              <img src={pic8} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            {/* ... other images ... */}
-            <div className="carousel-item">
-              <img src={pic9} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-          </div>
-
-          {/* Carousel Controls */}
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#doylesCarousel"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#doylesCarousel"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div>
+        <PhotoCarousel images={carouselImages} />
       </div>
       {/* Main Content Section */}
       <div id="about" className="container-fluid flex-grow-1 my-5 px-3 px-sm-5">
