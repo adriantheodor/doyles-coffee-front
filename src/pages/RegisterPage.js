@@ -1,8 +1,11 @@
 // src/pages/RegisterPage.js
 import React, { useState } from "react";
 import { api } from "../utils/api";
-import axios from "axios";
+// Note: axios is not directly used, so it can be removed if not needed elsewhere.
+// import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+// 1. Import the same CSS file as LoginPage.js
+import "./LoginPage.css";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -27,65 +30,115 @@ const RegisterPage = () => {
   // on submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Clear previous errors
+    setSuccess(""); // Clear previous success messages
     try {
       await api.post("api/auth/register", formData);
-
-      navigate("/login");
+      setSuccess("Registration successful! Redirecting to login...");
+      // navigate to login after a short delay to let the user see the message
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+    // 2. Add the main container class
+    <div className="login-page">
+      {/* 3. Add the card container class */}
+      <div className="login-card">
+        <h1>Create Account</h1>
+        <p className="subtitle">Register to get started</p>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <br />
+        {/* 4. Use the styled error/success messages */}
+        {error && <div className="error-msg">{error}</div>}
+        {success && <div className="success-msg">{success}</div>}
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <br />
+        <form onSubmit={handleSubmit}>
+          {/* Form Group: Full Name */}
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">
+              Full Name
+            </label>
+            <input
+              id="name"
+              className="form-input"
+              type="text"
+              name="name"
+              placeholder="Your Full Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <br />
+          {/* Form Group: Email */}
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              Email Address
+            </label>
+            <input
+              id="email"
+              className="form-input"
+              type="email"
+              name="email"
+              placeholder="name@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <select name="role" value={formData.role} onChange={handleChange}>
-          <option value="customer">Customer</option>
-          <option value="admin">Admin</option>
-        </select>
-        <br />
-        <br />
+          {/* Form Group: Password */}
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <input
+              id="password"
+              className="form-input"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <button type="submit">Register</button>
-      </form>
+          {/* Form Group: Role Selection (styled as form group) */}
+          <div className="form-group">
+            <label htmlFor="role" className="form-label">
+              Account Type
+            </label>
+            <select
+              id="role"
+              className="form-input" // Use form-input for basic styling
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <option value="customer">Customer</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
 
-      <p>
-        Already have an account? <Link to="/login">Log in</Link>
-      </p>
+          {/* 5. Use the styled button class */}
+          <button type="submit" className="login-btn">
+            Register Account
+          </button>
+        </form>
+
+        {/* 6. Use the styled link box */}
+        <div className="register-link-box">
+          Already have an account?
+          <Link to="/login" className="register-link-btn">
+            Log in here
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
