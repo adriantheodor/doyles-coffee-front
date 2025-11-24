@@ -108,7 +108,33 @@ export default function QuotePage() {
         style={{ border: "1px solid #ddd", borderRadius: 8, padding: "1rem" }}
       >
         <legend>Services</legend>
-        {/* ... (services content) ... */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem 0" }}>
+          {[
+            "Coffee & Tea",
+            "Water",
+            "Snacks/Pantry",
+            "Paper Goods",
+            "Equipment Lease",
+            "Maintenance Only",
+          ].map((s) => (
+            <label
+              key={s}
+              style={{
+                display: "flex",
+                gap: 8,
+                width: "50%",
+                minWidth: "150px",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={form.services.includes(s)}
+                onChange={() => toggleService(s)}
+              />{" "}
+              {s}
+            </label>
+          ))}
+        </div>
       </fieldset>
 
       {/* 6. Textarea and Button (NO GRID WRAPPER NEEDED) */}
