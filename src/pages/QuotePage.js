@@ -51,8 +51,6 @@ export default function QuotePage() {
     <form
       onSubmit={handleSubmit}
       style={{
-        maxWidth: 720,
-        margin: "2rem auto",
         display: "grid",
         gap: "1rem",
       }}
