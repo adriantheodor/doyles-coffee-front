@@ -4,16 +4,16 @@ import React, { useState, useEffect } from 'react';
 
 // Placeholder URLs for images (cannot rely on local imports like ../assets/...)
 const ASSETS = {
-  logo: "https://placehold.co/150x50/3498db/fff?text=Doyle's+Logo",
-  pic1: "https://placehold.co/1200x500/A0BFFF/000?text=Premium+Coffee+Setup",
-  pic2: "https://placehold.co/1200x500/FFB3A0/000?text=Fully+Stocked+Breakroom",
-  pic3: "https://placehold.co/1200x500/A0FFB3/000?text=Modern+Vending+Machine",
-  pic4: "https://placehold.co/1200x500/B3A0FF/000?text=Organized+Space",
-  pic5: "https://placehold.co/1200x500/FFA0B3/000?text=Equipment+Close-up",
-  pic6: "https://placehold.co/1200x500/A0FFDF/000?text=Team+Break",
-  pic7: "https://placehold.co/1200x500/FFDFAA/000?text=Healthy+Options",
-  pic8: "https://placehold.co/1200x500/DFA0FF/000?text=Coffee+Beans",
-  pic9: "https://placehold.co/1200x500/A0DFFA/000?text=Beverage+Selection",
+  logo: "logo",
+  pic1: "pic1",
+  pic2: "pic2",
+  pic3: "pic3",
+  pic4: "pic4",
+  pic5: "pic5",
+  pic6: "pic6",
+  pic7: "pic7",
+  pic8: "pic8",
+  pic9: "pic9",
 };
 
 // --- Component 1: PhotoCarousel (Integrated for single-file compilation) ---
