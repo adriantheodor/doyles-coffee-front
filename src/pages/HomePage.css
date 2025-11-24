@@ -72,6 +72,7 @@
 
 .carousel-inner img {
   height: 450px;   /* adjust the height however you prefer */
+  height: 60vh;
   object-fit: cover;
 }
 
