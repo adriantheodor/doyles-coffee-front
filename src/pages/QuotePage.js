@@ -56,12 +56,16 @@ export default function QuotePage() {
       }}
     >
       <h1>Request a Quote</h1>
-      <input
-        required
-        placeholder="Company Name"
-        value={form.companyName}
-        onChange={(e) => setForm({ ...form, companyName: e.target.value })}
-      />
+      <div className="form-row-responsive">
+        <input
+          required
+          placeholder="Company Name"
+          value={form.companyName}
+          onChange={(e) => setForm({ ...form, companyName: e.target.value })}
+        />
+        {/* ADD a placeholder empty div to force the input to take up exactly 50% on desktop */}
+        <div style={{ visibility: "hidden", height: 0 }} />
+      </div>
       <div className="form-row-responsive">
         {" "}
         {/* Changed to a class */}
@@ -93,11 +97,15 @@ export default function QuotePage() {
           onChange={(e) => setForm({ ...form, address: e.target.value })}
         />
       </div>
+      <div className="form-row-responsive">
       <input
         placeholder="Approx. Headcount"
         value={form.headcount}
         onChange={(e) => setForm({ ...form, headcount: e.target.value })}
       />
+      {/* ADD a placeholder empty div to force the input to take up exactly 50% on desktop */}
+      <div style={{ visibility: 'hidden', height: 0 }} />
+    </div>
 
       <fieldset
         style={{ border: "1px solid #ddd", borderRadius: 8, padding: "1rem" }}
