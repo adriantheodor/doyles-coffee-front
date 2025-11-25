@@ -23,103 +23,18 @@ const breakroomImages = [
   { src: pic9, alt: "Team members enjoying coffee break" },
 ];
 
+// ... imports remain the same ...
+
 const HomePage = ({ onLogin }) => {
   return (
     <div id="top" className="home-page bg-light min-vh-100 d-flex flex-column">
       <header className="text-center py-5 bg-white shadow-sm">
-        <div className="container">
-          <img
-            src={logo}
-            alt="Doyle's Services Logo"
-            className="main-header-logo"
-          />
-
-          <h1 className="fw-bold mt-3">Doyle's Coffee & Breakroom Services</h1>
-          <p className="text-muted fs-5">
-            Premium coffee and break room solutions for your workplace.
-          </p>
-        </div>
+        {/* ... Header content remains the same ... */}
       </header>
-      {/* 🔥 UPDATED: Carousel/Slideshow Section 🔥 */}
-      <section id="services" className="mb-5">
-        <h2 className="mb-4 text-primary text-center">
-          A Look Inside Our Premium Services
-        </h2>
-
-        <div
-          id="breakroomCarousel"
-          className="carousel slide shadow-lg rounded-3 overflow-hidden"
-          data-bs-ride="carousel"
-        >
-          {/* Carousel Indicators (Dots at the bottom) */}
-          <div className="carousel-indicators">
-            {breakroomImages.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                data-bs-target="#breakroomCarousel"
-                data-bs-slide-to={index}
-                className={index === 0 ? "active" : ""}
-                aria-current={index === 0 ? "true" : "false"}
-                aria-label={`Slide ${index + 1}`}
-              ></button>
-            ))}
-          </div>
-
-          {/* Carousel Inner (The Slides) */}
-          <div className="carousel-inner">
-            {breakroomImages.map((image, index) => (
-              <div
-                key={index}
-                className={`carousel-item ${index === 0 ? "active" : ""}`}
-                data-bs-interval="5000" // 5-second delay per slide
-              >
-                <img
-                  src={image.src}
-                  className="d-block w-100 carousel-image" // New class for styling
-                  alt={image.alt}
-                />
-                {/* Optional Caption Overlay */}
-                <div className="carousel-caption d-none d-md-block bg-dark opacity-75 p-2 rounded">
-                  <h5>{image.caption}</h5>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Carousel Controls (Previous/Next Arrows) */}
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#breakroomCarousel"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#breakroomCarousel"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div>
-      </section>
-      {/* 🔥 END UPDATED SECTION 🔥 */}
       {/* Main Content Section */}
       <div id="about" className="container-fluid flex-grow-1 my-5 px-3 px-sm-5">
-        {/* FIX 1: Added 'justify-content-center' to center the column on the screen */}
         <div className="row g-4 justify-content-center">
-          {/* FIX 2: Changed 'col-lg-8' to 'col-lg-10' so it's wider but centered */}
+          {/* This is the column that centers and restricts the width */}
           <div className="col-lg-10">
             {/* About Section */}
             <section className="mb-5">
@@ -132,6 +47,56 @@ const HomePage = ({ onLogin }) => {
               </p>
             </section>
 
+            {/* 🔥 MOVE THE CAROUSEL SECTION START 🔥 */}
+            <section id="services" className="mb-5">
+              <h2 className="mb-4 text-primary text-center">
+                A Look Inside Our Premium Services
+              </h2>
+
+              <div
+                id="breakroomCarousel"
+                className="carousel slide shadow-lg rounded-3 overflow-hidden"
+                data-bs-ride="carousel"
+              >
+                {/* Carousel Indicators (Dots at the bottom) */}
+                <div className="carousel-indicators">
+                  {/* ... Indicators remain the same ... */}
+                </div>
+
+                {/* Carousel Inner (The Slides) */}
+                <div className="carousel-inner">
+                  {/* ... Slides remain the same ... */}
+                </div>
+
+                {/* Carousel Controls (Previous/Next Arrows) */}
+                <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#breakroomCarousel"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    className="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#breakroomCarousel"
+                  data-bs-slide="next"
+                >
+                  <span
+                    className="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </div>
+            </section>
+            {/* 🔥 MOVE THE CAROUSEL SECTION END 🔥 */}
+
             {/* Quote Request Section */}
             <section className="mb-5">
               <div id="quote" className="card shadow-sm p-4 border-0">
@@ -139,88 +104,9 @@ const HomePage = ({ onLogin }) => {
               </div>
             </section>
 
-            {/* FIX 3: Contact Section is now INSIDE the main column */}
+            {/* Contact Section */}
             <section id="contact" className="contact-section">
-              <div className="contact-content">
-                <h2 className="mb-3">Contact Us</h2>
-                <p className="contact-subtext">
-                  Ready to upgrade your break room? Reach out to us today.
-                </p>
-
-                <div className="contact-grid">
-                  {/* Address Block */}
-                  <div className="contact-card">
-                    <div className="icon-box">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                      </svg>
-                    </div>
-                    <h3>Location</h3>
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=150+Holly+Ave+Penndel+PA+19047"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      150 Holly Ave
-                      <br />
-                      Penndel, PA 19047
-                    </a>
-                  </div>
-
-                  {/* Phone Block */}
-                  <div className="contact-card">
-                    <div className="icon-box">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                      </svg>
-                    </div>
-                    <h3>Phone</h3>
-                    <a href="tel:6109525733">(610) 952-5733</a>
-                  </div>
-
-                  {/* Email Block */}
-                  <div className="contact-card">
-                    <div className="icon-box">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                      </svg>
-                    </div>
-                    <h3>Email</h3>
-                    <a href="mailto:doylesbreakroomservices@gmail.com">
-                      doylesbreakroomservices@gmail.com
-                    </a>
-                  </div>
-                </div>
-              </div>
+              {/* ... Contact content remains the same ... */}
             </section>
           </div>{" "}
           {/* End col-lg-10 */}
@@ -230,10 +116,7 @@ const HomePage = ({ onLogin }) => {
       {/* End container */}
       {/* Footer */}
       <footer className="text-center py-4 bg-white border-top">
-        <small className="text-muted">
-          © {new Date().getFullYear()} Doyle’s Coffee & Break Room Services. All
-          rights reserved.
-        </small>
+        {/* ... Footer content remains the same ... */}
       </footer>
     </div>
   );

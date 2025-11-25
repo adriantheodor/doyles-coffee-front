@@ -1,28 +1,20 @@
-/* HomePage.css */
-
-/* Global color variable for brand consistency */
 :root {
   --brand-green: #3a7842;
 }
 
-/* Base text color for the entire home page */
 .home-page {
   color: var(--brand-green);
 }
 
-/* In HomePage.css */
-
-/* Default for paired inputs: 2 columns */
 .form-row-responsive {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-/* For smaller screens: stack inputs vertically */
 @media (max-width: 576px) {
   .form-row-responsive {
-    grid-template-columns: 1fr; /* Change to 1 column */
+    grid-template-columns: 1fr;
   }
 }
 
@@ -32,31 +24,27 @@
 .home-page input[type="number"],
 .home-page textarea,
 .home-page button {
-  width: 100%; /* Ensure inputs fill their available width */
+  width: 100%;
   padding: 0.75rem 1rem;
   border: 1px solid #ddd;
   border-radius: 0.25rem;
-  box-sizing: border-box; /* Important: include padding/border in total width */
+  box-sizing: border-box;
 }
 
 .main-header-logo {
-  /* Ensure the image can never be wider than its parent container */
   max-width: 90%;
-  /* Sets a maximum size for desktop view, but allows it to shrink */
   width: 250px;
   height: auto;
   display: block;
   margin: 0 auto;
 }
 
-/* Optional: tweak Bootstrap classes so they use your color too */
 .home-page .text-primary,
 .home-page .text-secondary,
 .home-page .text-muted {
   color: var(--brand-green) !important;
 }
 
-/* Optional: give headings a little emphasis */
 .home-page h1,
 .home-page h2,
 .home-page h3 {
@@ -64,17 +52,15 @@
   font-weight: 700;
 }
 
-/* Optional: subtle footer tone */
 .home-page footer {
   color: var(--brand-green);
   opacity: 0.8;
 }
 
-/* --- Contact Section Styles --- */
 .contact-section {
   padding: 4rem 0;
   text-align: center;
-  background-color: #fff; 
+  background-color: #fff;
 }
 
 .contact-content h2 {
