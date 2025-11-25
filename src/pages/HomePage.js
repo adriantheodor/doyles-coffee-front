@@ -23,7 +23,6 @@ const breakroomImages = [
   { src: pic9, alt: "Team members enjoying coffee break" },
 ];
 
-
 const HomePage = ({ onLogin }) => {
   return (
     <div id="top" className="home-page bg-light min-vh-100 d-flex flex-column">
@@ -41,7 +40,81 @@ const HomePage = ({ onLogin }) => {
           </p>
         </div>
       </header>
-      
+      {/* 🔥 UPDATED: Carousel/Slideshow Section 🔥 */}
+      <section id="services" className="mb-5">
+        <h2 className="mb-4 text-primary text-center">
+          A Look Inside Our Premium Services
+        </h2>
+
+        <div
+          id="breakroomCarousel"
+          className="carousel slide shadow-lg rounded-3 overflow-hidden"
+          data-bs-ride="carousel"
+        >
+          {/* Carousel Indicators (Dots at the bottom) */}
+          <div className="carousel-indicators">
+            {breakroomImages.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                data-bs-target="#breakroomCarousel"
+                data-bs-slide-to={index}
+                className={index === 0 ? "active" : ""}
+                aria-current={index === 0 ? "true" : "false"}
+                aria-label={`Slide ${index + 1}`}
+              ></button>
+            ))}
+          </div>
+
+          {/* Carousel Inner (The Slides) */}
+          <div className="carousel-inner">
+            {breakroomImages.map((image, index) => (
+              <div
+                key={index}
+                className={`carousel-item ${index === 0 ? "active" : ""}`}
+                data-bs-interval="5000" // 5-second delay per slide
+              >
+                <img
+                  src={image.src}
+                  className="d-block w-100 carousel-image" // New class for styling
+                  alt={image.alt}
+                />
+                {/* Optional Caption Overlay */}
+                <div className="carousel-caption d-none d-md-block bg-dark opacity-75 p-2 rounded">
+                  <h5>{image.caption}</h5>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Carousel Controls (Previous/Next Arrows) */}
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#breakroomCarousel"
+            data-bs-slide="prev"
+          >
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#breakroomCarousel"
+            data-bs-slide="next"
+          >
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+      </section>
+      {/* 🔥 END UPDATED SECTION 🔥 */}
       {/* Main Content Section */}
       <div id="about" className="container-fluid flex-grow-1 my-5 px-3 px-sm-5">
         {/* FIX 1: Added 'justify-content-center' to center the column on the screen */}
@@ -58,30 +131,6 @@ const HomePage = ({ onLogin }) => {
                 and friendly support are what set us apart.
               </p>
             </section>
-
-            {/* 🔥 NEW: Our Services / Photo Gallery Section 🔥 */}
-            <section id="services" className="mb-5">
-              <h2 className="mb-4 text-primary text-center">Our Premium Services</h2>
-              <div className="row g-4">
-                {breakroomImages.map((image, index) => (
-                  <div key={index} className="col-lg-4 col-md-6 col-sm-12">
-                    <div className="image-card shadow-sm border-0 rounded-3 overflow-hidden">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="img-fluid gallery-image"
-                        loading="lazy"
-                      />
-                      {/* Optional: Add a subtle overlay for text/description if needed */}
-                      {/* <div className="image-overlay">
-                        <p>{image.alt}</p>
-                      </div> */}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-            {/* 🔥 END NEW SECTION 🔥 */}
 
             {/* Quote Request Section */}
             <section className="mb-5">
