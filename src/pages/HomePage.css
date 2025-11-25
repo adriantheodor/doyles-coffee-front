@@ -240,3 +240,59 @@
     position: static !important;
   }
 }
+
+/* --- Gallery/Services Section Styles --- */
+
+.image-card {
+  /* Set a fixed height for all image cards for a uniform grid */
+  height: 300px; /* Adjust this value to your preference (e.g., 250px, 350px) */
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
+.gallery-image {
+  width: 100%; /* Fill the width of the card */
+  height: 100%; /* Fill the height of the card */
+  /* This is the key for professionalism: it ensures the image covers the area 
+     without distortion, cropping excess parts */
+  object-fit: cover; 
+}
+
+/* Subtle, classy hover effect */
+.image-card:hover {
+  transform: translateY(-5px); /* Lift the card slightly */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important; /* Enhanced shadow */
+}
+
+/* Make sure the main header logo doesn't become too big */
+.main-header-logo {
+  max-width: 200px;
+  height: auto;
+}
+
+/* Ensure headings stand out slightly more */
+.text-primary {
+  color: #007bff !important; /* Use a color that suits 'classy'—maybe a dark navy or gold if you change the primary color variable */
+}
+
+/* You might already have these, but including them for completeness */
+.contact-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.contact-card {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+}
+
+/* ... keep your existing styles below this ... */

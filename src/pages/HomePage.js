@@ -11,35 +11,18 @@ import pic7 from "../assets/pic7.jpeg";
 import pic8 from "../assets/pic8.jpeg";
 import pic9 from "../assets/pic9.jpeg";
 
+const breakroomImages = [
+  { src: pic1, alt: "Gourmet coffee service setup" },
+  { src: pic2, alt: "Variety of snacks and treats" },
+  { src: pic3, alt: "Modern water filtration system" },
+  { src: pic4, alt: "Clean, well-stocked pantry area" },
+  { src: pic5, alt: "Espresso machine in an office breakroom" },
+  { src: pic6, alt: "Fresh fruit and healthy options" },
+  { src: pic7, alt: "Beverage station with cold drinks" },
+  { src: pic8, alt: "Vending machine with high-end snacks" },
+  { src: pic9, alt: "Team members enjoying coffee break" },
+];
 
-let slideIndex = 1;
-showSlides(slideIndex);
-
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-}
 
 const HomePage = ({ onLogin }) => {
   return (
@@ -58,50 +41,7 @@ const HomePage = ({ onLogin }) => {
           </p>
         </div>
       </header>
-      <div class="slideshow-container">
-        <div class="mySlides fade">
-          <img src={pic1} style={{ width: "100%" }} />
-        </div>
-
-        <div class="mySlides fade">
-          <img src={pic2} style={{ width: "100%" }} />
-        </div>
-
-        <div class="mySlides fade">
-          <img src={pic3} style={{ width: "100%" }} />
-        </div>
-
-        <div class="mySlides fade">
-          <img src={pic4} style={{ width: "100%" }} />
-        </div>
-
-        <div class="mySlides fade">
-          <img src={pic5} style={{ width: "100%" }} />
-        </div>
-
-        <div class="mySlides fade">
-          <img src={pic6} style={{ width: "100%" }} />
-        </div>
-
-        <div class="mySlides fade">
-          <img src={pic7} style={{ width: "100%" }} />
-        </div>
-
-        <div class="mySlides fade">
-          <img src={pic8} style={{ width: "100%" }} />
-        </div>
-
-        <div class="mySlides fade">
-          <img src={pic9} style={{ width: "100%" }} />
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1)">
-          &#10094;
-        </a>
-        <a class="next" onclick="plusSlides(1)">
-          &#10095;
-        </a>
-      </div>
+      
       {/* Main Content Section */}
       <div id="about" className="container-fluid flex-grow-1 my-5 px-3 px-sm-5">
         {/* FIX 1: Added 'justify-content-center' to center the column on the screen */}
@@ -118,6 +58,30 @@ const HomePage = ({ onLogin }) => {
                 and friendly support are what set us apart.
               </p>
             </section>
+
+            {/* 🔥 NEW: Our Services / Photo Gallery Section 🔥 */}
+            <section id="services" className="mb-5">
+              <h2 className="mb-4 text-primary text-center">Our Premium Services</h2>
+              <div className="row g-4">
+                {breakroomImages.map((image, index) => (
+                  <div key={index} className="col-lg-4 col-md-6 col-sm-12">
+                    <div className="image-card shadow-sm border-0 rounded-3 overflow-hidden">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="img-fluid gallery-image"
+                        loading="lazy"
+                      />
+                      {/* Optional: Add a subtle overlay for text/description if needed */}
+                      {/* <div className="image-overlay">
+                        <p>{image.alt}</p>
+                      </div> */}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+            {/* 🔥 END NEW SECTION 🔥 */}
 
             {/* Quote Request Section */}
             <section className="mb-5">
