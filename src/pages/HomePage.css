@@ -136,14 +136,13 @@
 }
 
 .carousel-item {
-  height: 450px;
+  height: 60vh;
   background: #f8f9fa;
 }
 
 .carousel-image {
   height: 100%;
   width: 100%;
-
   object-fit: cover;
 }
 
