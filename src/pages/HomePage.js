@@ -28,46 +28,49 @@ const HomePage = ({ onLogin }) => {
           </p>
         </div>
       </header>
-      {/* Carousel Section */}
-      <div className="container my-4">
-        <div
-          id="doylesCarousel"
-          className="carousel slide shadow-sm"
-          data-bs-ride="carousel"
-          data-bs-interval="3000"
-        >
-          {/* ... (Keep your carousel code exactly the same) ... */}
-          <div className="carousel-inner rounded-4 overflow-hidden">
-            <div className="carousel-item active">
-              <img src={pic6} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item active">
-              <img src={pic1} className="d-block w-100" alt="Coffee service" />
-            </div>
-            <div className="carousel-item active">
-              <img src={pic2} className="d-block w-100" alt="Snack room" />
-            </div>
-            <div className="carousel-item active">
-              <img src={pic3} className="d-block w-100" alt="Vending machine" />
-            </div>
-            <div className="carousel-item active">
-              <img src={pic4} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item active">
-              <img src={pic5} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item active">
-              <img src={pic7} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            <div className="carousel-item active">
-              <img src={pic8} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-            {/* ... other images ... */}
-            <div className="carousel-item active">
-              <img src={pic9} className="d-block w-100" alt="Breakroom setup" />
-            </div>
-          </div>
+      <div class="slideshow-container">
+        <div class="mySlides fade">
+          <img src={pic1} style={{ width: "100%" }} />
         </div>
+
+        <div class="mySlides fade">
+          <img src={pic2} style={{ width: "100%" }} />
+        </div>
+
+        <div class="mySlides fade">
+          <img src={pic3} style={{ width: "100%" }} />
+        </div>
+
+        <div class="mySlides fade">
+          <img src={pic4} style={{ width: "100%" }} />
+        </div>
+
+        <div class="mySlides fade">
+          <img src={pic5} style={{ width: "100%" }} />
+        </div>
+
+        <div class="mySlides fade">
+          <img src={pic6} style={{ width: "100%" }} />
+        </div>
+
+        <div class="mySlides fade">
+          <img src={pic7} style={{ width: "100%" }} />
+        </div>
+
+        <div class="mySlides fade">
+          <img src={pic8} style={{ width: "100%" }} />
+        </div>
+
+        <div class="mySlides fade">
+          <img src={pic9} style={{ width: "100%" }} />
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">
+          &#10094;
+        </a>
+        <a class="next" onclick="plusSlides(1)">
+          &#10095;
+        </a>
       </div>
       {/* Main Content Section */}
       <div id="about" className="container-fluid flex-grow-1 my-5 px-3 px-sm-5">
