@@ -12,12 +12,12 @@ import pic8 from "../assets/pic8.jpeg";
 import pic9 from "../assets/pic9.jpeg";
 
 const breakroomImages = [
+  { src: pic6, alt: "Fresh fruit and healthy options" },
   { src: pic1, alt: "Gourmet coffee service setup" },
   { src: pic2, alt: "Variety of snacks and treats" },
   { src: pic3, alt: "Modern water filtration system" },
   { src: pic4, alt: "Clean, well-stocked pantry area" },
   { src: pic5, alt: "Espresso machine in an office breakroom" },
-  { src: pic6, alt: "Fresh fruit and healthy options" },
   { src: pic7, alt: "Beverage station with cold drinks" },
   { src: pic8, alt: "Vending machine with high-end snacks" },
   { src: pic9, alt: "Team members enjoying coffee break" },
