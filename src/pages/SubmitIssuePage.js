@@ -3,8 +3,6 @@ import { API_BASE } from "../utils/api";
 
 const SubmitIssuePage = () => {
   const [form, setForm] = useState({
-    customerName: "",
-    customerEmail: "",
     title: "",
     description: "",
   });
@@ -17,41 +15,20 @@ const SubmitIssuePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_BASE}api/issues`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(form),
+    });
 
-    if (!token) {
-      setMessage("You must be logged in to submit an issue.");
-      return;
-    }
-
-    try {
-      const res = await fetch(`${API_BASE}api/issues`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title: form.title,
-          description: form.description,
-        }),
-      });
-
-      if (res.ok) {
-        setMessage("Issue submitted successfully!");
-        setForm({
-          customerName: "",
-          customerEmail: "",
-          title: "",
-          description: "",
-        });
-      } else {
-        const errorData = await res.json();
-        setMessage(`Failed: ${errorData.message || "Unknown Error"}`);
-      }
-    } catch (error) {
-      console.error(error);
-      setMessage("Network error occurred.");
+    if (res.ok) {
+      setMessage("Issue submitted successfully!");
+      setForm({ title: "", description: "" });
+    } else {
+      setMessage("Failed to submit issue.");
     }
   };
 
@@ -62,28 +39,9 @@ const SubmitIssuePage = () => {
 
       <form onSubmit={handleSubmit}>
         <input
-          name="customerName"
-          placeholder="Your Name"
-          value={form.customerName}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <input
-          name="customerEmail"
-          placeholder="Your Email"
-          type="email"
-          value={form.customerEmail}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <input
           name="title"
-          placeholder="Subject"
-          value={form.title} 
+          placeholder="Issue Title"
+          value={form.title}
           onChange={handleChange}
           required
         />
