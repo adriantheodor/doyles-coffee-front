@@ -5,7 +5,7 @@ const SubmitIssuePage = () => {
   const [form, setForm] = useState({
     customerName: "",
     customerEmail: "",
-    subject: "",
+    title: "",
     description: "",
   });
 
@@ -17,17 +17,41 @@ const SubmitIssuePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${API_BASE}api/issues`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    const token = localStorage.getItem("token");
 
-    if (res.ok) {
-      setMessage("Issue submitted successfully!");
-      setForm({ customerName: "", customerEmail: "", subject: "", description: "" });
-    } else {
-      setMessage("Failed to submit issue.");
+    if (!token) {
+      setMessage("You must be logged in to submit an issue.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}api/issues`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: form.title,
+          description: form.description,
+        }),
+      });
+
+      if (res.ok) {
+        setMessage("Issue submitted successfully!");
+        setForm({
+          customerName: "",
+          customerEmail: "",
+          title: "",
+          description: "",
+        });
+      } else {
+        const errorData = await res.json();
+        setMessage(`Failed: ${errorData.message || "Unknown Error"}`);
+      }
+    } catch (error) {
+      console.error(error);
+      setMessage("Network error occurred.");
     }
   };
 
@@ -57,9 +81,9 @@ const SubmitIssuePage = () => {
         <br />
 
         <input
-          name="subject"
+          name="title"
           placeholder="Subject"
-          value={form.subject}
+          value={form.title} 
           onChange={handleChange}
           required
         />
