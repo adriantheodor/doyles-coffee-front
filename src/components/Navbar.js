@@ -82,7 +82,6 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
           </>
         )}
 
-        {/* ADMIN NAV */}
         {user?.role === "admin" && (
           <>
             <button
@@ -95,25 +94,17 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
               Admin Home
             </button>
 
-            <button onClick={() => handleSectionClick("inventory")}>
-              Inventory
-            </button>
+            <button onClick={() => handleSectionClick("inventory")}>Inventory</button>
 
-            <button onClick={() => handleSectionClick("orders")}>
-              Orders
-            </button>
+            <button onClick={() => handleSectionClick("quotes")}>Quotes</button>
 
-            <button onClick={() => handleSectionClick("issues")}>
-              Issues
-            </button>
+            <button onClick={() => handleSectionClick("orders")}>Orders</button>
 
-            <button onClick={() => handleSectionClick("invoices")}>
-              Invoices
-            </button>
+            <button onClick={() => handleSectionClick("issues")}>Issues</button>
 
-            <button onClick={() => handleSectionClick("qrcodes")}>
-              QR Codes
-            </button>
+            <button onClick={() => handleSectionClick("invoices")}>Invoices</button>
+
+            <button onClick={() => handleSectionClick("qrcodes")}>QR Codes</button>
           </>
         )}
 

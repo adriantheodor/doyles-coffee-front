@@ -6,10 +6,7 @@ import InvoiceUploader from './components/InvoiceUploader';
 import QRCodeGenerator from './components/QRCodeGenerator';
 import QuoteRequestsWidget from "./QuoteRequestsWidget";
 
-
 const AdminDashboardPage = ({ activeSection }) => {
-  
-
 
   const renderSection = () => {
     switch (activeSection) {
@@ -25,6 +22,8 @@ const AdminDashboardPage = ({ activeSection }) => {
         return <InvoiceUploader />;
       case 'qrcodes':
         return <QRCodeGenerator />;
+      case 'quotes':                     
+        return <QuoteRequestsWidget />;  
       default:
         return <AdminOverview />;
     }
@@ -33,7 +32,7 @@ const AdminDashboardPage = ({ activeSection }) => {
   return (
     <div>
       <h1>Admin Dashboard</h1>
-      <QuoteRequestsWidget />
+
       <div>{renderSection()}</div>
     </div>
   );
