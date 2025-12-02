@@ -19,9 +19,12 @@ const SubmitIssuePage = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // ★ REQUIRED
       },
-      body: JSON.stringify(form),
+      body: JSON.stringify({
+        title: form.title,
+        description: form.description,
+      }),
     });
 
     if (res.ok) {
@@ -40,11 +43,12 @@ const SubmitIssuePage = () => {
       <form onSubmit={handleSubmit}>
         <input
           name="title"
-          placeholder="Issue Title"
+          placeholder="Title"
           value={form.title}
           onChange={handleChange}
           required
         />
+
         <br />
 
         <textarea
@@ -54,6 +58,7 @@ const SubmitIssuePage = () => {
           onChange={handleChange}
           required
         />
+
         <br />
 
         <button type="submit">Submit Issue</button>
