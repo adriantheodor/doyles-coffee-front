@@ -4,6 +4,7 @@ import { API_BASE } from "../../../utils/api";
 const IssuesManager = () => {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const fetchIssues = async () => {
     try {
@@ -14,11 +15,29 @@ const IssuesManager = () => {
       });
 
       const data = await res.json();
-      setIssues(data);
-      setLoading(false);
+
+      // 🔍 Debug log
+      console.log("ADMIN ISSUES RESPONSE:", data);
+
+      if (!res.ok) {
+        setErrorMsg(data.message || "Failed to load issues.");
+        setIssues([]); // prevent .map error
+      } else if (!Array.isArray(data)) {
+        // ❌ Not an array → backend error or wrong format
+        setErrorMsg("Server returned invalid data format (expected array).");
+        setIssues([]);
+      } else {
+        // ✅ Valid array
+        setIssues(data);
+        setErrorMsg("");
+      }
     } catch (err) {
       console.error("Error loading issues", err);
+      setErrorMsg("Error connecting to server.");
+      setIssues([]);
     }
+
+    setLoading(false);
   };
 
   const updateStatus = async (id, status) => {
@@ -57,7 +76,15 @@ const IssuesManager = () => {
     <div>
       <h2>Issue Reports</h2>
 
-      <table border="1" cellPadding="8" style={{ width: "100%", marginTop: "15px" }}>
+      {errorMsg && (
+        <p style={{ color: "red", fontWeight: "bold" }}>{errorMsg}</p>
+      )}
+
+      <table
+        border="1"
+        cellPadding="8"
+        style={{ width: "100%", marginTop: "15px" }}
+      >
         <thead>
           <tr>
             <th>Customer</th>
