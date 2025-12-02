@@ -5,6 +5,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
 import AboutPage from "./pages/AboutPage";
@@ -16,6 +17,7 @@ import RoleBasedRoute from "./components/RoleBasedRoute";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import QuotePage from "./pages/QuotePage";
 import HomePage from "./pages/HomePage";
+import SubmitIssuePage from "./pages/SubmitIssuePage";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -25,13 +27,11 @@ function AppWrapper() {
   const hideNavbarPaths = ["/login", "/register"];
   const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
 
-  // Load user from localStorage
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  // Dashboard section controller
   const [activeSection, setActiveSection] = useState("overview");
 
   const handleLogin = (userInfo) => {
@@ -51,18 +51,28 @@ function AppWrapper() {
       )}
 
       <Routes>
+        {/* PUBLIC ROUTES */}
         <Route path="/" element={<HomePage onLogin={handleLogin} />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route
-          path="/register"
-          element={<RegisterPage onLogin={handleLogin} />}
-        />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/quote" element={<QuotePage />} />
         <Route
           path="/login"
-          element={<LoginPage user={user} onLogin={handleLogin} />}
+          element={<LoginPage onLogin={handleLogin} user={user} />}
         />
-        <Route path="/quote" element={<QuotePage user={user} />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* CUSTOMER SUBMIT ISSUE */}
+        <Route
+          path="/submit-issue"
+          element={
+            <RoleBasedRoute allowedRoles={["customer"]}>
+              <SubmitIssuePage />
+            </RoleBasedRoute>
+          }
+        />
+
+        {/* CHANGE PASSWORD */}
         <Route path="/change-password" element={<ChangePasswordPage />} />
 
         {/* ADMIN DASHBOARD */}
@@ -70,10 +80,7 @@ function AppWrapper() {
           path="/admin"
           element={
             <RoleBasedRoute allowedRoles={["admin"]}>
-              <AdminDashPage
-                activeSection={activeSection}
-                setActiveSection={setActiveSection}
-              />
+              <AdminDashPage activeSection={activeSection} />
             </RoleBasedRoute>
           }
         />
@@ -83,10 +90,7 @@ function AppWrapper() {
           path="/dashboard"
           element={
             <RoleBasedRoute allowedRoles={["customer"]}>
-              <CustomerDashPage
-                activeSection={activeSection}
-                setActiveSection={setActiveSection}
-              />
+              <CustomerDashPage activeSection={activeSection} />
             </RoleBasedRoute>
           }
         />
@@ -95,12 +99,10 @@ function AppWrapper() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <Router>
       <AppWrapper />
     </Router>
   );
 }
-
-export default App;
