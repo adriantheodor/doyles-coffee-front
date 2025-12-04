@@ -20,7 +20,6 @@ import HomePage from "./pages/HomePage";
 import SubmitIssuePage from "./pages/SubmitIssuePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -70,6 +69,15 @@ function AppWrapper() {
           element={
             <RoleBasedRoute allowedRoles={["customer"]}>
               <SubmitIssuePage />
+            </RoleBasedRoute>
+          }
+        />
+
+        {/* CUSTOMER PLACE ORDER */}
+        <Route
+          path="/place-order"
+          element={
+            <RoleBasedRoute allowedRoles={["customer"]}>
               <PlaceOrderPage />
             </RoleBasedRoute>
           }
