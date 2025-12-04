@@ -58,12 +58,13 @@ const PlaceOrderPage = () => {
       <h2>Place an Order</h2>
 
       <h3>Available Products</h3>
-      {products.map((p) => (
-        <div key={p._id}>
-          <strong>{p.name}</strong> — In Stock: {p.quantity}
-          <button onClick={() => handleAddItem(p._id)}>Add</button>
-        </div>
-      ))}
+      {Array.isArray(products) &&
+        products.map((p) => (
+          <div key={p._id}>
+            <strong>{p.name}</strong> — In Stock: {p.stock}
+            <button onClick={() => handleAddItem(p._id)}>Add</button>
+          </div>
+        ))}
 
       <h3>Your Order</h3>
       {orderItems.map((item, idx) => (
