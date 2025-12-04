@@ -16,7 +16,7 @@ const CustomerDashPage = () => {
       <h3>Your Options</h3>
       <ul>
         <li>
-          <button onClick={() => alert("Order placement coming soon!")}>
+          <button onClick={() => navigate("/place-order")}>
             Place a New Order
           </button>
         </li>

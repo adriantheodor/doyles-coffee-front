@@ -18,6 +18,8 @@ import ChangePasswordPage from "./pages/ChangePasswordPage";
 import QuotePage from "./pages/QuotePage";
 import HomePage from "./pages/HomePage";
 import SubmitIssuePage from "./pages/SubmitIssuePage";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
+
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -68,6 +70,7 @@ function AppWrapper() {
           element={
             <RoleBasedRoute allowedRoles={["customer"]}>
               <SubmitIssuePage />
+              <PlaceOrderPage />
             </RoleBasedRoute>
           }
         />
