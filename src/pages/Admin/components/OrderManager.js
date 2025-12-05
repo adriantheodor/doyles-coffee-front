@@ -10,12 +10,19 @@ const OrderManager = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
+
     const data = await res.json();
-    if (Array.isArray(data)) setOrders(data);
+    if (Array.isArray(data)) {
+      setOrders(data);
+    } else {
+      console.error("Order fetch error:", data);
+      setOrders([]);
+    }
   };
 
+  // MARK ORDER COMPLETE
   const completeOrder = async (id) => {
-    if (!window.confirm("Mark this order as completed?")) return;
+    if (!window.confirm("Mark this order as complete?")) return;
 
     const res = await fetch(`${API_BASE}api/orders/${id}/complete`, {
       method: "PUT",
@@ -24,63 +31,112 @@ const OrderManager = () => {
       },
     });
 
-    const data = await res.json();
-    if (!res.ok) {
-      alert(data.message || "Failed to complete order");
-      return;
+    if (res.ok) {
+      fetchOrders();
+    } else {
+      alert("Failed to complete order");
     }
-
-    alert("Order completed and inventory updated!");
-    fetchOrders();
   };
 
   useEffect(() => {
     fetchOrders();
   }, []);
 
+  // SPLIT ORDERS FOR UI
+  const activeOrders = orders.filter((o) => o.status !== "Fulfilled");
+  const completedOrders = orders.filter((o) => o.status === "Fulfilled");
+
   return (
     <div>
       <h2>Orders</h2>
 
-      <table
-        border="1"
-        cellPadding="8"
-        style={{ width: "100%", marginTop: "15px" }}
-      >
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Items</th>
-            <th>Total Price</th>
-            <th>Status</th>
-            <th>Notes</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      {/* ACTIVE ORDERS */}
+      <h3 style={{ marginTop: "20px" }}>Active Orders</h3>
 
-        <tbody>
-          {orders.map((o) => (
-            <tr key={o._id}>
-              <td>{o.customer?.name}</td>
-              <td>
-                {o.items.map((i) => (
-                  <div key={i._id}>
-                    {i.product?.name} — Qty: {i.quantity}
-                  </div>
-                ))}
-              </td>
-              <td>${o.totalPrice}</td>
-              <td>{o.status}</td>
-              <td>{o.notes || "—"}</td>
-              <td>
-                {o.status !== "Fulfilled" && (
-                  <button onClick={() => completeOrder(o._id)}>Complete</button>
-                )}
-              </td>
+      {activeOrders.length === 0 ? (
+        <p>No active orders.</p>
+      ) : (
+        <table
+          border="1"
+          cellPadding="8"
+          style={{ width: "100%", marginTop: "10px" }}
+        >
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Total Price</th>
+              <th>Status</th>
+              <th>Notes</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {activeOrders.map((o) => (
+              <tr key={o._id}>
+                <td>{o.customer?.name}</td>
+                <td>
+                  {o.items.map((i) => (
+                    <div key={i._id}>
+                      {i.product?.name} — Qty: {i.quantity}
+                    </div>
+                  ))}
+                </td>
+                <td>${o.totalPrice}</td>
+                <td>{o.status}</td>
+                <td>{o.notes || "—"}</td>
+                <td>
+                  <button onClick={() => completeOrder(o._id)}>Complete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {/* COMPLETED ORDERS */}
+      <h3 style={{ marginTop: "40px" }}>Completed Orders</h3>
+
+      {completedOrders.length === 0 ? (
+        <p>No completed orders yet.</p>
+      ) : (
+        <table
+          border="1"
+          cellPadding="8"
+          style={{ width: "100%", marginTop: "10px" }}
+        >
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Total Price</th>
+              <th>Fulfilled At</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {completedOrders.map((o) => (
+              <tr key={o._id}>
+                <td>{o.customer?.name}</td>
+                <td>
+                  {o.items.map((i) => (
+                    <div key={i._id}>
+                      {i.product?.name} — Qty: {i.quantity}
+                    </div>
+                  ))}
+                </td>
+                <td>${o.totalPrice}</td>
+                <td>
+                  {o.fulfilledAt
+                    ? new Date(o.fulfilledAt).toLocaleString()
+                    : "—"}
+                </td>
+                <td>{o.notes || "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
