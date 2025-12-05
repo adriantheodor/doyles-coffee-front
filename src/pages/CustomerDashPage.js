@@ -34,9 +34,7 @@ const CustomerDashPage = () => {
         </li>
 
         <li>
-          <button onClick={() => alert("Invoices UI coming soon!")}>
-            View Invoices
-          </button>
+          <button onClick={() => navigate("/invoices")}>View Invoices</button>
         </li>
       </ul>
 

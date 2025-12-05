@@ -16,6 +16,7 @@ import CustomerDashPage from "./pages/CustomerDashPage";
 import RoleBasedRoute from "./components/RoleBasedRoute";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import QuotePage from "./pages/QuotePage";
+import InvoicesPage from "./pages/InvoicesPage";
 import HomePage from "./pages/HomePage";
 import SubmitIssuePage from "./pages/SubmitIssuePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
@@ -79,6 +80,15 @@ function AppWrapper() {
           element={
             <RoleBasedRoute allowedRoles={["customer"]}>
               <PlaceOrderPage />
+            </RoleBasedRoute>
+          }
+        />
+
+        <Route
+          path="/invoices"
+          element={
+            <RoleBasedRoute allowedRoles={["customer"]}>
+              <InvoicesPage />
             </RoleBasedRoute>
           }
         />
