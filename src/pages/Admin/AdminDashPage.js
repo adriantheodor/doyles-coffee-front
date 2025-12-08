@@ -2,7 +2,7 @@ import AdminOverview from './components/AdminOverview';
 import InventoryManager from './components/InventoryManager';
 import OrderManager from './components/OrderManager';
 import IssueManager from './components/IssuesManager';
-import InvoiceUploader from './components/InvoiceUploader';
+import InvoiceManager from './components/InvoiceManager'; 
 import QRCodeGenerator from './components/QRCodeGenerator';
 import QuoteRequestsWidget from "./QuoteRequestsWidget";
 
@@ -19,7 +19,7 @@ const AdminDashboardPage = ({ activeSection }) => {
       case 'issues':
         return <IssueManager />;
       case 'invoices':
-        return <InvoiceUploader />;
+        return <InvoiceManager />;
       case 'qrcodes':
         return <QRCodeGenerator />;
       case 'quotes':                     
