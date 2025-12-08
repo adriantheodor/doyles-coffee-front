@@ -30,10 +30,12 @@ const AdminDashboardPage = ({ activeSection }) => {
   };
 
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
+    <div className='page-container'>
+      <div className='page-card'>
+        <h1 className='page-title'>Admin Dashboard</h1>
 
       <div>{renderSection()}</div>
+      </div>
     </div>
   );
 };

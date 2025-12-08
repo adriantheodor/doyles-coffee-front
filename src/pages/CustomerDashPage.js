@@ -10,8 +10,9 @@ const CustomerDashPage = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Customer Dashboard</h1>
+    <div className="page-container">
+      <div className="page-card">
+      <h1 className="page-title">Customer Dashboard</h1>
 
       <h3>Your Options</h3>
       <ul>
@@ -41,6 +42,7 @@ const CustomerDashPage = () => {
       <hr />
 
       <button onClick={handleLogout}>Log Out</button>
+      </div>
     </div>
   );
 };

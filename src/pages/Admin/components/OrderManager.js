@@ -47,8 +47,9 @@ const OrderManager = () => {
   const completedOrders = orders.filter((o) => o.status === "Fulfilled");
 
   return (
-    <div>
-      <h2>Orders</h2>
+    <div className="page-container">
+      <div className="page-card">
+      <h2 className="page-title">Orders</h2>
 
       {/* ACTIVE ORDERS */}
       <h3 style={{ marginTop: "20px" }}>Active Orders</h3>
@@ -137,6 +138,7 @@ const OrderManager = () => {
           </tbody>
         </table>
       )}
+      </div>
     </div>
   );
 };

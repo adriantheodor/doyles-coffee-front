@@ -74,13 +74,14 @@ const InvoiceManager = () => {
   if (loading) return <p>Loading invoices...</p>;
 
   return (
-    <div>
-      <h2>Invoices</h2>
+    <div className="page-container">
+      <div className="page-card">
+      <h2 className="page-title">Invoices</h2>
 
       <table
         border="1"
         cellPadding="8"
-        style={{ width: "100%", marginTop: "15px" }}
+        className="styled-table"
       >
         <thead>
           <tr>
@@ -116,6 +117,7 @@ const InvoiceManager = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };
