@@ -2,8 +2,10 @@ import React from 'react';
 
 const QRCodeGenerator = () => {
   return (
-    <div>
-      <h2>QR Code Generation</h2>
+    <div className='page-container'>
+      <div className='page-card'>
+      <h2 className="page-title">QR Code Generation</h2>
+      </div>
     </div>
   );
 };

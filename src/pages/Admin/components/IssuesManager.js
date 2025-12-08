@@ -73,8 +73,9 @@ const IssuesManager = () => {
   if (loading) return <p>Loading issues...</p>;
 
   return (
-    <div>
-      <h2>Issue Reports</h2>
+    <div className="page-container">
+      <div className="page-card">
+      <h2 className="page-title">Issue Reports</h2>
 
       {errorMsg && (
         <p style={{ color: "red", fontWeight: "bold" }}>{errorMsg}</p>
@@ -83,7 +84,7 @@ const IssuesManager = () => {
       <table
         border="1"
         cellPadding="8"
-        style={{ width: "100%", marginTop: "15px" }}
+        className="styled-table"
       >
         <thead>
           <tr>
@@ -118,6 +119,7 @@ const IssuesManager = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

@@ -60,44 +60,46 @@ const PlaceOrderPage = () => {
   };
 
   return (
-    <div>
-      <h2>Place an Order</h2>
+    <div className="page-container">
+      <div className="page-card">
+        <h2 className="page-title">Place an Order</h2>
 
-      <h3>Available Products</h3>
-      {Array.isArray(products) &&
-        products.map((p) => (
-          <div key={p._id}>
-            <strong>{p.name}</strong> — In Stock: {p.stock}
-            <button onClick={() => handleAddItem(p._id)}>Add</button>
+        <h3>Available Products</h3>
+        {Array.isArray(products) &&
+          products.map((p) => (
+            <div key={p._id}>
+              <strong>{p.name}</strong> — In Stock: {p.stock}
+              <button onClick={() => handleAddItem(p._id)}>Add</button>
+            </div>
+          ))}
+
+        <h3>Your Order</h3>
+        {orderItems.map((item, idx) => (
+          <div key={idx}>
+            Product: {products.find((p) => p._id === item.product)?.name}
+            <input
+              type="number"
+              min="1"
+              value={item.quantity}
+              onChange={(e) => {
+                const newItems = [...orderItems];
+                newItems[idx].quantity = Number(e.target.value);
+                setOrderItems(newItems);
+              }}
+            />
           </div>
         ))}
 
-      <h3>Your Order</h3>
-      {orderItems.map((item, idx) => (
-        <div key={idx}>
-          Product: {products.find((p) => p._id === item.product)?.name}
-          <input
-            type="number"
-            min="1"
-            value={item.quantity}
-            onChange={(e) => {
-              const newItems = [...orderItems];
-              newItems[idx].quantity = Number(e.target.value);
-              setOrderItems(newItems);
-            }}
-          />
-        </div>
-      ))}
+        <textarea
+          placeholder="Notes"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+        />
 
-      <textarea
-        placeholder="Notes"
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-      />
+        <button onClick={handleSubmitOrder}>Submit Order</button>
 
-      <button onClick={handleSubmitOrder}>Submit Order</button>
-
-      {message && <p>{message}</p>}
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 };

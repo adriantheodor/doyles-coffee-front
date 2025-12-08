@@ -69,8 +69,9 @@ const InventoryManager = () => {
   };
 
   return (
-    <div>
-      <h2>Inventory Manager</h2>
+    <div className="page-container">
+      <div className="page-card">
+      <h2 className="page-title">Inventory Manager</h2>
 
       <h3>{editingId ? "Edit Item" : "Add New Item"}</h3>
       <input
@@ -122,6 +123,7 @@ const InventoryManager = () => {
           </button>
         </div>
       ))}
+      </div>
     </div>
   );
 };

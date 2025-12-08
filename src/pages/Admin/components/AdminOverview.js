@@ -1,10 +1,10 @@
-import React from 'react';
-
 const AdminOverview = () => {
   return (
-    <div>
-      <h2>System Overview</h2>
+    <div className="page-container">
+      <div className="page-card">
+      <h2 className="page-title">System Overview</h2>
       <p>Show recent activity, total orders, system alerts, etc.</p>
+      </div>
     </div>
   );
 };

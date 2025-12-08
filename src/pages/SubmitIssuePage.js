@@ -36,33 +36,35 @@ const SubmitIssuePage = () => {
   };
 
   return (
-    <div>
-      <h1>Submit an Issue</h1>
-      {message && <p>{message}</p>}
+    <div className="page-container">
+      <div className="page-card">
+        <h1 className="page-title">Submit an Issue</h1>
+        {message && <p>{message}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name="title"
-          placeholder="Title"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            name="title"
+            placeholder="Title"
+            value={form.title}
+            onChange={handleChange}
+            required
+          />
 
-        <br />
+          <br />
 
-        <textarea
-          name="description"
-          placeholder="Describe the issue"
-          value={form.description}
-          onChange={handleChange}
-          required
-        />
+          <textarea
+            name="description"
+            placeholder="Describe the issue"
+            value={form.description}
+            onChange={handleChange}
+            required
+          />
 
-        <br />
+          <br />
 
-        <button type="submit">Submit Issue</button>
-      </form>
+          <button type="submit">Submit Issue</button>
+        </form>
+      </div>
     </div>
   );
 };
