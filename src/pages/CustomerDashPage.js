@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./CustomerDashPage.css"; // <-- You will make this (styles below)
 
 const CustomerDashPage = () => {
   const navigate = useNavigate();
@@ -12,36 +13,44 @@ const CustomerDashPage = () => {
   return (
     <div className="page-container">
       <div className="page-card">
-      <h1 className="page-title">Customer Dashboard</h1>
+        <h1 className="page-title">Customer Dashboard</h1>
 
-      <h3>Your Options</h3>
-      <ul>
-        <li>
-          <button onClick={() => navigate("/place-order")}>
-            Place a New Order
-          </button>
-        </li>
+        <div className="dash-section">
+          <h2 className="dash-subtitle">Your Options</h2>
 
-        <li>
-          <button onClick={() => alert("Order history coming soon!")}>
-            View Past Orders
-          </button>
-        </li>
+          <div className="dash-button-list">
+            <button
+              className="dash-btn"
+              onClick={() => navigate("/place-order")}
+            >
+              🛒 Place a New Order
+            </button>
 
-        <li>
-          <button onClick={() => navigate("/submit-issue")}>
-            Report an Issue
-          </button>
-        </li>
+            <button
+              className="dash-btn"
+              onClick={() => alert("Order history coming soon!")}
+            >
+              📦 View Past Orders
+            </button>
 
-        <li>
-          <button onClick={() => navigate("/invoices")}>View Invoices</button>
-        </li>
-      </ul>
+            <button
+              className="dash-btn"
+              onClick={() => navigate("/submit-issue")}
+            >
+              ⚠️ Report an Issue
+            </button>
 
-      <hr />
+            <button className="dash-btn" onClick={() => navigate("/invoices")}>
+              🧾 View Invoices
+            </button>
+          </div>
+        </div>
 
-      <button onClick={handleLogout}>Log Out</button>
+        <hr className="dash-divider" />
+
+        <button className="logout-btn" onClick={handleLogout}>
+          Log Out
+        </button>
       </div>
     </div>
   );
