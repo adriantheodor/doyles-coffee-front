@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "./CustomerDashPage.css"; // <-- You will make this (styles below)
+
 
 const CustomerDashPage = () => {
   const navigate = useNavigate();
