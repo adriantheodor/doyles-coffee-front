@@ -1,13 +1,30 @@
-import { useNavigate } from "react-router-dom";
+import PlaceOrderPage from "./components/PlaceOrderPage";
+import CustomerInvoices from "./components/CustomerInvoices";
+import CustomerIssueForm from "./components/CustomerIssueForm";
+import CustomerOrdersHistory from "./components/CustomerOrdersHistory";
+import CustomerOverview from "./components/CustomerOverview";
 
+const CustomerDashPage = ({ activeSection }) => {
+  const renderSection = () => {
+    switch (activeSection) {
+      case "home":
+        return <CustomerOverview />;
 
-const CustomerDashPage = () => {
-  const navigate = useNavigate();
+      case "orders":
+        return <PlaceOrderPage />;
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
+      case "history":
+        return <CustomerOrdersHistory />;
+
+      case "issues":
+        return <CustomerIssueForm />;
+
+      case "invoices":
+        return <CustomerInvoices />;
+
+      default:
+        return <CustomerOverview />;
+    }
   };
 
   return (
@@ -15,42 +32,7 @@ const CustomerDashPage = () => {
       <div className="page-card">
         <h1 className="page-title">Customer Dashboard</h1>
 
-        <div className="dash-section">
-          <h2 className="dash-subtitle">Your Options</h2>
-
-          <div className="dash-button-list">
-            <button
-              className="dash-btn"
-              onClick={() => navigate("/place-order")}
-            >
-              🛒 Place a New Order
-            </button>
-
-            <button
-              className="dash-btn"
-              onClick={() => alert("Order history coming soon!")}
-            >
-              📦 View Past Orders
-            </button>
-
-            <button
-              className="dash-btn"
-              onClick={() => navigate("/submit-issue")}
-            >
-              ⚠️ Report an Issue
-            </button>
-
-            <button className="dash-btn" onClick={() => navigate("/invoices")}>
-              🧾 View Invoices
-            </button>
-          </div>
-        </div>
-
-        <hr className="dash-divider" />
-
-        <button className="logout-btn" onClick={handleLogout}>
-          Log Out
-        </button>
+        <div>{renderSection()}</div>
       </div>
     </div>
   );

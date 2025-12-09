@@ -94,7 +94,9 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
               Admin Home
             </button>
 
-            <button onClick={() => handleSectionClick("inventory")}>Inventory</button>
+            <button onClick={() => handleSectionClick("inventory")}>
+              Inventory
+            </button>
 
             <button onClick={() => handleSectionClick("quotes")}>Quotes</button>
 
@@ -102,15 +104,69 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
 
             <button onClick={() => handleSectionClick("issues")}>Issues</button>
 
-            <button onClick={() => handleSectionClick("invoices")}>Invoices</button>
+            <button onClick={() => handleSectionClick("invoices")}>
+              Invoices
+            </button>
 
-            <button onClick={() => handleSectionClick("qrcodes")}>QR Codes</button>
+            <button onClick={() => handleSectionClick("qrcodes")}>
+              QR Codes
+            </button>
           </>
         )}
 
         {/* CUSTOMER NAV */}
         {user?.role === "customer" && (
-          <button onClick={handleCustomerNav}>Customer Home</button>
+          <>
+            <button
+              onClick={() => {
+                setActiveSection("home");
+                navigate("/dashboard");
+                setIsOpen(false);
+              }}
+            >
+              Customer Home
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveSection("orders");
+                navigate("/dashboard");
+                setIsOpen(false);
+              }}
+            >
+              Place Order
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveSection("history");
+                navigate("/dashboard");
+                setIsOpen(false);
+              }}
+            >
+              Past Orders
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveSection("issues");
+                navigate("/dashboard");
+                setIsOpen(false);
+              }}
+            >
+              Report Issue
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveSection("invoices");
+                navigate("/dashboard");
+                setIsOpen(false);
+              }}
+            >
+              Invoices
+            </button>
+          </>
         )}
 
         {/* LOGGED-IN USER CONTROLS */}
