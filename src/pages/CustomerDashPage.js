@@ -1,15 +1,11 @@
-import PlaceOrderPage from "./components/PlaceOrderPage";
-import CustomerInvoices from "./components/CustomerInvoices";
-import CustomerIssueForm from "./components/CustomerIssueForm";
-import CustomerOrdersHistory from "./components/CustomerOrdersHistory";
-import CustomerOverview from "./components/CustomerOverview";
+import PlaceOrderPage from "./PlaceOrderPage";
+import CustomerInvoices from "./InvoicesPage";
+import CustomerIssueForm from "./SubmitIssuePage";
+import CustomerOrdersHistory from "./PlaceOrderPage";
 
 const CustomerDashPage = ({ activeSection }) => {
   const renderSection = () => {
     switch (activeSection) {
-      case "home":
-        return <CustomerOverview />;
-
       case "orders":
         return <PlaceOrderPage />;
 
@@ -23,7 +19,7 @@ const CustomerDashPage = ({ activeSection }) => {
         return <CustomerInvoices />;
 
       default:
-        return <CustomerOverview />;
+        return <PlaceOrderPage />;
     }
   };
 
