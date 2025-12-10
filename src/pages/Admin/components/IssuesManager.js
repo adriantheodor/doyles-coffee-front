@@ -100,7 +100,7 @@ const IssuesManager = () => {
         <tbody>
           {issues.map((i) => (
             <tr key={i._id}>
-              <td>{i.user?.name || "Unknown"}</td>
+              <td>{i.customer?.name || "Unknown"}</td>
               <td>{i.title}</td>
               <td>{i.description}</td>
               <td>{i.status}</td>
