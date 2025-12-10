@@ -3,7 +3,6 @@ import PlaceOrderPage from "./PlaceOrderPage";
 import CustomerInvoices from "./InvoicesPage";
 import CustomerIssueForm from "./SubmitIssuePage";
 import CustomerOrdersHistory from "./CustomerOrdersHistory"; 
-import "./CustomerDashPage.css";
 import { API_BASE } from "../utils/api";
 
 const CustomerDashPage = ({ activeSection, setActiveSection }) => {
