@@ -4,7 +4,7 @@ import CustomerInvoices from "./InvoicesPage";
 import CustomerIssueForm from "./SubmitIssuePage";
 import CustomerOrdersHistory from "./CustomerOrdersHistory"; // FIXED
 import "./CustomerDashPage.css";
-import { API_BASE } from "../../utils/api";
+import { API_BASE } from "../utils/api";
 
 const CustomerDashPage = ({ activeSection, setActiveSection }) => {
   const [recentOrders, setRecentOrders] = useState([]);
