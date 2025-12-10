@@ -52,3 +52,4 @@ const AdminOverview = ({ metrics, recentOrders, recentIssues, setActiveSection }
     </div>
   );
 };
+export default AdminOverview;
