@@ -51,7 +51,15 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
   const renderSection = () => {
     switch (activeSection) {
       case "overview":
-        return <AdminOverview />;
+        return (
+          <AdminOverview
+            metrics={metrics}
+            recentOrders={recentOrders}
+            recentIssues={recentIssues}
+            setActiveSection={setActiveSection}
+          />
+        );
+
       case "inventory":
         return <InventoryManager />;
       case "orders":
@@ -70,19 +78,39 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
             <h2 className="section-title">Admin Overview</h2>
 
             <div className="quick-links">
-              <button onClick={() => setActiveSection("orders")}>📦 Manage Orders</button>
-              <button onClick={() => setActiveSection("inventory")}>🏷 Inventory</button>
-              <button onClick={() => setActiveSection("invoices")}>🧾 Invoices</button>
-              <button onClick={() => setActiveSection("issues")}>⚠️ Issues</button>
-              <button onClick={() => setActiveSection("quotes")}>🗂 Quote Requests</button>
-              <button onClick={() => setActiveSection("qrcodes")}>🔳 QR Codes</button>
+              <button onClick={() => setActiveSection("orders")}>
+                📦 Manage Orders
+              </button>
+              <button onClick={() => setActiveSection("inventory")}>
+                🏷 Inventory
+              </button>
+              <button onClick={() => setActiveSection("invoices")}>
+                🧾 Invoices
+              </button>
+              <button onClick={() => setActiveSection("issues")}>
+                ⚠️ Issues
+              </button>
+              <button onClick={() => setActiveSection("quotes")}>
+                🗂 Quote Requests
+              </button>
+              <button onClick={() => setActiveSection("qrcodes")}>
+                🔳 QR Codes
+              </button>
             </div>
 
             <div className="metrics-row">
-              <div className="metric-card">Total Orders: {metrics.totalOrders}</div>
-              <div className="metric-card">Pending Orders: {metrics.pendingOrders}</div>
-              <div className="metric-card">Fulfilled Orders: {metrics.fulfilledOrders}</div>
-              <div className="metric-card">Open Issues: {metrics.openIssues}</div>
+              <div className="metric-card">
+                Total Orders: {metrics.totalOrders}
+              </div>
+              <div className="metric-card">
+                Pending Orders: {metrics.pendingOrders}
+              </div>
+              <div className="metric-card">
+                Fulfilled Orders: {metrics.fulfilledOrders}
+              </div>
+              <div className="metric-card">
+                Open Issues: {metrics.openIssues}
+              </div>
             </div>
 
             <h3 className="sub-title">Recent Orders</h3>
