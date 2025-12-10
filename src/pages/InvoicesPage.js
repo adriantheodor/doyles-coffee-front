@@ -12,9 +12,36 @@ const InvoicesPage = () => {
     });
 
     const data = await res.json();
+    if (Array.isArray(data)) setInvoices(data);
+  };
 
-    if (Array.isArray(data)) {
-      setInvoices(data);
+  const downloadPDF = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(`${API_BASE}api/invoices/${id}/pdf`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        alert("Failed to download invoice PDF");
+        return;
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `invoice-${id}.pdf`;
+      link.click();
+
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("PDF Download Error:", err);
+      alert("Error downloading PDF.");
     }
   };
 
@@ -37,13 +64,9 @@ const InvoicesPage = () => {
               <br />
               <strong>Date:</strong>{" "}
               {new Date(invoice.createdAt).toLocaleDateString()} <br />
-              <a
-                href={`${API_BASE}api/invoices/${invoice._id}/pdf`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <button onClick={() => downloadPDF(invoice._id)}>
                 Download PDF
-              </a>
+              </button>
             </li>
           ))}
         </ul>
