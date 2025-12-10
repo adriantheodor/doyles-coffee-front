@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_BASE } from "../../utils/api";
+import { API_BASE } from "../utils/api";
 import "./CustomerOrdersHistory.css"; // optional if you want extra custom styling
 
 const CustomerOrdersHistory = () => {
