@@ -66,37 +66,7 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
         Welcome back, {user?.name}!
       </h2>
 
-      {/* QUICK ACTION CARDS */}
-      <div className="quick-links-grid">
-        <button
-          className="quick-card"
-          onClick={() => setActiveSection("orders")}
-        >
-          ➕ Place Order
-        </button>
-
-        <button
-          className="quick-card"
-          onClick={() => setActiveSection("history")}
-        >
-          📦 Past Orders
-        </button>
-
-        <button
-          className="quick-card"
-          onClick={() => setActiveSection("issues")}
-        >
-          ⚠️ Report Issue
-        </button>
-
-        <button
-          className="quick-card"
-          onClick={() => setActiveSection("invoices")}
-        >
-          🧾 View Invoices
-        </button>
-      </div>
-
+      
       {/* RECENT ORDERS */}
       <div className="section-box">
         <h3>Recent Orders</h3>
