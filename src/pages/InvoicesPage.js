@@ -7,7 +7,7 @@ const InvoicesPage = () => {
   const fetchMyInvoices = async () => {
     const res = await fetch(`${API_BASE}api/invoices/my`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
 
@@ -17,7 +17,7 @@ const InvoicesPage = () => {
 
   const downloadPDF = async (id) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("accessToken");
 
       const res = await fetch(`${API_BASE}api/invoices/${id}/pdf`, {
         headers: {

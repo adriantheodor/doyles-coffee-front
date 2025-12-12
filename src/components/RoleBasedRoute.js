@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
 const RoleBasedRoute = ({ children, allowedRoles }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accessToken');
   const user = JSON.parse(localStorage.getItem('user'));
 
   if (!token || !user || !allowedRoles.includes(user.role)) {

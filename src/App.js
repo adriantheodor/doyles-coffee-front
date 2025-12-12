@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
 } from "react-router-dom";
+import axios from "axios";
 
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
@@ -21,6 +22,7 @@ import HomePage from "./pages/HomePage";
 import SubmitIssuePage from "./pages/SubmitIssuePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 
+import { API_BASE } from "./utils/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -35,6 +37,41 @@ function AppWrapper() {
   });
 
   const [activeSection, setActiveSection] = useState("overview");
+
+  // 🔁 SILENT REFRESH on first load
+  useEffect(() => {
+    const trySilentRefresh = async () => {
+      try {
+        const resp = await axios.post(
+          `${API_BASE}api/auth/refresh`,
+          {},
+          { withCredentials: true }
+        );
+
+        const newToken = resp.data.token;
+        if (newToken) {
+          localStorage.setItem("accessToken", newToken);
+        }
+
+        // If user lost, restore from backend (optional)
+        if (!user) {
+          const me = await axios.get(`${API_BASE}api/auth/me`, {
+            headers: { Authorization: `Bearer ${newToken}` },
+          });
+
+          localStorage.setItem("user", JSON.stringify(me.data));
+          setUser(me.data);
+        }
+      } catch (err) {
+        console.log("Silent refresh failed — user stays logged out.");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+        setUser(null);
+      }
+    };
+
+    trySilentRefresh();
+  }, []);
 
   const handleLogin = (userInfo) => {
     setUser(userInfo);
@@ -84,6 +121,7 @@ function AppWrapper() {
           }
         />
 
+        {/* CUSTOMER INVOICES */}
         <Route
           path="/invoices"
           element={

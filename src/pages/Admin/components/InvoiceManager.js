@@ -7,7 +7,7 @@ const InvoiceManager = () => {
 
   const downloadPDF = async (id) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("accessToken");
 
       const res = await fetch(`${API_BASE}api/invoices/${id}/pdf`, {
         headers: {
@@ -37,7 +37,7 @@ const InvoiceManager = () => {
   const fetchInvoices = async () => {
     try {
       const res = await fetch(`${API_BASE}api/invoices`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
 
       const data = await res.json();
@@ -57,7 +57,7 @@ const InvoiceManager = () => {
 
     const res = await fetch(`${API_BASE}api/invoices/${id}`, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
     });
 
     if (res.ok) {

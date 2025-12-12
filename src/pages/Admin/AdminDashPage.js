@@ -16,7 +16,7 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
   const [metrics, setMetrics] = useState({});
 
   const fetchDashboardData = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
 
     const orderRes = await fetch(`${API_BASE}api/orders`, {
       headers: { Authorization: `Bearer ${token}` },

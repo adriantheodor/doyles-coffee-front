@@ -19,7 +19,7 @@ const SubmitIssuePage = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // ★ REQUIRED
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // ★ REQUIRED
       },
       body: JSON.stringify({
         title: form.title,

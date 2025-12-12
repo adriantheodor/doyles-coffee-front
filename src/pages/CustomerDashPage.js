@@ -14,7 +14,7 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("accessToken");
 
         // Fetch orders
         const ordersRes = await fetch(`${API_BASE}api/orders/my`, {

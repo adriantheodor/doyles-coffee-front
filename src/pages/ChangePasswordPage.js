@@ -9,7 +9,7 @@ const ChangePasswordPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("accessToken");
       const res = await axios.post(
         "http://localhost:4000/api/auth/change-password",
         { currentPassword, newPassword },

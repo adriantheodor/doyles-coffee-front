@@ -7,7 +7,7 @@ const OrderManager = () => {
   const fetchOrders = async () => {
     const res = await fetch(`${API_BASE}api/orders`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
 
@@ -27,7 +27,7 @@ const OrderManager = () => {
     const res = await fetch(`${API_BASE}api/orders/${id}/complete`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
 

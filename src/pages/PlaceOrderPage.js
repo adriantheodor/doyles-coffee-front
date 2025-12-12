@@ -12,7 +12,7 @@ const PlaceOrderPage = () => {
     const fetchProducts = async () => {
       const res = await fetch(`${API_BASE}api/products`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
 
@@ -34,7 +34,7 @@ const PlaceOrderPage = () => {
   };
 
   const handleSubmitOrder = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
 
     const res = await fetch(`${API_BASE}api/orders`, {
       method: "POST",

@@ -11,7 +11,7 @@ export default function QuoteRequestsWidget() {
     setLoading(true);
     try {
       const res = await api.get("api/quotes", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
       setRequests(res.data);
     } catch (err) {
@@ -27,7 +27,7 @@ export default function QuoteRequestsWidget() {
         {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
       );
@@ -45,7 +45,7 @@ export default function QuoteRequestsWidget() {
 
     try {
       await api.delete(`api/quotes/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
 
       fetchRequests();
@@ -68,7 +68,7 @@ export default function QuoteRequestsWidget() {
           notes: scheduleForm.adminNotes || "",
         },
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
         }
       );
 
@@ -86,7 +86,7 @@ export default function QuoteRequestsWidget() {
         `api/quotes/${id}`,
         { status },
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
         }
       );
       fetchRequests();

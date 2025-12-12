@@ -6,7 +6,7 @@ const InventoryManager = () => {
   const [form, setForm] = useState({ name: "", price: "", stock: "" });
   const [editingId, setEditingId] = useState(null);
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("accessToken");
 
   // Fetch inventory
   const loadItems = async () => {
