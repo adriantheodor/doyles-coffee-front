@@ -8,7 +8,7 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
     setUser(null);
     navigate("/login");
