@@ -104,6 +104,10 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
 
             <button onClick={() => handleSectionClick("issues")}>Issues</button>
 
+            <button onClick={() => handleSectionClick("users")}>
+              Admin Users
+            </button>
+
             <button onClick={() => handleSectionClick("invoices")}>
               Invoices
             </button>
