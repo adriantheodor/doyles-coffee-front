@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminOverview from "./components/AdminOverview";
+import AdminManager from "./components/AdminManager";
 import InventoryManager from "./components/InventoryManager";
 import OrderManager from "./components/OrderManager";
 import IssueManager from "./components/IssuesManager";
@@ -66,6 +67,8 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
         return <OrderManager />;
       case "issues":
         return <IssueManager />;
+      case "users":
+        return <AdminManager />;
       case "invoices":
         return <InvoiceManager />;
       case "qrcodes":
@@ -89,6 +92,9 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
               </button>
               <button onClick={() => setActiveSection("issues")}>
                 ⚠️ Issues
+              </button>
+              <button onClick={() => setActiveSection("users")}>
+                👥 Manage Admins
               </button>
               <button onClick={() => setActiveSection("quotes")}>
                 🗂 Quote Requests
