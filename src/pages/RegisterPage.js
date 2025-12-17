@@ -113,16 +113,6 @@ const RegisterPage = () => {
             <label htmlFor="role" className="form-label">
               Account Type
             </label>
-            <select
-              id="role"
-              className="form-input" // Use form-input for basic styling
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-            >
-              <option value="customer">Customer</option>
-              <option value="admin">Admin</option>
-            </select>
           </div>
 
           {/* 5. Use the styled button class */}
