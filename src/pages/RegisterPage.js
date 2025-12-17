@@ -108,13 +108,6 @@ const RegisterPage = () => {
             />
           </div>
 
-          {/* Form Group: Role Selection (styled as form group) */}
-          <div className="form-group">
-            <label htmlFor="role" className="form-label">
-              Account Type
-            </label>
-          </div>
-
           {/* 5. Use the styled button class */}
           <button type="submit" className="login-btn">
             Register Account
