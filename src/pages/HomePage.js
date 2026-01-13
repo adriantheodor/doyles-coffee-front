@@ -10,6 +10,7 @@ import pic6 from "../assets/pic6.jpeg";
 import pic7 from "../assets/pic7.jpeg";
 import pic8 from "../assets/pic8.jpeg";
 import pic9 from "../assets/pic9.jpeg";
+import { useState, useEffect } from "react";
 
 const breakroomImages = [
   { src: pic6, alt: "Fresh fruit and healthy options" },
@@ -24,6 +25,30 @@ const breakroomImages = [
 ];
 
 const HomePage = ({ onLogin }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-advance carousel every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % breakroomImages.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const goToPrevious = () => {
+    setCurrentSlide((prev) =>
+      prev === 0 ? breakroomImages.length - 1 : prev - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % breakroomImages.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
   return (
     <div id="top" className="home-page bg-light min-vh-100 d-flex flex-column">
       <header className="text-center py-5 bg-white shadow-sm">
@@ -56,47 +81,91 @@ const HomePage = ({ onLogin }) => {
               </p>
             </section>
 
-            {/* 🔥 UPDATED: Carousel/Slideshow Section 🔥 */}
+            {/* 🔥 UPDATED: Professional Carousel/Slideshow Section 🔥 */}
             <section id="services" className="mb-5">
-              <div
-                id="breakroomCarousel"
-                className="carousel slide shadow-lg rounded-3 overflow-hidden"
-                data-bs-ride="carousel"
-              >
-                {/* Carousel Indicators (Dots at the bottom) */}
-                <div className="carousel-indicators">
+              <div className="professional-carousel-container">
+                {/* Main Carousel */}
+                <div className="carousel-main-wrapper">
+                  <div className="carousel-image-container">
+                    {breakroomImages.map((image, index) => (
+                      <div
+                        key={index}
+                        className={`carousel-slide ${
+                          index === currentSlide ? "active" : ""
+                        }`}
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="carousel-image-full"
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Previous Button */}
+                  <button
+                    className="carousel-control prev-button"
+                    onClick={goToPrevious}
+                    aria-label="Previous slide"
+                  >
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+
+                  {/* Next Button */}
+                  <button
+                    className="carousel-control next-button"
+                    onClick={goToNext}
+                    aria-label="Next slide"
+                  >
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+
+                  {/* Slide Counter */}
+                  <div className="carousel-counter">
+                    {currentSlide + 1} / {breakroomImages.length}
+                  </div>
+                </div>
+
+                {/* Carousel Indicators (Dots) */}
+                <div className="carousel-indicators-custom">
                   {breakroomImages.map((_, index) => (
                     <button
                       key={index}
-                      type="button"
-                      data-bs-target="#breakroomCarousel"
-                      data-bs-slide-to={index}
-                      className={index === 0 ? "active" : ""}
-                      aria-current={index === 0 ? "true" : "false"}
-                      aria-label={`Slide ${index + 1}`}
+                      className={`indicator-dot ${
+                        index === currentSlide ? "active" : ""
+                      }`}
+                      onClick={() => goToSlide(index)}
+                      aria-label={`Go to slide ${index + 1}`}
                     ></button>
                   ))}
                 </div>
 
-                {/* Carousel Inner (The Slides) */}
-                <div className="carousel-inner">
-                  {breakroomImages.map((image, index) => (
-                    <div
-                      key={index}
-                      className={`carousel-item ${index === 0 ? "active" : ""}`}
-                      data-bs-interval="5000" // 5-second delay per slide
-                    >
-                      <img
-                        src={image.src}
-                        className="d-block w-100 carousel-image" // New class for styling
-                        alt={image.alt}
-                      />
-                      {/* Optional Caption Overlay */}
-                      <div className="carousel-caption d-none d-md-block bg-dark opacity-75 p-2 rounded">
-                        <h5>{image.caption}</h5>
-                      </div>
-                    </div>
-                  ))}
+                {/* Image Caption */}
+                <div className="carousel-caption-custom">
+                  <p>{breakroomImages[currentSlide].alt}</p>
                 </div>
               </div>
             </section>
