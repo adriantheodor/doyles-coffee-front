@@ -102,9 +102,9 @@ const HomePage = ({ onLogin }) => {
             {/* Contact Section */}
             <section id="contact" className="mb-5">
               <h2 className="mb-3 text-primary">Get In Touch</h2>
-              <div className="contact-section">
+              <div className="contact-section row g-4">
                 {/* Location Block */}
-                <div className="contact-card">
+                <div className="contact-card col-md-4">
                   <div className="icon-box">
                     <svg
                       width="24"
@@ -125,7 +125,7 @@ const HomePage = ({ onLogin }) => {
                 </div>
 
                 {/* Phone Block */}
-                <div className="contact-card">
+                <div className="contact-card col-md-4">
                   <div className="icon-box">
                     <svg
                       width="24"
@@ -145,7 +145,7 @@ const HomePage = ({ onLogin }) => {
                 </div>
 
                 {/* Email Block */}
-                <div className="contact-card">
+                <div className="contact-card col-md-4">
                   <div className="icon-box">
                     <svg
                       width="24"
