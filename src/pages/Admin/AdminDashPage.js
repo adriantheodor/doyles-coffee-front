@@ -97,17 +97,7 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
         return <InvoiceManager />;
       case "qrcodes":
         return <QRCodeGenerator />;
-      caif (isLoading) {
-          return (
-            <div className="dash-home">
-              <h2 className="section-title">Admin Overview</h2>
-              <div style={{ textAlign: "center", padding: "40px" }}>
-                <p style={{ fontSize: "18px", color: "#666" }}>⏳ Loading dashboard data...</p>
-              </div>
-            </div>
-          );
-        }
-        se "quotes":
+      case "quotes":
         return <QuoteRequestsWidget />;
       default:
         return (
@@ -173,10 +163,9 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
                   </tr>
                 ))}
               </tbody>
-            </table>
+        </table>
 
-        }
-            <h3 className="sub-title">Recent Issues</h3>
+        <h3 className="sub-title">Recent Issues</h3>
             <ul className="issue-list">
               {recentIssues.map((issue) => (
                 <li key={issue._id}>

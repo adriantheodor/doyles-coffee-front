@@ -49,6 +49,61 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
     fetchData();
   }, []);
 
+  // Render home screen
+  const renderHome = () => {
+    if (isLoading) {
+      return (
+        <div className="customer-home">
+          <h2 style={{ color: "var(--brand-green)" }}>Welcome back, {user?.name}!</h2>
+          <div style={{ textAlign: "center", padding: "40px" }}>
+            <p style={{ fontSize: "16px", color: "#666" }}>⏳ Loading your dashboard...</p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="customer-home">
+        <h2 style={{ color: "var(--brand-green)" }}>Welcome back, {user?.name}!</h2>
+
+        {/* RECENT ORDERS */}
+        <div className="section-box">
+          <h3>Recent Orders</h3>
+          {recentOrders.length === 0 ? (
+            <p>No recent orders.</p>
+          ) : (
+            recentOrders.map((o) => (
+              <div key={o._id} className="list-item">
+                <strong>Order #{o._id.slice(-6)}</strong> — {o.status}
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* RECENT ISSUES */}
+        <div className="section-box">
+          <h3>Your Recent Issues</h3>
+          {recentIssues.length === 0 ? (
+            <p>No issues reported.</p>
+          ) : (
+            recentIssues.map((issue) => (
+              <div key={issue._id} className="list-item">
+                Issue #{issue._id.slice(-6)} — {issue.status}
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* ACCOUNT SUMMARY */}
+        <div className="section-box">
+          <h3>Your Account Info</h3>
+          <p><strong>Name:</strong> {user?.name}</p>
+          <p><strong>Email:</strong> {user?.email}</p>
+        </div>
+      </div>
+    );
+  };
+
   // Decide which page to show
   const renderSection = () => {
     switch (activeSection) {
@@ -65,62 +120,8 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
         return <CustomerInvoices />;
 
       default:
-        return renderHome(); // NEW: home screen
+        return renderHome();
     }
-  };
-
-  // ----------------------{
-    if (isLoading) {
-      return (
-        <div className="customer-home">
-          <h2 style={{ color: "var(--brand-green)" }}>Welcome back, {user?.name}!</h2>
-          <div style={{ textAlign: "center", padding: "40px" }}>
-            <p style={{ fontSize: "16px", color: "#666" }}>⏳ Loading your dashboard...</p>
-          </div>
-        </div>
-      );
-    }
-
-    return (  Welcome back, {user?.name}!
-      </h2>
-
-      
-      {/* RECENT ORDERS */}
-      <div className="section-box">
-        <h3>Recent Orders</h3>
-        {recentOrders.length === 0 ? (
-          <p>No recent orders.</p>
-        ) : (
-          recentOrders.map((o) => (
-            <div key={o._id} className="list-item">
-              <strong>Order #{o._id.slice(-6)}</strong> — {o.status}
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* RECENT ISSUES */}
-      <div className="section-box">
-        <h3>Your Recent Issues</h3>
-        {recentIssues.length === 0 ? (
-          <p>No issues reported.</p>
-        ) : (
-          recentIssues.map((issue) => (
-            <div key={issue._id} className="list-item">
-              Issue #{issue._id.slice(-6)} — {issue.status}
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* ACCOUNT SUMMARY */}
-      <div className="section-box">
-        <h3>Your Account Info</h3>
-        <p><strong>Name:</strong> {user?.name}</p>
-        <p><strong>Email:</strong> {user?.email}</p>
-      </div>
-    </div>
-    );
   };
 
   return (
