@@ -14,33 +14,32 @@ const LoginPage = ({ onLogin }) => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    // ❗ Must allow cookies to be set (refresh token)
-    const res = await api.post(
-      "api/auth/login",
-      formData,
-      { withCredentials: true }
-    );
+    e.preventDefault();
+    try {
+      // ❗ Must allow cookies to be set (refresh token)
+      const res = await api.post(
+        "api/auth/login",
+        formData,
+        { withCredentials: true }
+      );
 
-    const { token, user } = res.data;
+      const { token, user } = res.data;
 
-    // Save short-lived access token
-    localStorage.setItem("accessToken", token);
+      // Save short-lived access token
+      localStorage.setItem("accessToken", token);
 
-    // Save user details
-    localStorage.setItem("user", JSON.stringify(user));
+      // Save user details
+      localStorage.setItem("user", JSON.stringify(user));
 
-    // Lift state up into App
-    onLogin?.(user);
+      // Lift state up into App
+      onLogin?.(user);
 
-    // Send user to correct dashboard
-    navigate(user.role === "admin" ? "/admin" : "/dashboard");
-
-  } catch (err) {
-    setError(err.response?.data?.message || "Login failed");
-  }
-};
+      // Send user to correct dashboard
+      navigate(user.role === "admin" ? "/admin" : "/dashboard");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+    }
+  };
 
 
   return (

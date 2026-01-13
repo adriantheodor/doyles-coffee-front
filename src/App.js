@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -25,6 +25,103 @@ import PlaceOrderPage from "./pages/PlaceOrderPage";
 import { API_BASE } from "./utils/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Error caught by boundary:", error, errorInfo);
+    this.setState({
+      error,
+      errorInfo,
+    });
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+            backgroundColor: "#f8f9fa",
+            padding: "20px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "40px",
+              borderRadius: "8px",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+              maxWidth: "600px",
+              textAlign: "center",
+            }}
+          >
+            <h1 style={{ color: "#d32f2f", marginBottom: "20px" }}>
+              ❌ Something went wrong
+            </h1>
+            <p style={{ color: "#666", marginBottom: "20px", fontSize: "16px" }}>
+              We're sorry, but something unexpected happened. Please try refreshing the page.
+            </p>
+            {this.state.error && (
+              <details
+                style={{
+                  backgroundColor: "#f5f5f5",
+                  padding: "10px",
+                  borderRadius: "4px",
+                  textAlign: "left",
+                  marginBottom: "20px",
+                }}
+              >
+                <summary style={{ cursor: "pointer", color: "#d32f2f" }}>
+                  Error details
+                </summary>
+                <pre
+                  style={{
+                    fontSize: "12px",
+                    overflow: "auto",
+                    marginTop: "10px",
+                    color: "#333",
+                  }}
+                >
+                  {this.state.error.toString()}
+                  {this.state.errorInfo?.componentStack}
+                </pre>
+              </details>
+            )}
+            <button
+              onClick={() => window.location.reload()}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: "#1976d2",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                fontSize: "16px",
+              }}
+            >
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 function AppWrapper() {
   const location = useLocation();
@@ -71,7 +168,7 @@ function AppWrapper() {
     };
 
     trySilentRefresh();
-  }, []);
+  }, [user]);
 
   const handleLogin = (userInfo) => {
     setUser(userInfo);
@@ -160,8 +257,10 @@ function AppWrapper() {
 
 export default function App() {
   return (
-    <Router>
-      <AppWrapper />
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <AppWrapper />
+      </Router>
+    </ErrorBoundary>
   );
 }

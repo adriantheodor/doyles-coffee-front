@@ -1,7 +1,7 @@
 // CustomerDashPage.jsx (ORDER FORM SECTION)
 
 import { useState, useEffect } from "react";
-import { API_BASE } from "../utils/api";
+import { api, API_BASE } from "../utils/api";
 
 const CustomerOrderForm = () => {
   const [products, setProducts] = useState([]);
@@ -11,9 +11,13 @@ const CustomerOrderForm = () => {
 
   useEffect(() => {
     const loadProducts = async () => {
-      const res = await fetch(`${API_BASE}api/products`);
-      const data = await res.json();
-      setProducts(data);
+      try {
+        const res = await api.get("api/products");
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Failed to load products:", err);
+        setProducts([]);
+      }
     };
     loadProducts();
   }, []);
@@ -27,19 +31,17 @@ const CustomerOrderForm = () => {
       return sum + (p?.price || 0) * i.quantity;
     }, 0);
 
-    const res = await fetch(`${API_BASE}api/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify({ items, notes, totalPrice }),
-    });
+    try {
+      const res = await api.post("api/orders", { items, notes, totalPrice });
 
-    if (res.ok) {
-      setSuccess("Order placed!");
-      setItems([{ product: "", quantity: 1 }]);
-      setNotes("");
+      if (res.status === 200 || res.status === 201) {
+        setSuccess("Order placed!");
+        setItems([{ product: "", quantity: 1 }]);
+        setNotes("");
+      }
+    } catch (err) {
+      console.error("Failed to submit order:", err);
+      setSuccess("");
     }
   };
 

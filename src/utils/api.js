@@ -61,13 +61,14 @@ api.interceptors.response.use(
               withCredentials: true,
               headers: { "Content-Type": "application/json" },
             }
-          );
+          ).finally(() => {
+            // Always reset the flag after refresh attempt (success or failure)
+            isRefreshing = false;
+            refreshPromise = null;
+          });
         }
 
         const refreshResp = await refreshPromise;
-        isRefreshing = false;
-        refreshPromise = null;
-
         const newAccessToken = refreshResp.data.token;
         setAccessToken(newAccessToken);
 
@@ -77,8 +78,6 @@ api.interceptors.response.use(
 
         return axios(originalRequest);
       } catch (refreshErr) {
-        isRefreshing = false;
-        refreshPromise = null;
         setAccessToken(null);
         // optionally you can redirect to login here, or let the app handle it
         return Promise.reject(refreshErr);

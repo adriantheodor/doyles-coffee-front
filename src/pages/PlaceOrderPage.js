@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_BASE } from "../utils/api";
+import { api, API_BASE } from "../utils/api";
 
 const PlaceOrderPage = () => {
   const [products, setProducts] = useState([]);
@@ -10,18 +10,16 @@ const PlaceOrderPage = () => {
   // Load inventory for customers
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch(`${API_BASE}api/products`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-
-      const data = await res.json();
-
-      if (Array.isArray(data)) {
-        setProducts(data);
-      } else {
-        console.error("Error loading products:", data);
+      try {
+        const res = await api.get("api/products");
+        if (Array.isArray(res.data)) {
+          setProducts(res.data);
+        } else {
+          console.error("Error loading products:", res.data);
+          setProducts([]);
+        }
+      } catch (err) {
+        console.error("Failed to load products:", err);
         setProducts([]);
       }
     };
@@ -34,28 +32,36 @@ const PlaceOrderPage = () => {
   };
 
   const handleSubmitOrder = async () => {
-    const token = localStorage.getItem("accessToken");
+    // Validate order items before submission
+    if (orderItems.length === 0) {
+      setMessage("Please add at least one item to your order.");
+      return;
+    }
 
-    const res = await fetch(`${API_BASE}api/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
+    // Validate that all items have valid products
+    const invalidItems = orderItems.filter(
+      (item) => !products.find((p) => p._id === item.product)
+    );
+    if (invalidItems.length > 0) {
+      setMessage("Some items in your order are no longer available. Please remove them.");
+      return;
+    }
+
+    try {
+      const res = await api.post("api/orders", {
         items: orderItems,
         notes,
-      }),
-    });
+      });
 
-    const data = await res.json();
-
-    if (res.ok) {
-      setMessage("Order submitted successfully!");
-      setOrderItems([]);
-      setNotes("");
-    } else {
-      setMessage("Failed to submit order.");
+      if (res.status === 200 || res.status === 201) {
+        setMessage("Order submitted successfully!");
+        setOrderItems([]);
+        setNotes("");
+      } else {
+        setMessage("Failed to submit order.");
+      }
+    } catch (err) {
+      setMessage(err.response?.data?.message || "Failed to submit order.");
     }
   };
 
@@ -74,21 +80,45 @@ const PlaceOrderPage = () => {
           ))}
 
         <h3>Your Order</h3>
-        {orderItems.map((item, idx) => (
-          <div key={idx}>
-            Product: {products.find((p) => p._id === item.product)?.name}
-            <input
-              type="number"
-              min="1"
-              value={item.quantity}
-              onChange={(e) => {
-                const newItems = [...orderItems];
-                newItems[idx].quantity = Number(e.target.value);
-                setOrderItems(newItems);
-              }}
-            />
-          </div>
-        ))}
+        {orderItems.length === 0 ? (
+          <p>No items added yet. Select products from above.</p>
+        ) : (
+          orderItems.map((item, idx) => {
+            const product = products.find((p) => p._id === item.product);
+            return (
+              <div key={idx} style={{ marginBottom: "10px", padding: "8px", border: "1px solid #ddd", borderRadius: "4px" }}>
+                <div>
+                  <strong>Product:</strong> {product?.name || "Unknown Product (removed from inventory)"}
+                </div>
+                <div>
+                  <label>
+                    Quantity:
+                    <input
+                      type="number"
+                      min="1"
+                      value={item.quantity}
+                      onChange={(e) => {
+                        const newItems = [...orderItems];
+                        newItems[idx].quantity = Math.max(1, Number(e.target.value));
+                        setOrderItems(newItems);
+                      }}
+                      style={{ marginLeft: "8px", width: "60px" }}
+                    />
+                  </label>
+                </div>
+                <button
+                  onClick={() => {
+                    const newItems = orderItems.filter((_, i) => i !== idx);
+                    setOrderItems(newItems);
+                  }}
+                  style={{ marginTop: "8px", padding: "4px 8px" }}
+                >
+                  Remove
+                </button>
+              </div>
+            );
+          })
+        )}
 
         <textarea
           placeholder="Notes"

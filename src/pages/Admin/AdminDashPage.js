@@ -15,34 +15,58 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
   const [recentOrders, setRecentOrders] = useState([]);
   const [recentIssues, setRecentIssues] = useState([]);
   const [metrics, setMetrics] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchDashboardData = async () => {
-    const token = localStorage.getItem("accessToken");
+    setIsLoading(true);
+    try {
+      const token = localStorage.getItem("accessToken");
 
-    const orderRes = await fetch(`${API_BASE}api/orders`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const orders = await orderRes.json();
+      const orderRes = await fetch(`${API_BASE}api/orders`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!orderRes.ok) {
+        throw new Error(`Failed to fetch orders: ${orderRes.status}`);
+      }
+      const orders = await orderRes.json();
 
-    setRecentOrders(
-      orders
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        .slice(0, 5)
-    );
+      setRecentOrders(
+        Array.isArray(orders)
+          ? orders
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              .slice(0, 5)
+          : []
+      );
 
-    const issueRes = await fetch(`${API_BASE}api/issues`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const issues = await issueRes.json();
+      const issueRes = await fetch(`${API_BASE}api/issues`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!issueRes.ok) {
+        throw new Error(`Failed to fetch issues: ${issueRes.status}`);
+      }
+      const issues = await issueRes.json();
 
-    setRecentIssues(issues.slice(0, 4));
+      setRecentIssues(Array.isArray(issues) ? issues.slice(0, 4) : []);
 
-    setMetrics({
-      totalOrders: orders.length,
-      pendingOrders: orders.filter((o) => o.status !== "Fulfilled").length,
-      fulfilledOrders: orders.filter((o) => o.status === "Fulfilled").length,
-      openIssues: issues.filter((i) => i.status !== "Resolved").length,
-    });
+      setMetrics({
+        totalOrders: Array.isArray(orders) ? orders.length : 0,
+        pendingOrders: Array.isArray(orders) ? orders.filter((o) => o.status !== "Fulfilled").length : 0,
+        fulfilledOrders: Array.isArray(orders) ? orders.filter((o) => o.status === "Fulfilled").length : 0,
+        openIssues: Array.isArray(issues) ? issues.filter((i) => i.status !== "Resolved").length : 0,
+      });
+    } catch (err) {
+      console.error("Admin dashboard fetch error:", err);
+      setRecentOrders([]);
+      setRecentIssues([]);
+      setMetrics({
+        totalOrders: 0,
+        pendingOrders: 0,
+        fulfilledOrders: 0,
+        openIssues: 0,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -73,7 +97,17 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
         return <InvoiceManager />;
       case "qrcodes":
         return <QRCodeGenerator />;
-      case "quotes":
+      caif (isLoading) {
+          return (
+            <div className="dash-home">
+              <h2 className="section-title">Admin Overview</h2>
+              <div style={{ textAlign: "center", padding: "40px" }}>
+                <p style={{ fontSize: "18px", color: "#666" }}>⏳ Loading dashboard data...</p>
+              </div>
+            </div>
+          );
+        }
+        se "quotes":
         return <QuoteRequestsWidget />;
       default:
         return (
@@ -141,6 +175,7 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
               </tbody>
             </table>
 
+        }
             <h3 className="sub-title">Recent Issues</h3>
             <ul className="issue-list">
               {recentIssues.map((issue) => (

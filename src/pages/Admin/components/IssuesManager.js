@@ -8,9 +8,17 @@ const IssuesManager = () => {
 
   const fetchIssues = async () => {
     try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        setErrorMsg("Authentication token not found. Please log in again.");
+        setIssues([]);
+        setLoading(false);
+        return;
+      }
+
       const res = await fetch(`${API_BASE}api/issues`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -41,29 +49,61 @@ const IssuesManager = () => {
   };
 
   const updateStatus = async (id, status) => {
-    await fetch(`${API_BASE}api/issues/${id}/status`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify({ status }),
-    });
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      alert("Authentication token not found. Please log in again.");
+      return;
+    }
 
-    fetchIssues();
+    try {
+      const res = await fetch(`${API_BASE}api/issues/${id}/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      if (!res.ok) {
+        alert("Failed to update issue status.");
+        return;
+      }
+
+      fetchIssues();
+    } catch (err) {
+      console.error("Error updating issue status:", err);
+      alert("Error updating issue status.");
+    }
   };
 
   const deleteIssue = async (id) => {
     if (!window.confirm("Delete this issue?")) return;
 
-    await fetch(`${API_BASE}api/issues/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    });
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      alert("Authentication token not found. Please log in again.");
+      return;
+    }
 
-    fetchIssues();
+    try {
+      const res = await fetch(`${API_BASE}api/issues/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        alert("Failed to delete issue.");
+        return;
+      }
+
+      fetchIssues();
+    } catch (err) {
+      console.error("Error deleting issue:", err);
+      alert("Error deleting issue.");
+    }
   };
 
   useEffect(() => {

@@ -8,11 +8,13 @@ import { API_BASE } from "../utils/api";
 const CustomerDashPage = ({ activeSection, setActiveSection }) => {
   const [recentOrders, setRecentOrders] = useState([]);
   const [recentIssues, setRecentIssues] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
 
   // Fetch latest 3 orders + issues
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const token = localStorage.getItem("accessToken");
 
@@ -20,17 +22,27 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
         const ordersRes = await fetch(`${API_BASE}api/orders/my`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        if (!ordersRes.ok) {
+          throw new Error(`Failed to fetch orders: ${ordersRes.status}`);
+        }
         const ordersData = await ordersRes.json();
-        setRecentOrders(ordersData.slice(0, 3));
+        setRecentOrders(Array.isArray(ordersData) ? ordersData.slice(0, 3) : []);
 
         // Fetch issues
         const issuesRes = await fetch(`${API_BASE}api/issues/my`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        if (!issuesRes.ok) {
+          throw new Error(`Failed to fetch issues: ${issuesRes.status}`);
+        }
         const issuesData = await issuesRes.json();
-        setRecentIssues(issuesData.slice(0, 3));
+        setRecentIssues(Array.isArray(issuesData) ? issuesData.slice(0, 3) : []);
       } catch (err) {
         console.error("Customer dash load error", err);
+        setRecentOrders([]);
+        setRecentIssues([]);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -57,13 +69,19 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
     }
   };
 
-  // ----------------------------
-  // CUSTOMER HOME DASH SECTION
-  // ----------------------------
-  const renderHome = () => (
-    <div className="customer-home">
-      <h2 style={{ color: "var(--brand-green)" }}>
-        Welcome back, {user?.name}!
+  // ----------------------{
+    if (isLoading) {
+      return (
+        <div className="customer-home">
+          <h2 style={{ color: "var(--brand-green)" }}>Welcome back, {user?.name}!</h2>
+          <div style={{ textAlign: "center", padding: "40px" }}>
+            <p style={{ fontSize: "16px", color: "#666" }}>⏳ Loading your dashboard...</p>
+          </div>
+        </div>
+      );
+    }
+
+    return (  Welcome back, {user?.name}!
       </h2>
 
       
@@ -102,7 +120,8 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
         <p><strong>Email:</strong> {user?.email}</p>
       </div>
     </div>
-  );
+    );
+  };
 
   return (
     <div className="page-container">

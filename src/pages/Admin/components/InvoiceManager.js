@@ -4,10 +4,15 @@ import { API_BASE } from "../../../utils/api";
 const InvoiceManager = () => {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const downloadPDF = async (id) => {
     try {
       const token = localStorage.getItem("accessToken");
+      if (!token) {
+        alert("Authentication token not found. Please log in again.");
+        return;
+      }
 
       const res = await fetch(`${API_BASE}api/invoices/${id}/pdf`, {
         headers: {
@@ -36,34 +41,66 @@ const InvoiceManager = () => {
 
   const fetchInvoices = async () => {
     try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        setErrorMsg("Authentication token not found. Please log in again.");
+        setInvoices([]);
+        setLoading(false);
+        return;
+      }
+
       const res = await fetch(`${API_BASE}api/invoices`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
+
+      if (!res.ok) {
+        setErrorMsg(`Failed to load invoices: ${res.status}`);
+        setInvoices([]);
+        setLoading(false);
+        return;
+      }
 
       const data = await res.json();
 
       if (Array.isArray(data)) {
         setInvoices(data);
+      } else {
+        setErrorMsg("Invalid data format received from server.");
+        setInvoices([]);
       }
 
       setLoading(false);
     } catch (err) {
       console.error("Error loading invoices:", err);
+      setErrorMsg("Error connecting to server.");
+      setInvoices([]);
+      setLoading(false);
     }
   };
 
   const deleteInvoice = async (id) => {
     if (!window.confirm("Delete this invoice?")) return;
 
-    const res = await fetch(`${API_BASE}api/invoices/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-    });
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      alert("Authentication token not found. Please log in again.");
+      return;
+    }
 
-    if (res.ok) {
-      fetchInvoices();
-    } else {
-      alert("Failed to delete invoice.");
+    try {
+      const res = await fetch(`${API_BASE}api/invoices/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (res.ok) {
+        fetchInvoices();
+      } else {
+        alert("Failed to delete invoice.");
+      }
+    } catch (err) {
+      console.error("Delete invoice error:", err);
+      alert("Error deleting invoice.");
     }
   };
 
