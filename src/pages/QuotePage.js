@@ -1,4 +1,4 @@
-// client/src/pages/QuoteRequestPage.jsx
+
 import { useState } from "react";
 
 export default function QuotePage() {

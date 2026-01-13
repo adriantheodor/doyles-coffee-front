@@ -135,15 +135,7 @@ const HomePage = ({ onLogin }) => {
                       </svg>
                     </div>
                     <h3>Location</h3>
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=150+Holly+Ave+Penndel+PA+19047"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      150 Holly Ave
-                      <br />
-                      Penndel, PA 19047
-                    </a>
+                    Penndel, PA 19047
                   </div>
 
                   {/* Phone Block */}
