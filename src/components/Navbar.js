@@ -69,9 +69,9 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               Contact
             </HashLink>
 
-            <HashLink smooth to="/#quote" onClick={() => setIsOpen(false)}>
+            <Link to="/quote" onClick={() => setIsOpen(false)}>
               Get a Quote
-            </HashLink>
+            </Link>
 
             <Link to="/login" onClick={() => setIsOpen(false)}>
               Login
