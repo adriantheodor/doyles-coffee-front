@@ -57,7 +57,8 @@
 @media (min-width: 992px) {
   .metrics-row {
     grid-template-columns: repeat(4, 1fr);
-  }\n}
+  }
+}
 
 .recent-table {
   width: 100%;
