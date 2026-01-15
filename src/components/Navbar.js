@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import useAuth from "../hooks/useAuth";
 import "./Navbar.css";
 
-const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
+const Navbar = ({ activeSection, setActiveSection }) => {
   const navigate = useNavigate();
+  const { user, logout, isAuthenticated } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-    setUser(null);
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
     setIsOpen(false);
   };
@@ -55,7 +55,7 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
 
       <div className={`navbar-links ${isOpen ? "open" : ""}`}>
         {/* PUBLIC NAV */}
-        {!user && (
+        {!isAuthenticated && (
           <>
             <HashLink smooth to="/#top" onClick={() => setIsOpen(false)}>
               Home
@@ -174,7 +174,7 @@ const Navbar = ({ user, setUser, activeSection, setActiveSection }) => {
         )}
 
         {/* LOGGED-IN USER CONTROLS */}
-        {user && (
+        {isAuthenticated && user && (
           <div className="user-controls">
             <span className="welcome-text">Welcome, {user.name}</span>
 

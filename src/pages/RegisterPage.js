@@ -1,63 +1,68 @@
 // src/pages/RegisterPage.js
-import React, { useState } from "react";
-import { api } from "../utils/api";
-// Note: axios is not directly used, so it can be removed if not needed elsewhere.
-// import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-// 1. Import the same CSS file as LoginPage.js
+import useAuth from "../hooks/useAuth";
 import "./LoginPage.css";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const { register, isAuthenticated, user } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    role: "customer", // Default role
   });
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      navigate(user.role === "admin" ? "/admin" : "/dashboard");
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
+    setError(""); // Clear error when user starts typing
   };
 
-  // on submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
-    setSuccess(""); // Clear previous success messages
+    setError("");
+    setSuccess("");
+    setIsLoading(true);
+
     try {
-      await api.post("api/auth/register", formData);
+      await register(formData.name, formData.email, formData.password);
       setSuccess("Registration successful! Redirecting to login...");
-      // navigate to login after a short delay to let the user see the message
+      // Navigate to login after a short delay to let the user see the message
       setTimeout(() => {
         navigate("/login");
       }, 1500);
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
+      setError(err.response?.data?.message || "Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    // 2. Add the main container class
     <div className="login-page">
-      {/* 3. Add the card container class */}
       <div className="login-card">
         <h1>Create Account</h1>
         <p className="subtitle">Register to get started</p>
 
-        {/* 4. Use the styled error/success messages */}
         {error && <div className="error-msg">{error}</div>}
         {success && <div className="success-msg">{success}</div>}
 
         <form onSubmit={handleSubmit}>
-          {/* Form Group: Full Name */}
           <div className="form-group">
             <label htmlFor="name" className="form-label">
               Full Name
@@ -71,10 +76,10 @@ const RegisterPage = () => {
               value={formData.name}
               onChange={handleChange}
               required
+              disabled={isLoading}
             />
           </div>
 
-          {/* Form Group: Email */}
           <div className="form-group">
             <label htmlFor="email" className="form-label">
               Email Address
@@ -88,10 +93,10 @@ const RegisterPage = () => {
               value={formData.email}
               onChange={handleChange}
               required
+              disabled={isLoading}
             />
           </div>
 
-          {/* Form Group: Password */}
           <div className="form-group">
             <label htmlFor="password" className="form-label">
               Password
@@ -105,16 +110,15 @@ const RegisterPage = () => {
               value={formData.password}
               onChange={handleChange}
               required
+              disabled={isLoading}
             />
           </div>
 
-          {/* 5. Use the styled button class */}
-          <button type="submit" className="login-btn">
-            Register Account
+          <button type="submit" className="login-btn" disabled={isLoading}>
+            {isLoading ? "Creating Account..." : "Register Account"}
           </button>
         </form>
 
-        {/* 6. Use the styled link box */}
         <div className="register-link-box">
           Already have an account?
           <Link to="/login" className="register-link-btn">
@@ -124,6 +128,7 @@ const RegisterPage = () => {
       </div>
     </div>
   );
+};
 };
 
 export default RegisterPage;

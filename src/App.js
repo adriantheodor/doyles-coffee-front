@@ -5,7 +5,6 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import axios from "axios";
 
 import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
@@ -22,7 +21,8 @@ import HomePage from "./pages/HomePage";
 import SubmitIssuePage from "./pages/SubmitIssuePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 
-import { API_BASE } from "./utils/api";
+import { AuthProvider } from "./context/AuthContext";
+import useAuth from "./hooks/useAuth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -125,62 +125,41 @@ class ErrorBoundary extends React.Component {
 
 function AppWrapper() {
   const location = useLocation();
+  const { user, loading } = useAuth();
   const hideNavbarPaths = ["/login", "/register"];
   const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
-
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
-
   const [activeSection, setActiveSection] = useState("overview");
 
-  // 🔁 SILENT REFRESH on first load
-  useEffect(() => {
-    const trySilentRefresh = async () => {
-      try {
-        const resp = await axios.post(
-          `${API_BASE}api/auth/refresh`,
-          {},
-          { withCredentials: true }
-        );
-
-        const newToken = resp.data.token;
-        if (newToken) {
-          localStorage.setItem("accessToken", newToken);
-        }
-
-        // If user lost, restore from backend (optional)
-        if (!user) {
-          const me = await axios.get(`${API_BASE}api/auth/me`, {
-            headers: { Authorization: `Bearer ${newToken}` },
-          });
-
-          localStorage.setItem("user", JSON.stringify(me.data));
-          setUser(me.data);
-        }
-      } catch (err) {
-        console.log("Silent refresh failed — user stays logged out.");
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
-        setUser(null);
-      }
-    };
-
-    trySilentRefresh();
-  }, [user]);
-
-  const handleLogin = (userInfo) => {
-    setUser(userInfo);
-    localStorage.setItem("user", JSON.stringify(userInfo));
-  };
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          backgroundColor: "#f8f9fa",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div
+            className="spinner-border"
+            role="status"
+            style={{ color: "#1976d2", marginBottom: "10px" }}
+          >
+            <span className="sr-only">Loading...</span>
+          </div>
+          <p style={{ color: "#666" }}>Initializing app...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       {shouldShowNavbar && (
         <Navbar
           user={user}
-          setUser={setUser}
           activeSection={activeSection}
           setActiveSection={setActiveSection}
         />
@@ -188,14 +167,11 @@ function AppWrapper() {
 
       <Routes>
         {/* PUBLIC ROUTES */}
-        <Route path="/" element={<HomePage onLogin={handleLogin} />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/quote" element={<QuotePage />} />
-        <Route
-          path="/login"
-          element={<LoginPage onLogin={handleLogin} user={user} />}
-        />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
         {/* CUSTOMER SUBMIT ISSUE */}
@@ -259,7 +235,9 @@ export default function App() {
   return (
     <ErrorBoundary>
       <Router>
-        <AppWrapper />
+        <AuthProvider>
+          <AppWrapper />
+        </AuthProvider>
       </Router>
     </ErrorBoundary>
   );

@@ -1,43 +1,41 @@
 // src/pages/LoginPage.js
-import React, { useState } from "react";
-import { api } from "../utils/api";
-import "./LoginPage.css";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import "./LoginPage.css";
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login, user, isAuthenticated } = useAuth();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      navigate(user.role === "admin" ? "/admin" : "/dashboard");
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setError(""); // Clear error when user starts typing
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setIsLoading(true);
+
     try {
-      // ❗ Must allow cookies to be set (refresh token)
-      const res = await api.post(
-        "api/auth/login",
-        formData,
-        { withCredentials: true }
-      );
-
-      const { token, user } = res.data;
-
-      // Save short-lived access token
-      localStorage.setItem("accessToken", token);
-
-      // Save user details
-      localStorage.setItem("user", JSON.stringify(user));
-
-      // Lift state up into App
-      onLogin?.(user);
-
-      // Send user to correct dashboard
-      navigate(user.role === "admin" ? "/admin" : "/dashboard");
+      const { user: userData } = await login(formData.email, formData.password);
+      // Navigation happens automatically via useEffect
+      navigate(userData.role === "admin" ? "/admin" : "/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+      setError(err.response?.data?.message || "Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -61,6 +59,7 @@ const LoginPage = ({ onLogin }) => {
               onChange={handleChange}
               value={formData.email}
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -74,11 +73,12 @@ const LoginPage = ({ onLogin }) => {
               onChange={handleChange}
               value={formData.password}
               required
+              disabled={isLoading}
             />
           </div>
 
-          <button type="submit" className="login-btn">
-            Sign In
+          <button type="submit" className="login-btn" disabled={isLoading}>
+            {isLoading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
@@ -86,8 +86,7 @@ const LoginPage = ({ onLogin }) => {
           Don’t have an account?
           <button
             className="register-link-btn"
-            onClick={() => navigate("/register")}
-          >
+            onClick={() => navigate("/register")}            disabled={isLoading}          >
             Register here
           </button>
         </div>
