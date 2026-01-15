@@ -113,9 +113,7 @@ export default function QuotePage() {
             "Coffee & Tea",
             "Water",
             "Snacks/Pantry",
-            "Paper Goods",
-            "Equipment Lease",
-            "Maintenance Only",
+            "Paper Goods"
           ].map((s) => (
             <label
               key={s}
