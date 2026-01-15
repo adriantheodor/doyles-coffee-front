@@ -1,8 +1,21 @@
 .dash-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
   margin-top: 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .dash-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .dash-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
 }
 
 .dash-card {
@@ -21,17 +34,17 @@
 
 .quick-links-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
   margin: 1.5rem 0;
 }
 
 .quick-card {
   background-color: var(--brand-green);
   color: white;
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 10px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -41,6 +54,17 @@
 
 .quick-card:hover {
   background-color: var(--brand-green-hover);
+}
+
+@media (min-width: 576px) {
+  .quick-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .quick-card {
+    padding: 1rem;
+    font-size: 1rem;
+  }
 }
 
 .section-box {

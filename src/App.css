@@ -32,7 +32,7 @@
 .page-container {
   min-height: 100vh;
   background-color: var(--bg-light);
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
 }
@@ -43,21 +43,36 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 2rem;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-container {
+    padding: 2rem;
+  }
+  .page-card {
+    padding: 2rem;
+  }
 }
 
 .page-title {
   color: var(--brand-green);
   margin-bottom: 1.5rem;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .page-title {
+    font-size: 1.75rem;
+  }
 }
 
 .styled-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -69,7 +84,7 @@
 
 .styled-table th,
 .styled-table td {
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
   border-bottom: 1px solid #eee;
 }
 
@@ -81,16 +96,30 @@
   background-color: #eaf3ec;
 }
 
+@media (min-width: 768px) {
+  .styled-table {
+    font-size: 0.95rem;
+  }
+  .styled-table th,
+  .styled-table td {
+    padding: 0.75rem 1rem;
+  }
+}
+
 .btn {
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1rem;
   background-color: var(--brand-green);
   color: white;
   border: none;
   border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn:hover {
@@ -103,6 +132,13 @@
 
 .btn-danger:hover {
   background-color: #b91c1c;
+}
+
+@media (min-width: 768px) {
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }
 
 .admin-sidebar {

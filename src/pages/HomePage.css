@@ -29,14 +29,22 @@
   border: 1px solid #ddd;
   border-radius: 0.25rem;
   box-sizing: border-box;
+  font-size: 1rem;
+  min-height: 44px;
 }
 
 .main-header-logo {
-  max-width: 90%;
-  width: 250px;
+  max-width: 85%;
+  width: 180px;
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .main-header-logo {
+    width: 250px;
+  }
 }
 
 .home-page .text-primary,
@@ -58,15 +66,27 @@
 }
 
 .contact-section {
-  padding: 4rem 0;
+  padding: 2rem 0;
   text-align: center;
   background-color: #fff;
 }
 
+@media (min-width: 768px) {
+  .contact-section {
+    padding: 4rem 0;
+  }
+}
+
 .contact-content h2 {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   margin-bottom: 0.5rem;
   color: var(--brand-green, #3a7842);
+}
+
+@media (min-width: 768px) {
+  .contact-content h2 {
+    font-size: 2.5rem;
+  }
 }
 
 .contact-subtext {
@@ -85,7 +105,7 @@
 
 .contact-card {
   background: #fff;
-  padding: 2.5rem 2rem;
+  padding: 1.5rem 1rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid #eee;
@@ -98,6 +118,12 @@
 .contact-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+@media (min-width: 768px) {
+  .contact-card {
+    padding: 2.5rem 2rem;
+  }
 }
 
 .icon-box {
@@ -136,7 +162,7 @@
 }
 
 .carousel-item {
-  height: 60vh;
+  height: 40vh;
   background: #f8f9fa;
 }
 
@@ -144,6 +170,12 @@
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .carousel-item {
+    height: 60vh;
+  }
 }
 
 .carousel-caption {
