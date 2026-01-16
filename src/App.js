@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegisterPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import LoginPage from "./pages/LoginPage";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
 import AdminDashPage from "./pages/Admin/AdminDashPage";
 import CustomerDashPage from "./pages/CustomerDashPage";
 import RoleBasedRoute from "./components/RoleBasedRoute";
@@ -126,7 +127,7 @@ class ErrorBoundary extends React.Component {
 function AppWrapper() {
   const location = useLocation();
   const { user, loading } = useAuth();
-  const hideNavbarPaths = ["/login", "/register"];
+  const hideNavbarPaths = ["/login", "/register", "/verify-email"];
   const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
   const [activeSection, setActiveSection] = useState("overview");
 
@@ -173,6 +174,7 @@ function AppWrapper() {
         <Route path="/quote" element={<QuotePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
 
         {/* CUSTOMER SUBMIT ISSUE */}
         <Route
