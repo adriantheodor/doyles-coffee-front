@@ -42,7 +42,7 @@ const InvoiceManager = () => {
     try {
       const token = localStorage.getItem("accessToken");
       if (!token) {
-        setErrorMsg("Authentication token not found. Please log in again.");
+        alert("Authentication token not found. Please log in again.");
         setInvoices([]);
         setLoading(false);
         return;
@@ -53,7 +53,7 @@ const InvoiceManager = () => {
       });
 
       if (!res.ok) {
-        setErrorMsg(`Failed to load invoices: ${res.status}`);
+        alert(`Failed to load invoices: ${res.status}`);
         setInvoices([]);
         setLoading(false);
         return;
@@ -64,14 +64,14 @@ const InvoiceManager = () => {
       if (Array.isArray(data)) {
         setInvoices(data);
       } else {
-        setErrorMsg("Invalid data format received from server.");
+        alert("Invalid data format received from server.");
         setInvoices([]);
       }
 
       setLoading(false);
     } catch (err) {
       console.error("Error loading invoices:", err);
-      setErrorMsg("Error connecting to server.");
+      alert("Error connecting to server.");
       setInvoices([]);
       setLoading(false);
     }

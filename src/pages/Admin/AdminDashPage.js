@@ -63,7 +63,7 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
         openIssues: 0,
       });
     } finally {
-      setIsLoading(false);
+      // Dashboard data loaded
     }
   };
 
