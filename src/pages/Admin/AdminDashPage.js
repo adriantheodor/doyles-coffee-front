@@ -15,10 +15,8 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
   const [recentOrders, setRecentOrders] = useState([]);
   const [recentIssues, setRecentIssues] = useState([]);
   const [metrics, setMetrics] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
 
   const fetchDashboardData = async () => {
-    setIsLoading(true);
     try {
       const token = localStorage.getItem("accessToken");
 

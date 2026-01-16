@@ -19,7 +19,7 @@ const InventoryManager = () => {
 
   useEffect(() => {
     loadItems();
-  }, []);
+  }, [loadItems]);
 
   // Input handler
   const updateForm = (e) =>

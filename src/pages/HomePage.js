@@ -1,4 +1,3 @@
-import QuotePage from "./QuotePage";
 import "./HomePage.css";
 import logo from "../assets/logo.jpg";
 import pic1 from "../assets/pic1.jpeg";

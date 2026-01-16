@@ -21,11 +21,6 @@ const Navbar = ({ activeSection, setActiveSection }) => {
     setIsOpen(false);
   };
 
-  const handleCustomerNav = () => {
-    navigate("/dashboard");
-    setIsOpen(false);
-  };
-
   return (
     <nav className="navbar-custom">
       <div className="navbar-header">

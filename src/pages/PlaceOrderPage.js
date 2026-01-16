@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api, API_BASE } from "../utils/api";
+import { api } from "../utils/api";
 
 const PlaceOrderPage = () => {
   const [products, setProducts] = useState([]);

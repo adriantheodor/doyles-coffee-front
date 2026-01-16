@@ -4,7 +4,6 @@ import { API_BASE } from "../../../utils/api";
 const InvoiceManager = () => {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
 
   const downloadPDF = async (id) => {
     try {
