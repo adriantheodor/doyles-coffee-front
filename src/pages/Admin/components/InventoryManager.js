@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { API_BASE } from "../../../utils/api";
 
 const InventoryManager = () => {
@@ -9,13 +9,13 @@ const InventoryManager = () => {
   const token = localStorage.getItem("accessToken");
 
   // Fetch inventory
-  const loadItems = async () => {
+  const loadItems = useCallback(async () => {
     const res = await fetch(`${API_BASE}api/products`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
     setItems(data);
-  };
+  }, [token]);
 
   useEffect(() => {
     loadItems();
