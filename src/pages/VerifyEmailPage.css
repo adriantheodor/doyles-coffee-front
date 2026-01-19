@@ -156,9 +156,108 @@
   border-top: 1px solid #eee;
 }
 
-/* 8. Responsive adjustments */
+/* 8. Resend Email Section */
+.resend-section {
+  background-color: #f9f9f9;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.resend-label {
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.email-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.email-input:focus {
+  outline: none;
+  border-color: var(--brand-green);
+  box-shadow: 0 0 0 3px rgba(58, 120, 66, 0.1);
+}
+
+.email-input:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.resend-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--brand-green);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 40px;
+}
+
+.resend-btn:hover:not(:disabled) {
+  background-color: var(--brand-green-hover);
+}
+
+.resend-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.resend-success-msg {
+  color: var(--success-color);
+  font-weight: 500;
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.resend-error-msg {
+  color: var(--error-color);
+  font-weight: 500;
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* 9. Responsive adjustments */
 @media (min-width: 576px) {
   .verify-email-page {
+    padding: 2rem;
+  }
+
+  .resend-section {
     padding: 2rem;
   }
 }

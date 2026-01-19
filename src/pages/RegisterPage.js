@@ -41,6 +41,8 @@ const RegisterPage = () => {
 
     try {
       await register(formData.name, formData.email, formData.password);
+      // Store email for potential use on verify page
+      localStorage.setItem("userEmail", formData.email);
       setSuccess("Registration successful! Redirecting to login...");
       // Navigate to login after a short delay to let the user see the message
       setTimeout(() => {

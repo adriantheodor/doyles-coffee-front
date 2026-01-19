@@ -125,6 +125,17 @@ class AuthService {
   }
 
   /**
+   * Resend verification email
+   * POST /api/auth/resend-verification-email
+   */
+  async resendVerificationEmail(email) {
+    const response = await api.post("api/auth/resend-verification-email", {
+      email,
+    });
+    return response.data;
+  }
+
+  /**
    * Get stored access token
    */
   getAccessToken() {
