@@ -137,7 +137,7 @@ const InvoiceManager = () => {
               <td>{inv.customer?.name}</td>
               <td>{inv.customer?.email}</td>
               <td>{inv.order?._id}</td>
-              <td>${inv.order?.totalPrice.toFixed(2)}</td>
+              <td>${(inv.order?.totalPrice ?? 0).toFixed(2)}</td>
               <td>{new Date(inv.createdAt).toLocaleDateString()}</td>
 
               <td>
