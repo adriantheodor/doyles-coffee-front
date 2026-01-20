@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate, formatCurrency } from '../../utils/invoiceAPI';
+import { formatDate, formatCurrency } from '../utils/invoiceAPI';
 import './CustomerInvoiceDetailsModal.css';
 
 /**
