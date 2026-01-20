@@ -6,7 +6,7 @@ import {
   formatCurrency,
   getStatusBadge,
   handleDownload,
-} from '../../utils/invoiceAPI';
+} from '../utils/invoiceAPI';
 import { PageLoader, InlineLoader } from '../../components/LoadingSpinner';
 import InvoiceDetailsModal from './InvoiceDetailsModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
