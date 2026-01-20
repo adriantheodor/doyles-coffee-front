@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { formatDate, formatCurrency, downloadInvoice, handleDownload } from '../utils/invoiceAPI';
+import { formatDate, formatCurrency, downloadInvoice, handleDownload } from '../../utils/invoiceAPI';
 import './InvoiceDetailsModal.css';
 
 /**
