@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createInvoice } from '../utils/invoiceAPI';
 import { validateInvoiceData } from '../utils/invoiceAPI';
 import { handleAPIError } from '../utils/invoiceAPI';
-import { ButtonLoader } from '../LoadingSpinner';
+import { ButtonLoader } from '../../components/LoadingSpinner';
 import './InvoiceUploadForm.css';
 
 /**
