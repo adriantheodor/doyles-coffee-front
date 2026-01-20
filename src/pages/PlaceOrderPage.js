@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { api, API_BASE } from "../utils/api";
+import { api } from "../utils/api";
 import OrderConfirmationModal from "./OrderConfirmationModal";
 import OrderSuccessScreen from "./OrderSuccessScreen";
 import "./PlaceOrderPage.css";
 
 const PlaceOrderPage = () => {
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [orderItems, setOrderItems] = useState([]);
   const [notes, setNotes] = useState("");
