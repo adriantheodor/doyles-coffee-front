@@ -1,0 +1,880 @@
+/* Invoice Upload Form Styles */
+
+.invoice-upload-form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.invoice-upload-form {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 32px;
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.form-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 24px 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ============================================================================
+   Alerts
+   ============================================================================ */
+
+.alert {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  animation: slideDown 0.3s ease;
+  border: 1px solid transparent;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert-error {
+  background-color: #fef2f2;
+  border-color: #fee2e2;
+  color: #991b1b;
+}
+
+.alert-success {
+  background-color: #f0fdf4;
+  border-color: #dcfce7;
+  color: #166534;
+}
+
+.alert-warning {
+  background-color: #fffbeb;
+  border-color: #fef3c7;
+  color: #92400e;
+}
+
+.alert-info {
+  background-color: #f0f9ff;
+  border-color: #dbeafe;
+  color: #1e40af;
+}
+
+.alert-icon {
+  display: inline-flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  min-width: 24px;
+  flex-shrink: 0;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  font-size: 14px;
+}
+
+.alert-message {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ============================================================================
+   Form Structure
+   ============================================================================ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.25px;
+}
+
+.required {
+  color: #ef4444;
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+.form-error {
+  font-size: 13px;
+  color: #dc2626;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: slideDown 0.2s ease;
+}
+
+.form-error::before {
+  content: '⚠';
+  font-weight: bold;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
+  margin-top: 4px;
+}
+
+/* ============================================================================
+   Select Dropdown
+   ============================================================================ */
+
+.select-wrapper {
+  position: relative;
+}
+
+.form-select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  color: #1f2937;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  padding-right: 36px;
+  font-weight: 500;
+}
+
+.form-select:hover:not(:disabled) {
+  border-color: #9ca3af;
+  background-color: #fafafa;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: white;
+}
+
+.form-select:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-select.error {
+  border-color: #dc2626;
+}
+
+.form-select.error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* ============================================================================
+   File Input
+   ============================================================================ */
+
+.file-input-wrapper {
+  position: relative;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-input-display {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+}
+
+.file-input-display:hover:not(.error) {
+  border-color: #3b82f6;
+  background-color: #f0f9ff;
+  transform: translateY(-2px);
+}
+
+.file-input-display.error {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.file-input-display.has-file {
+  border: 2px solid #d1d5db;
+  background-color: #f9fafb;
+}
+
+.file-display-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.file-info {
+  flex: 1;
+}
+
+.file-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  word-break: break-word;
+}
+
+.file-size {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.file-remove-btn {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #6b7280;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.file-remove-btn:hover {
+  background-color: #fee2e2;
+  border-color: #dc2626;
+  color: #dc2626;
+  transform: scale(1.05);
+}
+
+.file-remove-btn:active {
+  transform: scale(0.95);
+}
+
+.file-display-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+.upload-icon {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.upload-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.upload-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* ============================================================================
+   Text Inputs
+   ============================================================================ */
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+  color: #1f2937;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.form-input.with-prefix {
+  padding-left: 28px;
+}
+
+.form-input:hover:not(:disabled),
+.form-textarea:hover:not(:disabled) {
+  border-color: #9ca3af;
+  background-color: #fafafa;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: white;
+}
+
+.form-input:disabled,
+.form-textarea:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-input.error,
+.form-textarea.error {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.form-input.error:focus,
+.form-textarea.error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+/* ============================================================================
+   Buttons
+   ============================================================================ */
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  letter-spacing: 0.25px;
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active:not(:disabled) {
+  background-color: #1d4ed8;
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  background-color: #3b82f6;
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active:not(:disabled) {
+  background-color: #d1d5db;
+  transform: translateY(0);
+}
+
+.btn-secondary:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Button Loading State */
+.btn:disabled {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.button-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ============================================================================
+   Animations
+   ============================================================================ */
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* ============================================================================
+   Responsive Design
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .invoice-upload-form-container {
+    padding: 12px;
+  }
+
+  .invoice-upload-form {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .form-title {
+    font-size: 20px;
+  }
+
+  .form-label {
+    font-size: 13px;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px;
+    padding: 12px;
+    min-height: 44px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 12px;
+    padding-top: 16px;
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .file-input-display {
+    padding: 16px;
+  }
+
+  .file-display-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .file-remove-btn {
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+  }
+
+  .alert {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .alert-message {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .invoice-upload-form-container {
+    padding: 8px;
+  }
+
+  .invoice-upload-form {
+    padding: 16px;
+  }
+
+  .form-title {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .form-subtitle {
+    font-size: 12px;
+  }
+
+  .form {
+    gap: 20px;
+  }
+
+  .form-group {
+    gap: 6px;
+  }
+
+  .form-label {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px;
+    padding: 12px;
+    min-height: 48px;
+    border-radius: 8px;
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    font-size: 16px;
+  }
+
+  .form-textarea {
+    min-height: 120px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+    padding-top: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 48px;
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+
+  .btn-primary:hover:not(:disabled),
+  .btn-secondary:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .file-input-display {
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .file-display-placeholder {
+    padding: 8px 0;
+  }
+
+  .upload-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  .upload-text {
+    font-size: 13px;
+  }
+
+  .upload-hint {
+    font-size: 11px;
+  }
+
+  .file-display-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .file-info {
+    flex: 1;
+  }
+
+  .file-name {
+    font-size: 13px;
+  }
+
+  .file-size {
+    font-size: 11px;
+  }
+
+  .file-remove-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .copy-btn {
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 13px;
+    width: auto;
+  }
+
+  .input-prefix {
+    left: 10px;
+  }
+
+  .form-error {
+    font-size: 12px;
+  }
+
+  .form-hint {
+    font-size: 11px;
+  }
+
+  .alert {
+    padding: 12px;
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .alert-message {
+    font-size: 11px;
+  }
+}
+
+/* ============================================================================
+   Dark Mode Support
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  .invoice-upload-form {
+    background: #1f2937;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-title {
+    color: #f9fafb;
+  }
+
+  .form-subtitle {
+    color: #d1d5db;
+    border-bottom-color: #374151;
+  }
+
+  .form-label {
+    color: #e5e7eb;
+  }
+
+  .form-select,
+  .form-input,
+  .form-textarea {
+    background-color: #111827;
+    border-color: #374151;
+    color: #f9fafb;
+  }
+
+  .form-select:hover:not(:disabled),
+  .form-input:hover:not(:disabled),
+  .form-textarea:hover:not(:disabled) {
+    border-color: #4b5563;
+    background-color: #0f172a;
+  }
+
+  .form-select:focus,
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+    background-color: #111827;
+  }
+
+  .form-select:disabled,
+  .form-input:disabled,
+  .form-textarea:disabled {
+    background-color: #111827;
+    color: #6b7280;
+    opacity: 0.6;
+  }
+
+  .form-error {
+    color: #fca5a5;
+  }
+
+  .form-hint {
+    color: #9ca3af;
+  }
+
+  .file-input-display {
+    border-color: #374151;
+    background-color: #111827;
+  }
+
+  .file-input-display:hover:not(.error) {
+    border-color: #60a5fa;
+    background-color: #0f172a;
+  }
+
+  .file-input-display.error {
+    border-color: #dc2626;
+    background-color: #3d1717;
+  }
+
+  .file-display-placeholder {
+    color: #e5e7eb;
+  }
+
+  .upload-text {
+    color: #e5e7eb;
+  }
+
+  .upload-hint {
+    color: #9ca3af;
+  }
+
+  .file-name {
+    color: #f9fafb;
+  }
+
+  .file-size {
+    color: #9ca3af;
+  }
+
+  .file-remove-btn {
+    background-color: #111827;
+    border-color: #374151;
+    color: #e5e7eb;
+  }
+
+  .file-remove-btn:hover {
+    background-color: #7f1d1d;
+    border-color: #dc2626;
+    color: #fca5a5;
+  }
+
+  .form-actions {
+    border-top-color: #374151;
+  }
+
+  .btn-secondary {
+    background-color: #374151;
+    color: #e5e7eb;
+    border-color: #4b5563;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: #4b5563;
+    border-color: #6b7280;
+  }
+
+  .btn-secondary:disabled {
+    background-color: #374151;
+    color: #6b7280;
+  }
+
+  .btn-primary:disabled {
+    background-color: #1e3a8a;
+  }
+
+  .alert-error {
+    background-color: #3d1717;
+    border-color: #7f1d1d;
+    color: #fca5a5;
+  }
+
+  .alert-success {
+    background-color: #1b3d2a;
+    border-color: #064e3b;
+    color: #a7f3d0;
+  }
+
+  .alert-warning {
+    background-color: #3d3014;
+    border-color: #78350f;
+    color: #fcd34d;
+  }
+
+  .alert-info {
+    background-color: #1e3a8a;
+    border-color: #1e40af;
+    color: #93c5fd;
+  }
+}

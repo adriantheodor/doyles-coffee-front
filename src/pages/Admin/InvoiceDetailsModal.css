@@ -1,0 +1,893 @@
+/* Modal Shared Styles */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+  padding: 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+  margin: auto;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal Sizes */
+.modal-sm {
+  width: 100%;
+  max-width: 400px;
+}
+
+.modal-md {
+  width: 100%;
+  max-width: 500px;
+}
+
+.modal-lg {
+  width: 100%;
+  max-width: 700px;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin: -4px -4px -4px 0;
+}
+
+.modal-close-btn:hover {
+  color: #1f2937;
+  background-color: #e5e7eb;
+  transform: scale(1.1);
+}
+
+.modal-close-btn:active {
+  transform: scale(0.95);
+}
+
+/* Modal Content */
+.modal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/* Modal Footer */
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+/* ============================================================================
+   Invoice ID Section - Copyable
+   ============================================================================ */
+
+.invoice-id-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.invoice-id-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.invoice-id {
+  flex: 1;
+  padding: 8px 12px;
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  color: #1f2937;
+  word-break: break-all;
+  margin: 0;
+}
+
+.copy-btn {
+  padding: 8px 12px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.copy-btn:hover {
+  background-color: #2563eb;
+}
+
+.copy-btn:active {
+  transform: scale(0.95);
+}
+
+/* ============================================================================
+   File Download
+   ============================================================================ */
+
+.btn-download-file {
+  padding: 6px 12px;
+  background-color: #059669;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-download-file:hover:not(:disabled) {
+  background-color: #047857;
+}
+
+.btn-download-file:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.file-download-link {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-download-link:hover:not(:disabled) {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.file-download-link:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================================================================
+   Alerts
+   ============================================================================ */
+
+.alert {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.alert-icon {
+  display: inline-flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+  min-width: 20px;
+  flex-shrink: 0;
+}
+
+.alert-message {
+  margin: 0;
+  font-size: 13px;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+/* ============================================================================
+   Invoice Details Modal
+   ============================================================================ */
+
+.details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.details-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Details Grid */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.detail-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  margin: 0;
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.detail-amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #059669;
+}
+
+.detail-id {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  background-color: #f3f4f6;
+  padding: 8px;
+  border-radius: 4px;
+  word-break: break-all;
+}
+
+.detail-notes {
+  margin: 0;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.file-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-value a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.detail-value a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.status-badge.sent {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.not-sent {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* ============================================================================
+   Delete Confirmation Modal
+   ============================================================================ */
+
+.modal-danger .modal-header {
+  border-bottom-color: #fee2e2;
+}
+
+.modal-danger .modal-title {
+  color: #991b1b;
+}
+
+.delete-warning {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.warning-icon {
+  font-size: 48px;
+  line-height: 1;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.delete-title {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+}
+
+.delete-message {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Delete Invoice Info */
+.delete-invoice-info {
+  background-color: #faf7f2;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 0;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.info-row:not(:last-child) {
+  border-bottom: 1px solid #fed7aa;
+}
+
+.info-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #92400e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 100px;
+}
+
+.info-value {
+  font-size: 14px;
+  color: #b45309;
+  font-weight: 500;
+  flex: 1;
+  word-break: break-word;
+}
+
+/* Delete Modal Footer */
+.modal-danger .modal-footer {
+  background-color: #fef2f2;
+  border-top-color: #fee2e2;
+}
+
+/* ============================================================================
+   Button Styles in Modals
+   ============================================================================ */
+
+.btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  letter-spacing: 0.25px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active:not(:disabled) {
+  background-color: #1d4ed8;
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active:not(:disabled) {
+  background-color: #d1d5db;
+  transform: translateY(0);
+}
+
+.btn-danger {
+  background-color: #ef4444;
+  color: white;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #dc2626;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-danger:active:not(:disabled) {
+  background-color: #b91c1c;
+  transform: translateY(0);
+}
+
+/* ============================================================================
+   Responsive Design
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .modal-sm,
+  .modal-md,
+  .modal-lg {
+    width: 100%;
+    max-width: none;
+    max-height: calc(100vh - 32px);
+  }
+
+  .modal-header,
+  .modal-content,
+  .modal-footer {
+    padding: 20px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .modal-close-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .delete-invoice-info {
+    padding: 16px;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .delete-warning {
+    margin-bottom: 16px;
+  }
+
+  .warning-icon {
+    font-size: 40px;
+  }
+
+  .delete-title {
+    font-size: 16px;
+  }
+
+  .delete-message {
+    font-size: 13px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .btn-download-file {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-backdrop {
+    padding: 12px;
+  }
+
+  .modal {
+    max-height: calc(100vh - 24px);
+  }
+
+  .modal-header,
+  .modal-content,
+  .modal-footer {
+    padding: 16px;
+  }
+
+  .modal-title {
+    font-size: 16px;
+  }
+
+  .modal-close-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .detail-label {
+    font-size: 11px;
+  }
+
+  .detail-value {
+    font-size: 13px;
+  }
+
+  .section-header h3 {
+    font-size: 14px;
+  }
+
+  .invoice-id-container {
+    flex-direction: column;
+  }
+
+  .copy-btn {
+    width: 100%;
+  }
+
+  .alert {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .alert-message {
+    font-size: 12px;
+  }
+}
+
+/* ============================================================================
+   Dark Mode Support
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  .modal {
+    background: #1f2937;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .modal-header {
+    border-bottom-color: #374151;
+    background-color: #111827;
+  }
+
+  .modal-title {
+    color: #f9fafb;
+  }
+
+  .modal-close-btn {
+    color: #9ca3af;
+  }
+
+  .modal-close-btn:hover {
+    color: #f9fafb;
+    background-color: #374151;
+  }
+
+  .details-section {
+    border-bottom-color: #374151;
+  }
+
+  .section-header h3 {
+    color: #f9fafb;
+  }
+
+  .detail-label {
+    color: #9ca3af;
+  }
+
+  .detail-value {
+    color: #f9fafb;
+  }
+
+  .detail-id {
+    background-color: #111827;
+    color: #e5e7eb;
+    border-color: #374151;
+  }
+
+  .detail-notes {
+    color: #e5e7eb;
+  }
+
+  .detail-value a {
+    color: #60a5fa;
+  }
+
+  .detail-value a:hover {
+    color: #93c5fd;
+  }
+
+  .status-badge.sent {
+    background-color: #1b3d2a;
+    color: #a7f3d0;
+    border-color: #064e3b;
+  }
+
+  .status-badge.not-sent {
+    background-color: #3d3014;
+    color: #fcd34d;
+    border-color: #78350f;
+  }
+
+  .modal-footer {
+    border-top-color: #374151;
+    background-color: #111827;
+  }
+
+  .modal-danger .modal-header {
+    border-bottom-color: #7f1d1d;
+    background-color: #3d1717;
+  }
+
+  .modal-danger .modal-title {
+    color: #fee2e2;
+  }
+
+  .delete-invoice-info {
+    background-color: #3d2817;
+    border-color: #78350f;
+  }
+
+  .info-label {
+    color: #fcd34d;
+  }
+
+  .info-value {
+    color: #fde68a;
+  }
+
+  .info-row:not(:last-child) {
+    border-bottom-color: #78350f;
+  }
+
+  .modal-danger .modal-footer {
+    background-color: #3d1717;
+    border-top-color: #7f1d1d;
+  }
+
+  .btn-primary {
+    background-color: #1e40af;
+    box-shadow: 0 2px 4px rgba(30, 64, 175, 0.3);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: #1d4ed8;
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
+  }
+
+  .btn-secondary {
+    background-color: #374151;
+    color: #e5e7eb;
+    border-color: #4b5563;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background-color: #4b5563;
+    border-color: #6b7280;
+  }
+
+  .btn-secondary:active:not(:disabled) {
+    background-color: #6b7280;
+  }
+
+  .btn-danger {
+    background-color: #7f1d1d;
+    box-shadow: 0 2px 4px rgba(127, 29, 29, 0.3);
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background-color: #991b1b;
+    box-shadow: 0 4px 12px rgba(127, 29, 29, 0.4);
+  }
+
+  .btn-danger:active:not(:disabled) {
+    background-color: #b91c1c;
+  }
+
+  .invoice-id-section {
+    background-color: #111827;
+    border-color: #374151;
+  }
+
+  .invoice-id {
+    background-color: #0f172a;
+    border-color: #374151;
+    color: #e5e7eb;
+  }
+
+  .copy-btn {
+    background-color: #1e40af;
+  }
+
+  .copy-btn:hover {
+    background-color: #1d4ed8;
+  }
+
+  .btn-download-file {
+    background-color: #047857;
+  }
+
+  .btn-download-file:hover:not(:disabled) {
+    background-color: #059669;
+  }
+
+  .file-download-link {
+    color: #60a5fa;
+  }
+
+  .file-download-link:hover:not(:disabled) {
+    color: #93c5fd;
+  }
+
+  .alert-error {
+    background-color: #3d1717;
+    border-color: #7f1d1d;
+    color: #fca5a5;
+  }
+}

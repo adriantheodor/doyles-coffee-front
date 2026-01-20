@@ -1,0 +1,458 @@
+/* Loading Spinner Styles */
+
+/* ============================================================================
+   Main Loading Spinner
+   ============================================================================ */
+
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+.loading-spinner-container.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.loading-spinner-container.with-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.loading-spinner {
+  position: relative;
+}
+
+/* Spinner Sizes */
+.spinner-small {
+  width: 32px;
+  height: 32px;
+}
+
+.spinner-medium {
+  width: 48px;
+  height: 48px;
+}
+
+.spinner-large {
+  width: 64px;
+  height: 64px;
+}
+
+/* Spinner Inner Animation */
+.spinner-inner {
+  width: 100%;
+  height: 100%;
+  border: 4px solid rgba(59, 130, 246, 0.1);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-primary .spinner-inner {
+  border-top-color: #3b82f6;
+}
+
+.spinner-success .spinner-inner {
+  border-top-color: #10b981;
+}
+
+.spinner-warning .spinner-inner {
+  border-top-color: #f59e0b;
+}
+
+.spinner-danger .spinner-inner {
+  border-top-color: #ef4444;
+}
+
+.spinner-dark .spinner-inner {
+  border-top-color: #1f2937;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-message {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  text-align: center;
+}
+
+/* ============================================================================
+   Skeleton Loader
+   ============================================================================ */
+
+.skeleton-loader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-item {
+  background: linear-gradient(
+    90deg,
+    #f3f4f6 25%,
+    #e5e7eb 50%,
+    #f3f4f6 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+  min-height: 20px;
+}
+
+.skeleton-item-card {
+  padding: 16px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-item-list {
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-pulse {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ============================================================================
+   Inline Loader
+   ============================================================================ */
+
+.inline-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.loader-xs .inline-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
+}
+
+.loader-sm .inline-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
+}
+
+.loader-md .inline-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
+}
+
+.inline-spinner {
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  white-space: nowrap;
+}
+
+/* ============================================================================
+   Progress Bar
+   ============================================================================ */
+
+.progress-container {
+  width: 100%;
+}
+
+.progress-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.progress-bar-wrapper {
+  width: 100%;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-wrapper.striped {
+  background: linear-gradient(
+    45deg,
+    #e5e7eb 25%,
+    transparent 25%,
+    transparent 50%,
+    #e5e7eb 50%,
+    #e5e7eb 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 20px 20px;
+  animation: stripe-animation 1s linear infinite;
+}
+
+@keyframes stripe-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 20px 20px;
+  }
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-primary .progress-bar-fill {
+  background-color: #3b82f6;
+}
+
+.progress-success .progress-bar-fill {
+  background-color: #10b981;
+}
+
+.progress-warning .progress-bar-fill {
+  background-color: #f59e0b;
+}
+
+.progress-danger .progress-bar-fill {
+  background-color: #ef4444;
+}
+
+.progress-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================================
+   Page Loader
+   ============================================================================ */
+
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.page-loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.page-loader-spinner {
+  width: 64px;
+  height: 64px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.page-loader-message {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ============================================================================
+   Table Loader
+   ============================================================================ */
+
+.table-loader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.table-loader-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.table-loader-cell {
+  height: 20px;
+  background: linear-gradient(
+    90deg,
+    #f3f4f6 25%,
+    #e5e7eb 50%,
+    #f3f4f6 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ============================================================================
+   Button Loader
+   ============================================================================ */
+
+.button-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.loader-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.loader-dots .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+  animation: dots-bounce 1.4s infinite;
+}
+
+.loader-dots .dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loader-dots .dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes dots-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   Responsive Adjustments
+   ============================================================================ */
+
+@media (max-width: 640px) {
+  .loading-spinner-container.fullscreen {
+    gap: 12px;
+  }
+
+  .spinner-medium {
+    width: 40px;
+    height: 40px;
+  }
+
+  .loading-message {
+    font-size: 12px;
+  }
+
+  .page-loader-message {
+    font-size: 14px;
+  }
+}
+
+/* ============================================================================
+   Dark Mode Support
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  .loading-spinner-container.fullscreen {
+    background-color: rgba(17, 24, 39, 0.9);
+  }
+
+  .loading-message {
+    color: #d1d5db;
+  }
+
+  .page-loader {
+    background-color: rgba(17, 24, 39, 0.95);
+  }
+
+  .page-loader-message {
+    color: #d1d5db;
+  }
+
+  .skeleton-item {
+    background: linear-gradient(
+      90deg,
+      #374151 25%,
+      #4b5563 50%,
+      #374151 75%
+    );
+  }
+
+  .progress-bar-wrapper {
+    background-color: #4b5563;
+  }
+}

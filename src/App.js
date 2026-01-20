@@ -24,6 +24,8 @@ import SubmitIssuePage from "./pages/SubmitIssuePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import OrderTrackingPage from "./pages/OrderTrackingPage";
 import CustomerOrdersHistory from "./pages/CustomerOrdersHistory";
+import AdminInvoiceManagementPage from "./pages/Admin/AdminInvoiceManagementPage";
+import CustomerInvoicesPage from "./pages/CustomerInvoicesPage";
 
 import { AuthProvider } from "./context/AuthContext";
 import useAuth from "./hooks/useAuth";
@@ -233,6 +235,16 @@ function AppWrapper() {
           }
         />
 
+        {/* CUSTOMER MY INVOICES */}
+        <Route
+          path="/my-invoices"
+          element={
+            <RoleBasedRoute allowedRoles={["customer"]}>
+              <CustomerInvoicesPage />
+            </RoleBasedRoute>
+          }
+        />
+
         {/* CHANGE PASSWORD */}
         <Route path="/change-password" element={<ChangePasswordPage />} />
 
@@ -252,6 +264,16 @@ function AppWrapper() {
           element={
             <RoleBasedRoute allowedRoles={["admin"]}>
               <AdminDashPage activeSection={activeSection} />
+            </RoleBasedRoute>
+          }
+        />
+
+        {/* ADMIN INVOICE MANAGEMENT */}
+        <Route
+          path="/admin/invoices"
+          element={
+            <RoleBasedRoute allowedRoles={["admin"]}>
+              <AdminInvoiceManagementPage />
             </RoleBasedRoute>
           }
         />

@@ -1,0 +1,616 @@
+/* My Invoices List Styles */
+
+.my-invoices-list-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ============================================================================
+   Header
+   ============================================================================ */
+
+.invoices-header {
+  margin-bottom: 32px;
+}
+
+.invoices-title {
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.invoices-subtitle {
+  margin: 0;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+/* ============================================================================
+   Alerts
+   ============================================================================ */
+
+.alert {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert-error {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.alert-success {
+  background-color: #dcfce7;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.alert-icon {
+  display: inline-flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  min-width: 24px;
+  flex-shrink: 0;
+}
+
+.alert-content {
+  flex: 1;
+}
+
+.alert-message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ============================================================================
+   Empty State
+   ============================================================================ */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: #6b7280;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.empty-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.empty-text {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0;
+  max-width: 400px;
+}
+
+/* ============================================================================
+   Table
+   ============================================================================ */
+
+.invoices-table-wrapper {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.invoices-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoices-table thead {
+  background-color: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.invoices-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.th-file {
+  width: 45%;
+}
+
+.th-amount {
+  width: 20%;
+}
+
+.th-date {
+  width: 20%;
+}
+
+.th-actions {
+  width: 15%;
+  text-align: right;
+}
+
+.invoices-table tbody {
+  background-color: white;
+}
+
+.table-row {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.table-row:hover {
+  background-color: #fafafa;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.invoices-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* Cell Content */
+.cell-file {
+  font-weight: 500;
+}
+
+.file-link {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.file-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.cell-amount {
+  font-weight: 600;
+  color: #059669;
+  font-size: 15px;
+}
+
+.cell-date {
+  color: #6b7280;
+}
+
+.cell-actions {
+  text-align: right;
+}
+
+/* ============================================================================
+   Action Group & Buttons
+   ============================================================================ */
+
+.action-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-download:hover:not(:disabled) {
+  background-color: #2563eb;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-download:active:not(:disabled) {
+  background-color: #1d4ed8;
+  transform: translateY(0);
+}
+
+.btn-download:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-download.loading {
+  background-color: #60a5fa;
+}
+
+.btn-icon,
+.spinner {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-text {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.error-message {
+  margin: 6px 0 0 0;
+  font-size: 12px;
+  color: #dc2626;
+  text-align: right;
+}
+
+/* ============================================================================
+   Table Footer
+   ============================================================================ */
+
+.table-footer {
+  padding: 12px 16px;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.results-count {
+  margin: 0;
+}
+
+/* ============================================================================
+   Responsive Design
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .my-invoices-list-container {
+    padding: 16px;
+  }
+
+  .invoices-header {
+    margin-bottom: 24px;
+  }
+
+  .invoices-title {
+    font-size: 24px;
+  }
+
+  .invoices-subtitle {
+    font-size: 14px;
+  }
+
+  .invoices-table th,
+  .invoices-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .invoices-table th {
+    font-size: 11px;
+  }
+
+  .th-file {
+    width: 40%;
+  }
+
+  .th-amount {
+    width: 25%;
+  }
+
+  .th-date {
+    width: 20%;
+  }
+
+  .th-actions {
+    width: 15%;
+  }
+
+  .btn-download {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .btn-text {
+    display: none;
+  }
+
+  .empty-state {
+    padding: 60px 16px;
+  }
+
+  .empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+
+  .empty-title {
+    font-size: 18px;
+  }
+
+  .empty-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 640px) {
+  .my-invoices-list-container {
+    padding: 12px;
+  }
+
+  .invoices-title {
+    font-size: 20px;
+  }
+
+  .invoices-subtitle {
+    font-size: 13px;
+  }
+
+  .invoices-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .invoices-table {
+    min-width: 500px;
+  }
+
+  .invoices-table th,
+  .invoices-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .invoices-table th {
+    font-size: 10px;
+  }
+
+  .th-file {
+    width: 35%;
+  }
+
+  .th-amount {
+    width: 25%;
+  }
+
+  .th-date {
+    width: 20%;
+  }
+
+  .th-actions {
+    width: 20%;
+  }
+
+  .cell-amount {
+    font-size: 14px;
+  }
+
+  .btn-download {
+    padding: 6px 10px;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .btn-icon,
+  .spinner {
+    font-size: 12px;
+  }
+
+  .file-icon {
+    font-size: 14px;
+  }
+
+  .error-message {
+    font-size: 11px;
+  }
+
+  .empty-state {
+    padding: 40px 12px;
+  }
+
+  .empty-icon {
+    font-size: 40px;
+  }
+
+  .empty-title {
+    font-size: 16px;
+  }
+
+  .empty-text {
+    font-size: 12px;
+  }
+
+  .alert {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .alert-icon {
+    font-size: 16px;
+  }
+
+  .alert-message {
+    font-size: 12px;
+  }
+}
+
+/* ============================================================================
+   Dark Mode Support
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  .my-invoices-list-container {
+    background: transparent;
+  }
+
+  .invoices-title {
+    color: #f9fafb;
+  }
+
+  .invoices-subtitle {
+    color: #d1d5db;
+  }
+
+  .alert-error {
+    background-color: #7f1d1d;
+    border-color: #991b1b;
+    color: #fee2e2;
+  }
+
+  .alert-success {
+    background-color: #064e3b;
+    border-color: #047857;
+    color: #dcfce7;
+  }
+
+  .empty-state {
+    background: #1f2937;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .empty-title {
+    color: #f9fafb;
+  }
+
+  .empty-text {
+    color: #9ca3af;
+  }
+
+  .invoices-table-wrapper {
+    background: #1f2937;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .invoices-table thead {
+    background-color: #111827;
+    border-bottom-color: #374151;
+  }
+
+  .invoices-table th {
+    color: #e5e7eb;
+  }
+
+  .invoices-table tbody {
+    background-color: #1f2937;
+  }
+
+  .table-row {
+    border-bottom-color: #374151;
+  }
+
+  .table-row:hover {
+    background-color: #111827;
+  }
+
+  .invoices-table td {
+    color: #f9fafb;
+  }
+
+  .file-link {
+    color: #60a5fa;
+  }
+
+  .file-link:hover {
+    color: #93c5fd;
+  }
+
+  .cell-amount {
+    color: #6ee7b7;
+  }
+
+  .cell-date {
+    color: #9ca3af;
+  }
+
+  .btn-download {
+    background-color: #2563eb;
+  }
+
+  .btn-download:hover:not(:disabled) {
+    background-color: #1d4ed8;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+  }
+
+  .btn-download:active:not(:disabled) {
+    background-color: #1e40af;
+  }
+
+  .btn-download.loading {
+    background-color: #3b82f6;
+  }
+
+  .error-message {
+    color: #fca5a5;
+  }
+
+  .table-footer {
+    background-color: #111827;
+    border-top-color: #374151;
+    color: #9ca3af;
+  }
+}
