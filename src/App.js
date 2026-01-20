@@ -16,6 +16,7 @@ import AdminDashPage from "./pages/Admin/AdminDashPage";
 import CustomerDashPage from "./pages/CustomerDashPage";
 import RoleBasedRoute from "./components/RoleBasedRoute";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
+import AccountSettingsPage from "./pages/AccountSettingsPage";
 import QuotePage from "./pages/QuotePage";
 import InvoicesPage from "./pages/InvoicesPage";
 import HomePage from "./pages/HomePage";
@@ -234,6 +235,16 @@ function AppWrapper() {
 
         {/* CHANGE PASSWORD */}
         <Route path="/change-password" element={<ChangePasswordPage />} />
+
+        {/* ACCOUNT SETTINGS */}
+        <Route
+          path="/account-settings"
+          element={
+            <RoleBasedRoute allowedRoles={["customer", "admin"]}>
+              <AccountSettingsPage />
+            </RoleBasedRoute>
+          }
+        />
 
         {/* ADMIN DASHBOARD */}
         <Route

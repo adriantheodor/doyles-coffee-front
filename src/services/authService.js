@@ -104,6 +104,15 @@ class AuthService {
   }
 
   /**
+   * Update user profile information
+   * PUT /api/auth/profile
+   */
+  async updateProfile(profileData) {
+    const response = await api.put("api/auth/profile", profileData);
+    return response.data;
+  }
+
+  /**
    * Change password
    * POST /api/auth/change-password
    */

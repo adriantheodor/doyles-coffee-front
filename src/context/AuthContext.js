@@ -119,6 +119,25 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   /**
+   * Update user profile information
+   */
+  const updateProfile = useCallback(async (profileData) => {
+    setError(null);
+    try {
+      const result = await authService.updateProfile(profileData);
+      // Update local user state with new data
+      const updatedUser = result.user || result;
+      setUser(updatedUser);
+      return result;
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || err.message || "Update profile failed";
+      setError(errorMessage);
+      throw err;
+    }
+  }, []);
+
+  /**
    * Verify email with token
    */
   const verifyEmail = useCallback(async (token) => {
@@ -198,6 +217,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     changePassword,
+    updateProfile,
     verifyEmail,
     refreshToken,
     getCurrentUser,

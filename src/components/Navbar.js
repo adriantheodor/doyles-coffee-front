@@ -173,6 +173,10 @@ const Navbar = ({ activeSection, setActiveSection }) => {
           <div className="user-controls">
             <span className="welcome-text">Welcome, {user.name}</span>
 
+            <button onClick={() => navigate("/account-settings")}>
+              Account Settings
+            </button>
+
             <button onClick={() => navigate("/change-password")}>
               Change Password
             </button>
