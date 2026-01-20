@@ -4,10 +4,9 @@ import {
   downloadInvoice,
   formatDate,
   formatCurrency,
-  getStatusBadge,
   handleDownload,
 } from '../../utils/invoiceAPI';
-import { PageLoader, InlineLoader } from '../../components/LoadingSpinner';
+import { PageLoader } from '../../components/LoadingSpinner';
 import InvoiceDetailsModal from './InvoiceDetailsModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import './InvoiceListTable.css';
@@ -54,7 +53,7 @@ const InvoiceListTable = () => {
    */
   useEffect(() => {
     applyFiltersAndSort();
-  }, [invoices, searchQuery, statusFilter, sortBy, sortOrder]);
+  }, [invoices, searchQuery, statusFilter, sortBy, sortOrder, applyFiltersAndSort]);
 
   /**
    * Load invoices from API
