@@ -5,7 +5,7 @@ import {
   formatCurrency,
   handleDownload,
 } from '../utils/invoiceAPI';
-import { PageLoader } from '../../components/LoadingSpinner';
+import { PageLoader } from '../components/LoadingSpinner';
 import CustomerInvoiceDetailsModal from './CustomerInvoiceDetailsModal';
 import './MyInvoicesList.css';
 
