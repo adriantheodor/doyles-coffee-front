@@ -42,40 +42,6 @@ const InvoiceListTable = () => {
   const [sortOrder, setSortOrder] = useState('desc'); // asc, desc
 
   /**
-   * Fetch invoices on component mount
-   */
-  useEffect(() => {
-    loadInvoices();
-  }, []);
-
-  /**
-   * Apply filters and sorting whenever data changes
-   */
-  useEffect(() => {
-    applyFiltersAndSort();
-  }, [invoices, searchQuery, statusFilter, sortBy, sortOrder, applyFiltersAndSort]);
-
-  /**
-   * Load invoices from API
-   */
-  const loadInvoices = async () => {
-    setLoading(true);
-    setError('');
-
-    try {
-      const data = await fetchInvoices();
-      setInvoices(Array.isArray(data) ? data : data.invoices || []);
-      setError('');
-    } catch (err) {
-      console.error('Error fetching invoices:', err);
-      setError(err.message || 'Failed to load invoices');
-      setInvoices([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /**
    * Apply filters and sorting to invoices
    */
   const applyFiltersAndSort = useCallback(() => {
@@ -129,6 +95,40 @@ const InvoiceListTable = () => {
 
     setFilteredInvoices(results);
   }, [invoices, searchQuery, statusFilter, sortBy, sortOrder]);
+
+  /**
+   * Fetch invoices on component mount
+   */
+  useEffect(() => {
+    loadInvoices();
+  }, []);
+
+  /**
+   * Apply filters and sorting whenever data changes
+   */
+  useEffect(() => {
+    applyFiltersAndSort();
+  }, [invoices, searchQuery, statusFilter, sortBy, sortOrder, applyFiltersAndSort]);
+
+  /**
+   * Load invoices from API
+   */
+  const loadInvoices = async () => {
+    setLoading(true);
+    setError('');
+
+    try {
+      const data = await fetchInvoices();
+      setInvoices(Array.isArray(data) ? data : data.invoices || []);
+      setError('');
+    } catch (err) {
+      console.error('Error fetching invoices:', err);
+      setError(err.message || 'Failed to load invoices');
+      setInvoices([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   /**
    * Handle view details button
