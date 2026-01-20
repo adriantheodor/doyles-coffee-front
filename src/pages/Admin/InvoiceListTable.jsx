@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   fetchInvoices,
   downloadInvoice,
@@ -78,7 +78,7 @@ const InvoiceListTable = () => {
   /**
    * Apply filters and sorting to invoices
    */
-  const applyFiltersAndSort = () => {
+  const applyFiltersAndSort = useCallback(() => {
     let results = [...invoices];
 
     // Apply search filter
@@ -128,7 +128,7 @@ const InvoiceListTable = () => {
     });
 
     setFilteredInvoices(results);
-  };
+  }, [invoices, searchQuery, statusFilter, sortBy, sortOrder]);
 
   /**
    * Handle view details button
