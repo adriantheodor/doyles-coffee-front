@@ -162,20 +162,16 @@
 }
 
 .carousel-item {
-  height: 40vh;
   background: #f8f9fa;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
 }
 
 .carousel-image {
   height: 100%;
   width: 100%;
-  object-fit: contain;
-}
-
-@media (min-width: 768px) {
-  .carousel-item {
-    height: 60vh;
-  }
+  object-fit: cover;
+  object-position: center;
 }
 
 .carousel-caption {
@@ -249,11 +245,6 @@
   border-radius: 0.5rem;
 }
 /* Professional Carousel Styles */
-.carousel-image {
-  height: 500px;
-  object-fit: cover;
-}
-
 .carousel-caption {
   background-color: rgba(0, 0, 0, 0.7) !important;
 }
