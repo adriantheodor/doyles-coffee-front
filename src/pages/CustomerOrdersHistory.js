@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../utils/api";
 import "./CustomerOrdersHistory.css"; // optional if you want extra custom styling
 
 const CustomerOrdersHistory = () => {
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,6 +35,10 @@ const CustomerOrdersHistory = () => {
   const activeOrders = orders.filter((o) => o.status !== "Fulfilled");
   const completedOrders = orders.filter((o) => o.status === "Fulfilled");
 
+  const handleOrderClick = (orderId) => {
+    navigate(`/orders/${orderId}`);
+  };
+
   return (
     <div>
       <h2>Your Orders</h2>
@@ -45,20 +51,30 @@ const CustomerOrdersHistory = () => {
       {activeOrders.length === 0 && <p>No pending orders.</p>}
 
       {activeOrders.map((order) => (
-        <div key={order._id} className="order-card">
-          <strong>Order #{order._id.slice(-6)}</strong>
-          <p>Status: <b>{order.status}</b></p>
+        <div key={order._id} className="order-card" onClick={() => handleOrderClick(order._id)} style={{ cursor: "pointer" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <strong>Order #{order._id.slice(-6)}</strong>
+              <p>Status: <b>{order.status}</b></p>
 
-          <div>
-            <h4>Items:</h4>
-            {order.items.map((item) => (
-              <div key={item._id}>
-                {item.product?.name} — Qty: {item.quantity}
+              <div>
+                <h4>Items:</h4>
+                {order.items.map((item) => (
+                  <div key={item._id}>
+                    {item.product?.name} — Qty: {item.quantity}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          <p>Total: ${order.totalPrice.toFixed(2)}</p>
+              <p>Total: ${order.totalPrice.toFixed(2)}</p>
+            </div>
+            <button className="btn-view-details" onClick={(e) => {
+              e.stopPropagation();
+              handleOrderClick(order._id);
+            }}>
+              View Details →
+            </button>
+          </div>
         </div>
       ))}
 
@@ -70,30 +86,40 @@ const CustomerOrdersHistory = () => {
       {completedOrders.length === 0 && <p>No completed orders yet.</p>}
 
       {completedOrders.map((order) => (
-        <div key={order._id} className="order-card complete">
-          <strong>Order #{order._id.slice(-6)}</strong>
-          <p>Status: <b>{order.status}</b></p>
+        <div key={order._id} className="order-card complete" onClick={() => handleOrderClick(order._id)} style={{ cursor: "pointer" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div>
+              <strong>Order #{order._id.slice(-6)}</strong>
+              <p>Status: <b>{order.status}</b></p>
 
-          <div>
-            <h4>Items:</h4>
-            {order.items.map((item) => (
-              <div key={item._id}>
-                {item.product?.name} — Qty: {item.quantity}
+              <div>
+                <h4>Items:</h4>
+                {order.items.map((item) => (
+                  <div key={item._id}>
+                    {item.product?.name} — Qty: {item.quantity}
+                  </div>
+                ))}
               </div>
-            ))}
+
+              <p>Total: ${order.totalPrice.toFixed(2)}</p>
+
+              {/* Link invoice if it exists */}
+              <a
+                href={`${API_BASE}api/invoices/order/${order._id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="invoice-link"
+              >
+                View Invoice PDF
+              </a>
+            </div>
+            <button className="btn-view-details" onClick={(e) => {
+              e.stopPropagation();
+              handleOrderClick(order._id);
+            }}>
+              View Details →
+            </button>
           </div>
-
-          <p>Total: ${order.totalPrice.toFixed(2)}</p>
-
-          {/* Link invoice if it exists */}
-          <a
-            href={`${API_BASE}api/invoices/order/${order._id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="invoice-link"
-          >
-            View Invoice PDF
-          </a>
         </div>
       ))}
     </div>

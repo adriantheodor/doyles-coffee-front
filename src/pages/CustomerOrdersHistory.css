@@ -23,3 +23,21 @@
 .invoice-link:hover {
   color: #2f6035;
 }
+
+.btn-view-details {
+  background: #3A7842;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+.btn-view-details:hover {
+  background: #2f6035;
+  box-shadow: 0 2px 8px rgba(58, 120, 66, 0.3);
+}

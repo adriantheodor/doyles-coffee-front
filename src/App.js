@@ -21,6 +21,8 @@ import InvoicesPage from "./pages/InvoicesPage";
 import HomePage from "./pages/HomePage";
 import SubmitIssuePage from "./pages/SubmitIssuePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
+import OrderTrackingPage from "./pages/OrderTrackingPage";
+import CustomerOrdersHistory from "./pages/CustomerOrdersHistory";
 
 import { AuthProvider } from "./context/AuthContext";
 import useAuth from "./hooks/useAuth";
@@ -192,6 +194,30 @@ function AppWrapper() {
           element={
             <RoleBasedRoute allowedRoles={["customer"]}>
               <PlaceOrderPage />
+            </RoleBasedRoute>
+          }
+        />
+
+        {/* CUSTOMER ORDER TRACKING */}
+        <Route
+          path="/orders/:orderId"
+          element={
+            <RoleBasedRoute allowedRoles={["customer"]}>
+              <OrderTrackingPage />
+            </RoleBasedRoute>
+          }
+        />
+
+        {/* CUSTOMER ALL ORDERS */}
+        <Route
+          path="/orders"
+          element={
+            <RoleBasedRoute allowedRoles={["customer"]}>
+              <div className="page-container">
+                <div className="page-card">
+                  <CustomerOrdersHistory />
+                </div>
+              </div>
             </RoleBasedRoute>
           }
         />
