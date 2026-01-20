@@ -54,7 +54,10 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
     if (isLoading) {
       return (
         <div className="customer-home">
-          <h2 style={{ color: "var(--brand-green)" }}>Welcome back, {user?.name}!</h2>
+          <div className="welcome-header">
+            <h2>Welcome back, {user?.name}!</h2>
+            <p className="welcome-subtitle">Loading your dashboard...</p>
+          </div>
           <div style={{ textAlign: "center", padding: "40px" }}>
             <p style={{ fontSize: "16px", color: "#666" }}>⏳ Loading your dashboard...</p>
           </div>
@@ -64,41 +67,115 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
 
     return (
       <div className="customer-home">
-        <h2 style={{ color: "var(--brand-green)" }}>Welcome back, {user?.name}!</h2>
-
-        {/* RECENT ORDERS */}
-        <div className="section-box">
-          <h3>Recent Orders</h3>
-          {recentOrders.length === 0 ? (
-            <p>No recent orders.</p>
-          ) : (
-            recentOrders.map((o) => (
-              <div key={o._id} className="list-item">
-                <strong>Order #{o._id.slice(-6)}</strong> — {o.status}
-              </div>
-            ))
-          )}
+        {/* WELCOME HEADER */}
+        <div className="welcome-header">
+          <h2>Welcome back, {user?.name}!</h2>
+          <p className="welcome-subtitle">Manage your orders, invoices, and account</p>
         </div>
 
-        {/* RECENT ISSUES */}
-        <div className="section-box">
-          <h3>Your Recent Issues</h3>
-          {recentIssues.length === 0 ? (
-            <p>No issues reported.</p>
-          ) : (
-            recentIssues.map((issue) => (
-              <div key={issue._id} className="list-item">
-                Issue #{issue._id.slice(-6)} — {issue.status}
-              </div>
-            ))
-          )}
+        {/* QUICK ACTIONS */}
+        <div className="quick-actions-section">
+          <h3>Quick Actions</h3>
+          <div className="quick-actions-grid">
+            <button 
+              className="quick-action-btn"
+              onClick={() => setActiveSection("orders")}
+              title="Place a new order"
+            >
+              <span className="action-icon">📦</span>
+              <span className="action-text">Place Order</span>
+            </button>
+            <button 
+              className="quick-action-btn"
+              onClick={() => setActiveSection("history")}
+              title="View your order history"
+            >
+              <span className="action-icon">📋</span>
+              <span className="action-text">Order History</span>
+            </button>
+            <button 
+              className="quick-action-btn"
+              onClick={() => setActiveSection("invoices")}
+              title="View your invoices"
+            >
+              <span className="action-icon">💰</span>
+              <span className="action-text">Invoices</span>
+            </button>
+            <button 
+              className="quick-action-btn"
+              onClick={() => setActiveSection("issues")}
+              title="Report an issue"
+            >
+              <span className="action-icon">⚠️</span>
+              <span className="action-text">Report Issue</span>
+            </button>
+          </div>
+        </div>
+
+        {/* OVERVIEW CARDS */}
+        <div className="overview-cards">
+          <div className="overview-card">
+            <h4>Recent Orders</h4>
+            <div className="card-content">
+              {recentOrders.length === 0 ? (
+                <p className="empty-state">No recent orders yet</p>
+              ) : (
+                <>
+                  {recentOrders.map((o) => (
+                    <div key={o._id} className="list-item">
+                      <span className="order-id">Order #{o._id.slice(-6)}</span>
+                      <span className="order-status" data-status={o.status}>{o.status}</span>
+                    </div>
+                  ))}
+                  <button 
+                    className="view-more-btn"
+                    onClick={() => setActiveSection("history")}
+                  >
+                    View All Orders →
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="overview-card">
+            <h4>Recent Issues</h4>
+            <div className="card-content">
+              {recentIssues.length === 0 ? (
+                <p className="empty-state">No issues reported</p>
+              ) : (
+                <>
+                  {recentIssues.map((issue) => (
+                    <div key={issue._id} className="list-item">
+                      <span className="issue-id">Issue #{issue._id.slice(-6)}</span>
+                      <span className="issue-status" data-status={issue.status}>{issue.status}</span>
+                    </div>
+                  ))}
+                  <button 
+                    className="view-more-btn"
+                    onClick={() => setActiveSection("issues")}
+                  >
+                    View All Issues →
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* ACCOUNT SUMMARY */}
-        <div className="section-box">
-          <h3>Your Account Info</h3>
-          <p><strong>Name:</strong> {user?.name}</p>
-          <p><strong>Email:</strong> {user?.email}</p>
+        <div className="section-box account-summary">
+          <h3>Account Information</h3>
+          <div className="account-info-grid">
+            <div className="account-info-item">
+              <span className="info-label">Name</span>
+              <span className="info-value">{user?.name}</span>
+            </div>
+            <div className="account-info-item">
+              <span className="info-label">Email</span>
+              <span className="info-value">{user?.email}</span>
+            </div>
+          </div>
         </div>
       </div>
     );
