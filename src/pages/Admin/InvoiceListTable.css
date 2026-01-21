@@ -313,6 +313,27 @@
   text-decoration: underline;
 }
 
+.cell-email {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.cell-email a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cell-email a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.cell-order {
+  font-weight: 600;
+  color: #6b7280;
+}
+
 .cell-file {
   font-size: 13px;
 }

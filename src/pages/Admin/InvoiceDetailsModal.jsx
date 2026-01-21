@@ -184,6 +184,14 @@ const InvoiceDetailsModal = ({ invoice, onClose }) => {
                   <p className="detail-value">{invoice.customerId}</p>
                 </div>
               )}
+
+              {/* Order Number */}
+              {invoice.orderNumber && (
+                <div className="detail-item">
+                  <label className="detail-label">Order Number</label>
+                  <p className="detail-value">{invoice.orderNumber}</p>
+                </div>
+              )}
             </div>
           </div>
 

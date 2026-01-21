@@ -381,6 +381,8 @@ const InvoiceListTable = () => {
                 <th className="sortable" onClick={() => handleSort('customer')}>
                   Customer{getSortIndicator('customer')}
                 </th>
+                <th>Email</th>
+                <th>Order #</th>
                 <th>File Name</th>
                 <th className="sortable" onClick={() => handleSort('amount')}>
                   Amount{getSortIndicator('amount')}
@@ -402,6 +404,22 @@ const InvoiceListTable = () => {
                     >
                       {invoice.customerName || 'Unknown'}
                     </button>
+                  </td>
+
+                  {/* Email */}
+                  <td className="cell-email">
+                    {invoice.customerEmail ? (
+                      <a href={`mailto:${invoice.customerEmail}`} title={invoice.customerEmail}>
+                        {invoice.customerEmail}
+                      </a>
+                    ) : (
+                      'N/A'
+                    )}
+                  </td>
+
+                  {/* Order Number */}
+                  <td className="cell-order">
+                    {invoice.orderNumber || 'N/A'}
                   </td>
 
                   {/* File Name */}
