@@ -177,7 +177,7 @@
 
   /* Hide hamburger on desktop */
   .hamburger-btn {
-    display: none;
+    display: none !important;
   }
 
   /* Desktop link styling */
