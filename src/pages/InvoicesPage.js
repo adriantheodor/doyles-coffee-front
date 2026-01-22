@@ -88,5 +88,6 @@ const InvoicesPage = () => {
       </div>
     </div>
   );
+};
 
 export default InvoicesPage;

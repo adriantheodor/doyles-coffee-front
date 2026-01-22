@@ -134,7 +134,6 @@ const CustomerOrdersHistory = () => {
           </div>
         </div>
       ))}
-      )}
     </div>
   );
 };
