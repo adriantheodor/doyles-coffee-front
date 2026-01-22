@@ -85,7 +85,8 @@ const CustomerOrdersHistory = () => {
             </button>
           </div>
         </div>
-      ))}
+        ))
+      )}
 
       {/* COMPLETED ORDERS */}
       <h3 style={{ marginTop: "30px" }}>Completed Orders</h3>
@@ -133,7 +134,8 @@ const CustomerOrdersHistory = () => {
             </button>
           </div>
         </div>
-      ))}
+        ))
+      )}
     </div>
   );
 };
