@@ -84,8 +84,9 @@ const InvoicesPage = () => {
             </div>
           ))}
         </div>
-        </div>
+        )}
+      </div>
+    </div>
   );
-};
 
 export default InvoicesPage;
