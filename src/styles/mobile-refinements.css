@@ -1,0 +1,704 @@
+/* ============================================================================
+   MOBILE-FIRST REFINEMENTS & CONTEMPORARY UI/UX BEST PRACTICES
+   ============================================================================
+   
+   This file implements modern mobile UX patterns:
+   - Touch-friendly targets (48px minimum)
+   - Proper spacing and breathing room
+   - Bottom-sheet patterns for modals
+   - Gesture-friendly interactions
+   - Optimized typography
+   - Safe area support
+   - Reduced motion support
+   - Performance optimizations
+*/
+
+/* ============================================================================
+   1. RESET & MOBILE-FIRST FOUNDATION
+   ============================================================================ */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent iOS tap highlight */
+}
+
+html {
+  /* Enable smooth scrolling */
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Prevent double tap zoom on mobile */
+  touch-action: manipulation;
+  
+  /* Prevent zoom on input focus (iOS) */
+  font-size: 16px;
+  
+  /* Optimize font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================================
+   2. TOUCH-FRIENDLY TARGETS
+   ============================================================================ */
+
+/* Ensure all interactive elements meet 48px minimum touch target */
+.touch-target {
+  min-height: 48px;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Button enhancements */
+button,
+[role="button"],
+a[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 12px 16px;
+  
+  /* Better touch feedback */
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* No hairline borders */
+  border: 1px solid transparent;
+  
+  /* Proper cursor */
+  cursor: pointer;
+}
+
+/* Active state (press down) */
+button:active,
+[role="button"]:active {
+  transform: scale(0.98);
+}
+
+/* Hover on desktop only */
+@media (hover: hover) {
+  button:hover,
+  [role="button"]:hover {
+    opacity: 0.85;
+  }
+}
+
+/* ============================================================================
+   3. MOBILE FORM INPUTS
+   ============================================================================ */
+
+input,
+textarea,
+select {
+  font-size: 16px; /* Prevent auto-zoom on iOS */
+  padding: 12px;
+  min-height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  width: 100%;
+  box-sizing: border-box;
+  
+  /* Smooth transitions */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--brand-green, #3a7842);
+  box-shadow: 0 0 0 3px rgba(58, 120, 66, 0.1);
+}
+
+/* Placeholder styling */
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+/* Select dropdown improvements */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%233a7842' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* ============================================================================
+   4. IMPROVED SPACING & TYPOGRAPHY FOR MOBILE
+   ============================================================================ */
+
+/* Mobile text sizes */
+body {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin: 0 0 16px 0;
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 0 0 14px 0;
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+}
+
+h4, h5, h6 {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+}
+
+p {
+  margin: 0 0 12px 0;
+  line-height: 1.6;
+}
+
+/* Better list spacing */
+ul, ol {
+  padding-left: 20px;
+  margin: 0 0 16px 0;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+/* Desktop enhancements */
+@media (min-width: 768px) {
+  h1 { font-size: 28px; margin-bottom: 20px; }
+  h2 { font-size: 24px; margin-bottom: 18px; }
+  h3 { font-size: 20px; margin-bottom: 16px; }
+  body { font-size: 15px; }
+}
+
+/* ============================================================================
+   5. BOTTOM SHEET & MODAL PATTERNS
+   ============================================================================ */
+
+/* Modern bottom sheet overlay */
+.bottom-sheet-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  animation: fade-in 0.2s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobile-friendly modal/bottom sheet */
+.bottom-sheet,
+.mobile-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 16px 16px 0 0;
+  z-index: 1000;
+  max-height: 85vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Momentum scrolling */
+  animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Drag handle */
+.bottom-sheet-handle,
+.modal-drag-handle {
+  width: 40px;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  margin: 12px auto;
+}
+
+/* Close on desktop, swipe on mobile */
+@media (min-width: 640px) {
+  .bottom-sheet,
+  .mobile-modal {
+    position: absolute;
+    bottom: auto;
+    max-height: 90vh;
+    max-width: 500px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 16px;
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translate(-50%, -48%);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+    }
+  }
+}
+
+/* ============================================================================
+   6. SAFE AREA SUPPORT (Notch & Dynamic Island)
+   ============================================================================ */
+
+.safe-area-inset-top {
+  padding-top: max(12px, env(safe-area-inset-top));
+}
+
+.safe-area-inset-bottom {
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+.safe-area-inset-left {
+  padding-left: max(12px, env(safe-area-inset-left));
+}
+
+.safe-area-inset-right {
+  padding-right: max(12px, env(safe-area-inset-right));
+}
+
+/* Apply to fixed elements */
+.navbar-custom {
+  padding-top: max(8px, env(safe-area-inset-top));
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+}
+
+/* Bottom navigation safe area */
+.mobile-bottom-nav,
+.mobile-tab-bar {
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+}
+
+/* ============================================================================
+   7. SWIPE & GESTURE SUPPORT
+   ============================================================================ */
+
+.swipe-dismiss {
+  cursor: grab;
+}
+
+.swipe-dismiss:active {
+  cursor: grabbing;
+}
+
+/* Prevent accidental selections during interactions */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* ============================================================================
+   8. PERFORMANCE OPTIMIZATIONS
+   ============================================================================ */
+
+/* Use will-change for animated elements (use sparingly) */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Optimize images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* GPU acceleration for smooth animations */
+.gpu-accelerate {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}
+
+/* ============================================================================
+   9. MOBILE-SPECIFIC LAYOUT PATTERNS
+   ============================================================================ */
+
+/* Stack everything vertically on mobile */
+.mobile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Mobile container with proper padding */
+.mobile-container {
+  padding: 16px;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .mobile-container {
+    padding: 24px;
+  }
+}
+
+/* Full-width button on mobile, constrained on desktop */
+.mobile-fullwidth-button {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .mobile-fullwidth-button {
+    width: auto;
+  }
+}
+
+/* ============================================================================
+   10. REDUCED MOTION ACCESSIBILITY
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Keep important visual changes instant */
+  button:active {
+    transform: none;
+  }
+}
+
+/* ============================================================================
+   11. DARK MODE ENHANCEMENTS
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #111827;
+    color: #f3f4f6;
+  }
+  
+  input,
+  textarea,
+  select {
+    background-color: #1f2937;
+    color: #f3f4f6;
+    border-color: #374151;
+  }
+  
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--brand-green, #4ade80);
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.1);
+  }
+  
+  .bottom-sheet,
+  .mobile-modal {
+    background-color: #1f2937;
+    color: #f3f4f6;
+  }
+  
+  .bottom-sheet-handle,
+  .modal-drag-handle {
+    background-color: #374151;
+  }
+}
+
+/* ============================================================================
+   12. RESPONSIVE GRID FOR MOBILE
+   ============================================================================ */
+
+.mobile-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .mobile-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+/* ============================================================================
+   13. MOBILE TABLES & DATA DISPLAY
+   ============================================================================ */
+
+/* Responsive table wrapper */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -16px;
+  padding: 0 16px;
+}
+
+@media (max-width: 640px) {
+  /* Stack table vertically on mobile */
+  .mobile-table {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .mobile-table-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .mobile-table-label {
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+}
+
+/* ============================================================================
+   14. MOBILE NAVIGATION PATTERNS
+   ============================================================================ */
+
+/* Bottom tab bar */
+.mobile-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 0;
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.mobile-tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 0;
+  min-height: 56px;
+  color: #6b7280;
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 11px;
+  transition: color 0.2s;
+}
+
+.mobile-tab-item.active {
+  color: var(--brand-green, #3a7842);
+}
+
+.mobile-tab-icon {
+  font-size: 24px;
+}
+
+/* Push content up when using bottom tab bar */
+.has-mobile-tab-bar {
+  padding-bottom: calc(56px + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 640px) {
+  .mobile-tab-bar {
+    display: none;
+  }
+  
+  .has-mobile-tab-bar {
+    padding-bottom: 0;
+  }
+}
+
+/* ============================================================================
+   15. NOTIFICATION & TOAST SAFE AREA
+   ============================================================================ */
+
+.toast-container {
+  padding: max(16px, env(safe-area-inset-bottom));
+  padding-right: max(16px, env(safe-area-inset-right));
+}
+
+/* ============================================================================
+   16. MOBILE INPUT ENHANCEMENTS
+   ============================================================================ */
+
+/* Better mobile number input */
+input[type="tel"],
+input[type="email"],
+input[type="number"] {
+  font-size: 16px;
+}
+
+/* iOS-style search input */
+input[type="search"] {
+  appearance: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+/* ============================================================================
+   17. CONTAINER QUERIES (Modern Mobile Adaptation)
+   ============================================================================ */
+
+@supports (container-type: inline-size) {
+  .mobile-adaptive-container {
+    container-type: inline-size;
+  }
+  
+  @container (max-width: 320px) {
+    .mobile-adaptive-text {
+      font-size: 14px;
+    }
+  }
+  
+  @container (min-width: 400px) {
+    .mobile-adaptive-text {
+      font-size: 16px;
+    }
+  }
+}
+
+/* ============================================================================
+   18. LOADING STATE ENHANCEMENTS
+   ============================================================================ */
+
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    #f3f4f6 25%,
+    #e5e7eb 50%,
+    #f3f4f6 75%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============================================================================
+   19. FOCUS VISIBLE FOR KEYBOARD NAVIGATION
+   ============================================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--brand-green, #3a7842);
+  outline-offset: 2px;
+}
+
+/* Remove outline on mouse click but keep on keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================================================
+   20. UTILITY CLASSES FOR MOBILE DEVELOPMENT
+   ============================================================================ */
+
+/* Visibility utilities */
+.mobile-only {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+/* Spacing utilities */
+.mobile-padding {
+  padding: 16px;
+}
+
+.mobile-gap-sm {
+  gap: 8px;
+}
+
+.mobile-gap-md {
+  gap: 12px;
+}
+
+.mobile-gap-lg {
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .mobile-padding {
+    padding: 24px;
+  }
+  
+  .mobile-gap-md {
+    gap: 16px;
+  }
+}
+

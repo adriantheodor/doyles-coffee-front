@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import useToast from "../hooks/useToast";
+import EmptyState from "../components/EmptyState";
 import PlaceOrderPage from "./PlaceOrderPage";
 import CustomerInvoices from "./InvoicesPage";
 import CustomerIssueForm from "./SubmitIssuePage";
@@ -10,6 +12,7 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
   const [recentIssues, setRecentIssues] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
+  const toast = useToast();
 
   // Fetch latest 3 orders + issues
   useEffect(() => {
@@ -39,6 +42,7 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
         setRecentIssues(Array.isArray(issuesData) ? issuesData.slice(0, 3) : []);
       } catch (err) {
         console.error("Customer dash load error", err);
+        toast.error("Failed to load dashboard data");
         setRecentOrders([]);
         setRecentIssues([]);
       } finally {
@@ -118,7 +122,14 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
             <h4>Recent Orders</h4>
             <div className="card-content">
               {recentOrders.length === 0 ? (
-                <p className="empty-state">No recent orders yet</p>
+                <EmptyState
+                  icon="📦"
+                  title="No Orders Yet"
+                  description="Place your first order to get started"
+                  actionLabel="Place Order"
+                  onAction={() => setActiveSection("orders")}
+                  className="compact minimal"
+                />
               ) : (
                 <>
                   {recentOrders.map((o) => (
@@ -142,7 +153,12 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
             <h4>Recent Issues</h4>
             <div className="card-content">
               {recentIssues.length === 0 ? (
-                <p className="empty-state">No issues reported</p>
+                <EmptyState
+                  icon="✅"
+                  title="No Issues"
+                  description="Great! You haven't reported any issues"
+                  className="compact minimal"
+                />
               ) : (
                 <>
                   {recentIssues.map((issue) => (

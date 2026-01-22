@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import useToast from "../hooks/useToast";
+import EmptyState from "../components/EmptyState";
 import { API_BASE } from "../utils/api";
 import "./OrderTrackingPage.css";
 
 const OrderTrackingPage = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
+  const toast = useToast();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -15,7 +18,9 @@ const OrderTrackingPage = () => {
       try {
         const token = localStorage.getItem("accessToken");
         if (!token) {
-          setError("Authentication required. Please log in.");
+          const msg = "Authentication required. Please log in.";
+          setError(msg);
+          toast.error(msg);
           navigate("/login");
           return;
         }
@@ -35,7 +40,9 @@ const OrderTrackingPage = () => {
         setOrder(data);
       } catch (err) {
         console.error("Error fetching order:", err);
-        setError(err.message || "Failed to load order details");
+        const errorMsg = err.message || "Failed to load order details";
+        setError(errorMsg);
+        toast.error(errorMsg);
       } finally {
         setLoading(false);
       }
@@ -48,7 +55,7 @@ const OrderTrackingPage = () => {
 
   if (loading) {
     return (
-      <div className="page-container">
+      <div className="page-container mobile-container">
         <div className="page-card">
           <p className="loading">Loading order details...</p>
         </div>
@@ -58,11 +65,14 @@ const OrderTrackingPage = () => {
 
   if (error || !order) {
     return (
-      <div className="page-container">
-        <div className="page-card">
-          <p className="error-message">{error || "Order not found"}</p>
-          <button onClick={() => navigate("/orders")}>Back to Orders</button>
-        </div>
+      <div className="page-container mobile-container">
+        <EmptyState
+          icon="❌"
+          title="Order Not Found"
+          description={error || "The order you're looking for doesn't exist or couldn't be loaded."}
+          actionLabel="Back to Orders"
+          onAction={() => navigate("/orders")}
+        />
       </div>
     );
   }
@@ -88,7 +98,7 @@ const OrderTrackingPage = () => {
   };
 
   return (
-    <div className="page-container">
+    <div className="page-container mobile-container">
       <div className="page-card">
         <div className="tracking-header">
           <h1>Order Tracking</h1>

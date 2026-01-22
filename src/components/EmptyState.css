@@ -1,0 +1,271 @@
+/* ============================================================================
+   Empty State Component Styles
+   ============================================================================
+   
+   Provides consistent, user-friendly empty state styling across the app.
+   Includes responsive design, dark mode support, and accessibility features.
+   
+   Usage:
+   <EmptyState 
+     icon="📦"
+     title="No Orders Yet"
+     description="Start by placing your first order"
+     actionLabel="Place Order"
+     onAction={() => navigate('/place-order')}
+   />
+   ============================================================================ */
+
+/* Base Empty State Container */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  /* Spacing - responsive padding */
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  min-height: 300px;
+  
+  /* Styling */
+  text-align: center;
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-light);
+  color: var(--text-secondary);
+  
+  /* Animation */
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* Icon */
+.empty-icon {
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: var(--spacing-lg);
+  
+  /* No scale on reduced motion */
+  animation: slideDown 0.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .empty-icon {
+    animation: none;
+  }
+}
+
+/* Title */
+.empty-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .empty-title {
+    font-size: 24px;
+  }
+}
+
+/* Description */
+.empty-description {
+  font-size: 14px;
+  margin: 0 0 var(--spacing-xl) 0;
+  color: var(--text-secondary);
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .empty-description {
+    font-size: 16px;
+  }
+}
+
+/* Action Button */
+.empty-action-btn {
+  margin-top: var(--spacing-md);
+  min-width: 200px;
+  white-space: nowrap;
+}
+
+/* Responsive Adjustments - Mobile */
+@media (max-width: 639px) {
+  .empty-state {
+    padding: var(--spacing-xl) var(--spacing-md);
+    min-height: 250px;
+    border-radius: var(--radius-md);
+  }
+  
+  .empty-icon {
+    font-size: 48px;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .empty-title {
+    font-size: 18px;
+  }
+  
+  .empty-description {
+    font-size: 13px;
+    max-width: 100%;
+  }
+  
+  .empty-action-btn {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* Responsive Adjustments - Tablet */
+@media (min-width: 640px) and (max-width: 767px) {
+  .empty-state {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+}
+
+/* Desktop - Additional spacing */
+@media (min-width: 1024px) {
+  .empty-state {
+    padding: 60px var(--spacing-xl);
+    min-height: 400px;
+  }
+}
+
+/* Dark Mode Adjustments */
+@media (prefers-color-scheme: dark) {
+  .empty-state {
+    background-color: var(--bg-dark-secondary);
+  }
+  
+  .empty-title {
+    color: var(--text-dark-primary);
+  }
+  
+  .empty-description {
+    color: var(--text-dark-secondary);
+  }
+}
+
+/* Variant: Card Style (with subtle shadow) */
+.empty-state.card-style {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  .empty-state.card-style {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Variant: Minimal (no background) */
+.empty-state.minimal {
+  background-color: transparent;
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+/* Variant: Compact (reduced height) */
+.empty-state.compact {
+  padding: var(--spacing-lg);
+  min-height: 200px;
+}
+
+.empty-state.compact .empty-icon {
+  font-size: 48px;
+}
+
+.empty-state.compact .empty-title {
+  font-size: 16px;
+}
+
+.empty-state.compact .empty-description {
+  font-size: 13px;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Hover State - Action Button */
+.empty-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .empty-action-btn:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Focus State - Keyboard Navigation */
+.empty-action-btn:focus-visible {
+  outline: 2px solid var(--brand-green);
+  outline-offset: 2px;
+}
+
+/* Active State */
+.empty-action-btn:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .empty-action-btn:active {
+    transform: none;
+  }
+}
+
+/* Disabled State */
+.empty-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .empty-state,
+  .empty-icon {
+    animation: none !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .empty-state {
+    display: none;
+  }
+}
+
+/* Accessibility - Focus Within */
+.empty-state:focus-within {
+  outline: none;
+}
+
+/* Tooltip for Icon (optional, with title attribute) */
+.empty-icon[title] {
+  cursor: help;
+  text-decoration: underline dotted;
+}

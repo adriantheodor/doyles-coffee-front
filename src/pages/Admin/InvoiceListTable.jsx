@@ -7,6 +7,7 @@ import {
   handleDownload,
 } from '../../utils/invoiceAPI';
 import { PageLoader } from '../../components/LoadingSpinner';
+import EmptyState from '../../components/EmptyState';
 import InvoiceDetailsModal from './InvoiceDetailsModal';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import './InvoiceListTable.css';
@@ -358,20 +359,11 @@ const InvoiceListTable = () => {
       {loading ? (
         <PageLoader isLoading={true} message="Loading invoices..." />
       ) : filteredInvoices.length === 0 ? (
-        /* Empty State */
-        <div className="empty-state">
-          <p className="empty-icon">📋</p>
-          <p className="empty-title">
-            {searchQuery || statusFilter !== 'all'
-              ? 'No invoices found'
-              : 'No invoices yet'}
-          </p>
-          <p className="empty-text">
-            {searchQuery || statusFilter !== 'all'
-              ? 'Try adjusting your search or filters'
-              : 'Upload your first invoice to get started'}
-          </p>
-        </div>
+        <EmptyState
+          icon="📋"
+          title={searchQuery || statusFilter !== 'all' ? 'No Invoices Found' : 'No Invoices Yet'}
+          description={searchQuery || statusFilter !== 'all' ? 'Try adjusting your search or filters.' : 'Upload your first invoice to get started.'}
+        />
       ) : (
         /* Table */
         <div className="table-wrapper">

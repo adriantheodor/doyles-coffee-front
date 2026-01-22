@@ -69,6 +69,129 @@ export const SkeletonLoader = ({
 };
 
 /**
+ * CardSkeleton Component
+ * Skeleton for card layouts (image + text)
+ * 
+ * @param {object} props
+ * @param {number} props.count - Number of skeleton cards (default: 1)
+ * @param {boolean} props.showImage - Show image placeholder (default: true)
+ */
+export const CardSkeleton = ({ count = 1, showImage = true }) => {
+  return (
+    <div className="skeleton-cards-container">
+      {Array(count).fill(null).map((_, idx) => (
+        <div key={idx} className="skeleton-card">
+          {showImage && <div className="skeleton-card-image"></div>}
+          <div className="skeleton-card-content">
+            <div className="skeleton-card-title"></div>
+            <div className="skeleton-card-text"></div>
+            <div className="skeleton-card-text short"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/**
+ * TableSkeleton Component
+ * Skeleton for table data loading
+ * 
+ * @param {object} props
+ * @param {number} props.rows - Number of rows (default: 5)
+ * @param {number} props.columns - Number of columns (default: 4)
+ */
+export const TableSkeleton = ({ rows = 5, columns = 4 }) => {
+  return (
+    <div className="skeleton-table-container">
+      <div className="skeleton-table">
+        {/* Header */}
+        <div className="skeleton-table-header">
+          {Array(columns).fill(null).map((_, idx) => (
+            <div key={`header-${idx}`} className="skeleton-table-header-cell"></div>
+          ))}
+        </div>
+        {/* Body rows */}
+        {Array(rows).fill(null).map((_, rowIdx) => (
+          <div key={`row-${rowIdx}`} className="skeleton-table-row">
+            {Array(columns).fill(null).map((_, colIdx) => (
+              <div key={`cell-${colIdx}`} className="skeleton-table-cell"></div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/**
+ * TextSkeleton Component
+ * Skeleton for text/paragraph content
+ * 
+ * @param {object} props
+ * @param {number} props.lines - Number of lines (default: 3)
+ * @param {boolean} props.showTitle - Show title line (default: false)
+ */
+export const TextSkeleton = ({ lines = 3, showTitle = false }) => {
+  return (
+    <div className="skeleton-text">
+      {showTitle && <div className="skeleton-text-title"></div>}
+      {Array(lines).fill(null).map((_, idx) => (
+        <div 
+          key={idx} 
+          className="skeleton-text-line"
+          style={{
+            width: idx === lines - 1 ? '80%' : '100%'
+          }}
+        ></div>
+      ))}
+    </div>
+  );
+};
+
+/**
+ * AvatarSkeleton Component
+ * Skeleton for user avatars
+ * 
+ * @param {object} props
+ * @param {number} props.count - Number of avatars (default: 1)
+ * @param {string} props.size - Size: 'sm', 'md', 'lg' (default: 'md')
+ */
+export const AvatarSkeleton = ({ count = 1, size = 'md' }) => {
+  return (
+    <div className="skeleton-avatars">
+      {Array(count).fill(null).map((_, idx) => (
+        <div key={idx} className={`skeleton-avatar skeleton-avatar-${size}`}></div>
+      ))}
+    </div>
+  );
+};
+
+/**
+ * ListSkeleton Component
+ * Skeleton for list items with avatar + text
+ * 
+ * @param {object} props
+ * @param {number} props.count - Number of items (default: 3)
+ * @param {boolean} props.showAvatar - Show avatar placeholder (default: true)
+ */
+export const ListSkeleton = ({ count = 3, showAvatar = true }) => {
+  return (
+    <div className="skeleton-list">
+      {Array(count).fill(null).map((_, idx) => (
+        <div key={idx} className="skeleton-list-item">
+          {showAvatar && <div className="skeleton-list-avatar"></div>}
+          <div className="skeleton-list-content">
+            <div className="skeleton-list-title"></div>
+            <div className="skeleton-list-subtitle"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/**
  * InlineLoader Component
  * Compact loading indicator for inline use
  * 

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import useToast from '../hooks/useToast';
+import EmptyState from '../components/EmptyState';
 import {
   downloadInvoice,
   formatDate,
@@ -21,6 +23,7 @@ const MyInvoicesList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const toast = useToast();
 
   // Download State
   const [downloadLoading, setDownloadLoading] = useState({});
@@ -66,7 +69,9 @@ const MyInvoicesList = () => {
       setError('');
     } catch (err) {
       console.error('Error fetching customer invoices:', err);
-      setError(err.message || 'Failed to load invoices');
+      const errorMsg = err.message || 'Failed to load invoices';
+      setError(errorMsg);
+      toast.error(errorMsg);
       setInvoices([]);
     } finally {
       setLoading(false);
@@ -140,14 +145,11 @@ const MyInvoicesList = () => {
       {loading ? (
         <PageLoader isLoading={true} message="Loading your invoices..." />
       ) : invoices.length === 0 ? (
-        /* Empty State */
-        <div className="empty-state">
-          <p className="empty-icon">📋</p>
-          <p className="empty-title">No invoices yet</p>
-          <p className="empty-text">
-            You don't have any invoices at this time. Check back later.
-          </p>
-        </div>
+        <EmptyState
+          icon="📋"
+          title="No Invoices Yet"
+          description="You don't have any invoices at this time. Check back later."
+        />
       ) : (
         /* Table */
         <div className="invoices-table-wrapper">

@@ -6,7 +6,7 @@ const OrderSuccessScreen = ({ orderId, totalPrice, itemCount }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="success-screen">
+    <div className="success-screen mobile-container">
       <div className="success-container">
         <div className="success-icon">✓</div>
         
@@ -32,15 +32,15 @@ const OrderSuccessScreen = ({ orderId, totalPrice, itemCount }) => {
           <p>You can track the status of your order from your dashboard.</p>
         </div>
 
-        <div className="action-buttons">
+        <div className="action-buttons mobile-stack">
           <button 
-            className="btn-track"
+            className="mobile-fullwidth-button"
             onClick={() => navigate("/dashboard")}
           >
             View Order Status
           </button>
           <button 
-            className="btn-place-another"
+            className="mobile-fullwidth-button"
             onClick={() => navigate("/place-order")}
           >
             Place Another Order

@@ -1,10 +1,12 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useToast from "../hooks/useToast";
 import QuoteConfirmation from "./QuoteConfirmation";
 
 export default function QuotePage() {
   const navigate = useNavigate();
+  const toast = useToast();
   const [form, setForm] = useState({
     companyName: "",
     contactName: "",
@@ -49,10 +51,12 @@ export default function QuotePage() {
           replace: true
         });
       } else {
-        alert("There was an issue submitting your request.");
+        const msg = "There was an issue submitting your request.";
+        toast.error(msg);
       }
     } catch (error) {
-      alert("Error submitting quote: " + error.message);
+      const msg = "Error submitting quote: " + error.message;
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -65,10 +69,7 @@ export default function QuotePage() {
   return (
     <form
       onSubmit={handleSubmit}
-      style={{
-        display: "grid",
-        gap: "1rem",
-      }}
+      className="mobile-container mobile-stack"
     >
       <h1>Request a Quote</h1>
 

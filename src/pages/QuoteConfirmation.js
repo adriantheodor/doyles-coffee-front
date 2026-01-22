@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 import quoteService from "../services/quoteService";
 import "./QuoteConfirmation.css";
 
@@ -8,6 +9,7 @@ export default function QuoteConfirmation() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
+  const toast = useToast();
   
   const [displayText, setDisplayText] = useState("");
   const fullText = "Your quote request has been submitted!";
@@ -53,17 +55,23 @@ export default function QuoteConfirmation() {
     
     // Validation
     if (!accountForm.password || !accountForm.confirmPassword) {
-      setCreateError("Please enter and confirm a password");
+      const msg = "Please enter and confirm a password";
+      setCreateError(msg);
+      toast.error(msg);
       return;
     }
     
     if (accountForm.password !== accountForm.confirmPassword) {
-      setCreateError("Passwords do not match");
+      const msg = "Passwords do not match";
+      setCreateError(msg);
+      toast.error(msg);
       return;
     }
     
     if (accountForm.password.length < 6) {
-      setCreateError("Password must be at least 6 characters");
+      const msg = "Password must be at least 6 characters";
+      setCreateError(msg);
+      toast.error(msg);
       return;
     }
 

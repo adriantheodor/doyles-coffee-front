@@ -4,38 +4,66 @@
   --bg-color: #eee;
 }
 
-/* --- BASE STYLES (Desktop) --- */
+/* ============================================================================
+   NAVBAR - MOBILE-FIRST DESIGN
+   ============================================================================ */
+
+/* Base mobile styles */
 .navbar-custom {
   background-color: var(--bg-color);
-  padding: 1rem 2rem;
+  padding: max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+           max(12px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative; /* Needed for mobile positioning */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.navbar-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px; /* Touch-friendly */
 }
 
 .navbar-logo {
   height: 40px;
-  margin-right: 1rem;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
-/* This container holds all links and the user info */
+/* Navigation links container */
 .navbar-links {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  justify-content: flex-end;
-  gap: 2rem;
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.user-controls {
+.navbar-links.open {
   display: flex;
-  align-items: center;
-  margin-left: auto; /* Pushes user controls to the right */
+  animation: slide-down 0.2s ease-out;
 }
 
-/* Link and Button Styling */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Link styling */
 .navbar-custom a,
 .navbar-custom button,
 .navbar-custom span {
@@ -45,109 +73,205 @@
   border: none;
   cursor: pointer;
   font-weight: 500;
-  font-size: 1rem;
-  padding: 0.5rem;
-  transition: color 0.2s;
-}
-
-.navbar-custom button,
-.navbar-custom a {
-  margin-right: 0.5rem;
+  font-size: 14px;
+  padding: 12px 16px;
+  transition: all 0.15s ease;
+  border-radius: 8px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-custom a:hover,
 .navbar-custom button:hover {
+  background-color: rgba(58, 120, 66, 0.1);
   color: var(--brand-green-dark);
-  text-decoration: underline;
 }
 
-/* Hide Hamburger on Desktop */
+.navbar-custom a:active,
+.navbar-custom button:active {
+  transform: scale(0.98);
+  background-color: rgba(58, 120, 66, 0.15);
+}
+
+/* Hamburger button */
 .hamburger-btn {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--brand-green);
+  min-width: 44px;
+  min-height: 44px;
+  transition: transform 0.2s ease;
+  border-radius: 8px;
 }
 
-/* --- MOBILE STYLES (Max Width 768px) --- */
-@media (max-width: 768px) {
+.hamburger-btn:active {
+  transform: scale(0.95);
+  background-color: rgba(58, 120, 66, 0.1);
+}
+
+.hamburger-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* User controls */
+.user-controls {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.user-controls button,
+.user-controls a {
+  text-align: left;
+  width: 100%;
+}
+
+/* ============================================================================
+   TABLET & DESKTOP - 768px+
+   ============================================================================ */
+
+@media (min-width: 768px) {
   .navbar-custom {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: max(12px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right))
+             max(12px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
   }
 
-  /* 1. ALIGNMENT FIX: This container holds the Logo (left) and Hamburger (right) */
   .navbar-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* This forces the Logo and Hamburger to share a center line */
-    height: 50px; /* Fixed height ensures consistent alignment */
+    width: auto;
+    flex-shrink: 0;
   }
 
   .navbar-logo {
-    height: 40px; /* Ensure logo isn't too huge */
-    object-fit: contain;
+    height: 44px;
+    margin-right: 0;
   }
 
-  /* Inside @media (max-width: 768px) */
-
-  .hamburger-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Reset button defaults so it's just the icon */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-left: auto; /* Keeps it on the right */
-
-    /* Ensure the icon is the brand color */
-    color: var(--brand-green);
-  }
-
-  /* Optional: Make the icon slightly larger on tap */
-  .hamburger-btn svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  /* DELETE any css referencing .hamburger-btn .bar - you don't need it anymore! */
-
-  /* The Menu Links */
+  /* Show links on desktop */
   .navbar-links {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 1rem;
-    border-top: 1px solid #ddd;
-    padding-top: 1rem;
-    gap: 0.5rem; /* Adds space between the links */
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    gap: 16px;
   }
 
   .navbar-links.open {
-    display: flex;
+    animation: none;
   }
 
-  /* Link Styling */
-  .navbar-links button,
-  .navbar-links a {
-    margin: 0;
-    width: 100%;
-    text-align: left;
-    padding: 10px 0;
-    font-size: 1.1rem;
+  /* Hide hamburger on desktop */
+  .hamburger-btn {
+    display: none;
   }
 
+  /* Desktop link styling */
+  .navbar-custom a,
+  .navbar-custom button,
+  .navbar-custom span {
+    padding: 8px 12px;
+    font-size: 15px;
+    min-height: auto;
+  }
+
+  .navbar-custom a:hover,
+  .navbar-custom button:hover {
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
+  .navbar-custom a:active,
+  .navbar-custom button:active {
+    transform: none;
+  }
+
+  /* User controls desktop layout */
   .user-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    margin-top: 1rem;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
-    gap: 0.5rem;
+    flex-direction: row;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    margin-left: auto;
+  }
+
+  .user-controls button,
+  .user-controls a {
+    width: auto;
+    text-align: center;
+  }
+}
+
+/* ============================================================================
+   LARGE DESKTOP - 1024px+
+   ============================================================================ */
+
+@media (min-width: 1024px) {
+  .navbar-links {
+    gap: 24px;
+  }
+
+  .navbar-custom a,
+  .navbar-custom button {
+    font-size: 16px;
+    padding: 10px 14px;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+.navbar-custom a:focus-visible,
+.navbar-custom button:focus-visible,
+.hamburger-btn:focus-visible {
+  outline: 2px solid var(--brand-green);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-custom,
+  .navbar-links,
+  .hamburger-btn {
+    transition: none;
+  }
+
+  .navbar-links.open {
+    animation: none;
+  }
+}
+
+/* ============================================================================
+   DARK MODE SUPPORT
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  .navbar-custom {
+    background-color: #1f2937;
+  }
+
+  .navbar-links,
+  .user-controls {
+    border-top-color: #374151;
+  }
+
+  .hamburger-btn:active {
+    background-color: rgba(58, 120, 66, 0.2);
   }
 }

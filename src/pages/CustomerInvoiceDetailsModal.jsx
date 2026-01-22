@@ -5,6 +5,7 @@ import './CustomerInvoiceDetailsModal.css';
 /**
  * CustomerInvoiceDetailsModal Component
  * Displays detailed information about a customer's invoice
+ * Mobile-optimized with bottom-sheet pattern on small screens
  */
 const CustomerInvoiceDetailsModal = ({
   invoice,
@@ -28,7 +29,7 @@ const CustomerInvoiceDetailsModal = ({
             className="modal-close-btn"
             onClick={onClose}
             title="Close"
-            aria-label="Close"
+            aria-label="Close invoice details modal"
           >
             ✕
           </button>

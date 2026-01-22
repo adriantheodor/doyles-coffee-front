@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useToast from "../hooks/useToast";
 import { API_BASE } from "../utils/api";
 
 const SubmitIssuePage = () => {
@@ -8,6 +9,7 @@ const SubmitIssuePage = () => {
   });
 
   const [message, setMessage] = useState("");
+  const toast = useToast();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -28,41 +30,43 @@ const SubmitIssuePage = () => {
     });
 
     if (res.ok) {
-      setMessage("Issue submitted successfully!");
+      const msg = "Issue submitted successfully!";
+      setMessage(msg);
+      toast.success(msg);
       setForm({ title: "", description: "" });
     } else {
-      setMessage("Failed to submit issue.");
+      const msg = "Failed to submit issue.";
+      setMessage(msg);
+      toast.error(msg);
     }
   };
 
   return (
-    <div className="page-container">
+    <div className="page-container mobile-container">
       <div className="page-card">
         <h1 className="page-title">Submit an Issue</h1>
-        {message && <p>{message}</p>}
+        {message && <p className="message-box" role="alert">{message}</p>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="mobile-stack">
           <input
             name="title"
             placeholder="Title"
             value={form.title}
             onChange={handleChange}
+            className="form-input"
             required
           />
-
-          <br />
 
           <textarea
             name="description"
             placeholder="Describe the issue"
             value={form.description}
             onChange={handleChange}
+            className="form-input"
             required
           />
 
-          <br />
-
-          <button type="submit">Submit Issue</button>
+          <button type="submit" className="mobile-fullwidth-button">Submit Issue</button>
         </form>
       </div>
     </div>

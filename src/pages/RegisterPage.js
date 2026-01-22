@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 import "./LoginPage.css";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const { register, isAuthenticated, user } = useAuth();
+  const toast = useToast();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -43,28 +45,32 @@ const RegisterPage = () => {
       await register(formData.name, formData.email, formData.password);
       // Store email for potential use on verify page
       localStorage.setItem("userEmail", formData.email);
-      setSuccess("Registration successful! Redirecting to login...");
+      const msg = "Registration successful! Redirecting to login...";
+      setSuccess(msg);
+      toast.success(msg);
       // Navigate to login after a short delay to let the user see the message
       setTimeout(() => {
         navigate("/login");
       }, 1500);
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed. Please try again.");
+      const errorMsg = err.response?.data?.message || "Registration failed. Please try again.";
+      setError(errorMsg);
+      toast.error(errorMsg);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="login-page">
+    <div className="login-page mobile-container">
       <div className="login-card">
         <h1>Create Account</h1>
         <p className="subtitle">Register to get started</p>
 
-        {error && <div className="error-msg">{error}</div>}
+        {error && <div className="error-msg" role="alert">{error}</div>}
         {success && <div className="success-msg">{success}</div>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="mobile-stack">
           <div className="form-group">
             <label htmlFor="name" className="form-label">
               Full Name

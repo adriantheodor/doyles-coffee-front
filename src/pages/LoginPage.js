@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -10,6 +11,7 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login, user, isAuthenticated } = useAuth();
+  const toast = useToast();
 
   // Redirect if already logged in
   useEffect(() => {
@@ -30,10 +32,12 @@ const LoginPage = () => {
 
     try {
       const { user: userData } = await login(formData.email, formData.password);
-      // Navigation happens automatically via useEffect
+      toast.success("Welcome back!");
       navigate(userData.role === "admin" ? "/admin" : "/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed. Please try again.");
+      const errorMsg = err.response?.data?.message || "Login failed. Please try again.";
+      setError(errorMsg);
+      toast.error(errorMsg);
     } finally {
       setIsLoading(false);
     }
@@ -41,17 +45,18 @@ const LoginPage = () => {
 
 
   return (
-    <div className="login-page">
+    <div className="login-page mobile-container">
       <div className="login-card">
         <h1>Welcome Back</h1>
         <p className="subtitle">Please login to your account</p>
 
-        {error && <div className="error-msg">{error}</div>}
+        {error && <div className="error-msg" role="alert">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="mobile-stack">
           <div className="form-group">
-            <label className="form-label">Email Address</label>
+            <label className="form-label" htmlFor="email-input">Email Address</label>
             <input
+              id="email-input"
               className="form-input"
               type="email"
               name="email"
@@ -60,12 +65,14 @@ const LoginPage = () => {
               value={formData.email}
               required
               disabled={isLoading}
+              aria-label="Email address"
             />
           </div>
 
           <div className="form-group">
-            <label className="form-label">Password</label>
+            <label className="form-label" htmlFor="password-input">Password</label>
             <input
+              id="password-input"
               className="form-input"
               type="password"
               name="password"
@@ -74,10 +81,11 @@ const LoginPage = () => {
               value={formData.password}
               required
               disabled={isLoading}
+              aria-label="Password"
             />
           </div>
 
-          <button type="submit" className="login-btn" disabled={isLoading}>
+          <button type="submit" className="mobile-fullwidth-button" disabled={isLoading} aria-busy={isLoading}>
             {isLoading ? "Signing in..." : "Sign In"}
           </button>
         </form>

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import useToast from "../hooks/useToast";
+import EmptyState from "../components/EmptyState";
 import { API_BASE } from "../utils/api";
 
 const InvoicesPage = () => {
   const [invoices, setInvoices] = useState([]);
+  const toast = useToast();
 
   const fetchMyInvoices = async () => {
     const res = await fetch(`${API_BASE}api/invoices/my`, {
@@ -26,7 +29,7 @@ const InvoicesPage = () => {
       });
 
       if (!res.ok) {
-        alert("Failed to download invoice PDF");
+        toast.error("Failed to download invoice PDF");
         return;
       }
 
@@ -41,7 +44,7 @@ const InvoicesPage = () => {
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error("PDF Download Error:", err);
-      alert("Error downloading PDF.");
+      toast.error("Error downloading PDF.");
     }
   };
 
@@ -50,26 +53,37 @@ const InvoicesPage = () => {
   }, []);
 
   return (
-    <div className="page-container">
+    <div className="page-container mobile-container">
       <div className="page-card">
         <h1 className="page-title">Your Invoices</h1>
 
-        {invoices.length === 0 && <p>No invoices yet.</p>}
-
-        <ul>
+        {invoices.length === 0 ? (
+          <EmptyState
+            icon="📋"
+            title="No Invoices Yet"
+            description="You don't have any invoices. Once you place orders, they'll appear here."
+            actionLabel="Place Your First Order"
+            onAction={() => window.location.href = '/place-order'}
+          />
+        ) : (
+          <div className="mobile-stack">
           {invoices.map((invoice) => (
-            <li key={invoice._id} style={{ marginBottom: "15px" }}>
-              <strong>Order:</strong> {invoice.order?._id} <br />
-              <strong>Total:</strong> ${invoice.order?.totalPrice.toFixed(2)}{" "}
-              <br />
-              <strong>Date:</strong>{" "}
-              {new Date(invoice.createdAt).toLocaleDateString()} <br />
-              <button onClick={() => downloadPDF(invoice._id)}>
+            <div key={invoice._id} className="invoice-card">
+              <div className="invoice-info">
+                <p><strong>Order:</strong> {invoice.order?._id}</p>
+                <p><strong>Total:</strong> ${invoice.order?.totalPrice.toFixed(2)}</p>
+                <p><strong>Date:</strong> {new Date(invoice.createdAt).toLocaleDateString()}</p>
+              </div>
+              <button 
+                className="mobile-fullwidth-button" 
+                onClick={() => downloadPDF(invoice._id)}
+                aria-label={`Download invoice for order ${invoice.order?._id}`}
+              >
                 Download PDF
               </button>
-            </li>
-          ))}
-        </ul>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

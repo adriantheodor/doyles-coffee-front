@@ -29,110 +29,19 @@ import AdminInvoiceManagementPage from "./pages/Admin/AdminInvoiceManagementPage
 import CustomerInvoicesPage from "./pages/CustomerInvoicesPage";
 
 import { AuthProvider } from "./context/AuthContext";
+import { ToastProvider } from "./context/ToastContext";
 import useAuth from "./hooks/useAuth";
+import useToast from "./hooks/useToast";
+import ToastContainer from "./components/ToastContainer";
+import ErrorBoundary from "./components/ErrorBoundary";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/mobile-refinements.css";
 import "./App.css";
-
-// Error Boundary Component
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null, errorInfo: null };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error("Error caught by boundary:", error, errorInfo);
-    this.setState({
-      error,
-      errorInfo,
-    });
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "100vh",
-            backgroundColor: "#f8f9fa",
-            padding: "20px",
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "40px",
-              borderRadius: "8px",
-              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-              maxWidth: "600px",
-              textAlign: "center",
-            }}
-          >
-            <h1 style={{ color: "#d32f2f", marginBottom: "20px" }}>
-              ❌ Something went wrong
-            </h1>
-            <p style={{ color: "#666", marginBottom: "20px", fontSize: "16px" }}>
-              We're sorry, but something unexpected happened. Please try refreshing the page.
-            </p>
-            {this.state.error && (
-              <details
-                style={{
-                  backgroundColor: "#f5f5f5",
-                  padding: "10px",
-                  borderRadius: "4px",
-                  textAlign: "left",
-                  marginBottom: "20px",
-                }}
-              >
-                <summary style={{ cursor: "pointer", color: "#d32f2f" }}>
-                  Error details
-                </summary>
-                <pre
-                  style={{
-                    fontSize: "12px",
-                    overflow: "auto",
-                    marginTop: "10px",
-                    color: "#333",
-                  }}
-                >
-                  {this.state.error.toString()}
-                  {this.state.errorInfo?.componentStack}
-                </pre>
-              </details>
-            )}
-            <button
-              onClick={() => window.location.reload()}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#1976d2",
-                color: "white",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontSize: "16px",
-              }}
-            >
-              Refresh Page
-            </button>
-          </div>
-        </div>
-      );
-    }
-
-    return this.props.children;
-  }
-}
 
 function AppWrapper() {
   const location = useLocation();
   const { user, loading } = useAuth();
+  const toast = useToast();
   const hideNavbarPaths = ["/login", "/register", "/verify-email"];
   const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
   const [activeSection, setActiveSection] = useState("overview");
@@ -164,6 +73,15 @@ function AppWrapper() {
 
   return (
     <>
+      <ToastContainer
+        toasts={toast.toasts}
+        onRemove={toast.removeToast}
+        onAction={(id) => {
+          const t = toast.toasts.find((item) => item.id === id);
+          if (t?.action) t.action();
+        }}
+        position="bottom-right"
+      />
       {shouldShowNavbar && (
         <Navbar
           user={user}
@@ -299,7 +217,9 @@ export default function App() {
     <ErrorBoundary>
       <Router>
         <AuthProvider>
-          <AppWrapper />
+          <ToastProvider>
+            <AppWrapper />
+          </ToastProvider>
         </AuthProvider>
       </Router>
     </ErrorBoundary>

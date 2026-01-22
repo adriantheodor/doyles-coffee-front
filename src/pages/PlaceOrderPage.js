@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../utils/api";
+import useToast from "../hooks/useToast";
+import EmptyState from "../components/EmptyState";
 import OrderConfirmationModal from "./OrderConfirmationModal";
 import OrderSuccessScreen from "./OrderSuccessScreen";
 import "./PlaceOrderPage.css";
@@ -12,6 +14,7 @@ const PlaceOrderPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(null);
+  const toast = useToast();
 
   // Load inventory for customers
   useEffect(() => {
@@ -40,7 +43,9 @@ const PlaceOrderPage = () => {
   const handleSubmitOrder = async () => {
     // Validate order items before submission
     if (orderItems.length === 0) {
-      setMessage("Please add at least one item to your order.");
+      const msg = "Please add at least one item to your order.";
+      setMessage(msg);
+      toast.warning(msg);
       return;
     }
 
@@ -49,7 +54,9 @@ const PlaceOrderPage = () => {
       (item) => !products.find((p) => p._id === item.product)
     );
     if (invalidItems.length > 0) {
-      setMessage("Some items in your order are no longer available. Please remove them.");
+      const msg = "Some items in your order are no longer available. Please remove them.";
+      setMessage(msg);
+      toast.error(msg);
       return;
     }
 
@@ -69,6 +76,7 @@ const PlaceOrderPage = () => {
 
       if (res.status === 200 || res.status === 201) {
         // Show success screen
+        toast.success("Order placed successfully!");
         setOrderSuccess({
           orderId: res.data._id || res.data.orderId,
           totalPrice: res.data.totalPrice || 0,
@@ -80,11 +88,15 @@ const PlaceOrderPage = () => {
         setNotes("");
         setShowConfirmation(false);
       } else {
-        setMessage("Failed to submit order. Please try again.");
+        const msg = "Failed to submit order. Please try again.";
+        setMessage(msg);
+        toast.error(msg);
         setIsSubmitting(false);
       }
     } catch (err) {
-      setMessage(err.response?.data?.message || "Failed to submit order. Please try again.");
+      const errorMsg = err.response?.data?.message || "Failed to submit order. Please try again.";
+      setMessage(errorMsg);
+      toast.error(errorMsg);
       setIsSubmitting(false);
     }
   };
@@ -124,12 +136,12 @@ const PlaceOrderPage = () => {
       )}
 
       {/* Main order form */}
-      <div className="page-container">
+      <div className="page-container mobile-container">
         <div className="page-card">
           <h2 className="page-title">Place an Order</h2>
 
           {message && (
-            <div className={`alert ${message.includes("failed") ? "alert-error" : "alert-info"}`}>
+            <div className={`alert ${message.includes("failed") ? "alert-error" : "alert-info"}`} role="alert">
               {message}
             </div>
           )}
@@ -137,7 +149,7 @@ const PlaceOrderPage = () => {
           <div className="form-section">
             <h3>Available Products</h3>
             {Array.isArray(products) && products.length > 0 ? (
-              <div className="products-grid">
+              <div className="mobile-grid">
                 {products.map((p) => (
                   <div key={p._id} className="product-card">
                     <div className="product-info">
@@ -156,14 +168,23 @@ const PlaceOrderPage = () => {
                 ))}
               </div>
             ) : (
-              <p className="empty-state">No products available.</p>
+              <EmptyState
+                icon="☕"
+                title="No Products Available"
+                description="Sorry, there are no products available at the moment. Please try again later."
+              />
             )}
           </div>
 
           <div className="form-section">
             <h3>Your Order ({orderItems.length} items)</h3>
             {orderItems.length === 0 ? (
-              <p className="empty-state">No items added yet. Select products from above.</p>
+              <EmptyState
+                icon="🛒"
+                title="No Items Added"
+                description="Select products from above to start building your order."
+                className="compact minimal"
+              />
             ) : (
               <div className="order-items">
                 {orderItems.map((item, idx) => {
