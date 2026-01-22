@@ -82,9 +82,8 @@ const InvoicesPage = () => {
                 Download PDF
               </button>
             </div>
-          )
+          ))}
         </div>
-      )}
     </div>
   );
 };

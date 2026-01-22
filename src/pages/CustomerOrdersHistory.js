@@ -59,7 +59,7 @@ const CustomerOrdersHistory = () => {
           onAction={() => window.location.href = '/place-order'}
         />
       ) : (
-        {activeOrders.map((order) => (
+        activeOrders.map((order) => (
         <div key={order._id} className="order-card" onClick={() => handleOrderClick(order._id)} style={{ cursor: "pointer" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
@@ -86,9 +86,8 @@ const CustomerOrdersHistory = () => {
           </div>
         </div>
       ))}
-      )}
 
-      {/* COMPLETED ORDERS */}
+      {/* COMPLETED ORDERS */}}
       <h3 style={{ marginTop: "30px" }}>Completed Orders</h3>
 
       {completedOrders.length === 0 ? (
@@ -98,8 +97,7 @@ const CustomerOrdersHistory = () => {
           description="Your completed orders will appear here once they're delivered."
         />
       ) : (
-
-      {completedOrders.map((order) => (
+        completedOrders.map((order) => (
         <div key={order._id} className="order-card complete" onClick={() => handleOrderClick(order._id)} style={{ cursor: "pointer" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
