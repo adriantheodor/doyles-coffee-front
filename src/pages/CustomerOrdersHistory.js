@@ -59,8 +59,7 @@ const CustomerOrdersHistory = () => {
           onAction={() => window.location.href = '/place-order'}
         />
       ) : (
-
-      {activeOrders.map((order) => (
+        {activeOrders.map((order) => (
         <div key={order._id} className="order-card" onClick={() => handleOrderClick(order._id)} style={{ cursor: "pointer" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
