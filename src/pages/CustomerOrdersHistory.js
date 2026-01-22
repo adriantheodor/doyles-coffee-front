@@ -87,7 +87,7 @@ const CustomerOrdersHistory = () => {
         </div>
       ))}
 
-      {/* COMPLETED ORDERS */}}
+      {/* COMPLETED ORDERS */}
       <h3 style={{ marginTop: "30px" }}>Completed Orders</h3>
 
       {completedOrders.length === 0 ? (

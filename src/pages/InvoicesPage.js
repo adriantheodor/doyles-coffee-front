@@ -84,7 +84,7 @@ const InvoicesPage = () => {
             </div>
           ))}
         </div>
-    </div>
+        </div>
   );
 };
 
