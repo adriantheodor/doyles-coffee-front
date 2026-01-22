@@ -1,7 +1,10 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import QuoteConfirmation from "./QuoteConfirmation";
 
 export default function QuotePage() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     companyName: "",
     contactName: "",
@@ -28,23 +31,35 @@ export default function QuotePage() {
     e.preventDefault();
     setLoading(true);
     const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000";
-    const res = await fetch(`${API_BASE}api/quotes`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    setLoading(false);
-    if (res.ok) setSubmitted(true);
-    else alert("There was an issue submitting your request.");
+    try {
+      const res = await fetch(`${API_BASE}api/quotes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        // Navigate to confirmation with quote data
+        navigate("/quote-confirmation", { 
+          state: { 
+            quoteData: form, 
+            quoteId: data.id || data._id 
+          },
+          replace: true
+        });
+      } else {
+        alert("There was an issue submitting your request.");
+      }
+    } catch (error) {
+      alert("Error submitting quote: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
-    return (
-      <div style={{ padding: "2rem" }}>
-        <h2>Thanks! 🎉</h2>
-        <p>We’ll reach out to schedule your quote.</p>
-      </div>
-    );
+    return <QuoteConfirmation />;
   }
 
   return (

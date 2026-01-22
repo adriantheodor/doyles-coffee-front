@@ -18,6 +18,7 @@ import RoleBasedRoute from "./components/RoleBasedRoute";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import AccountSettingsPage from "./pages/AccountSettingsPage";
 import QuotePage from "./pages/QuotePage";
+import QuoteConfirmation from "./pages/QuoteConfirmation";
 import InvoicesPage from "./pages/InvoicesPage";
 import HomePage from "./pages/HomePage";
 import SubmitIssuePage from "./pages/SubmitIssuePage";
@@ -177,6 +178,7 @@ function AppWrapper() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/quote" element={<QuotePage />} />
+        <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
