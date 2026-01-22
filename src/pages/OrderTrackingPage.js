@@ -51,7 +51,7 @@ const OrderTrackingPage = () => {
     if (orderId) {
       fetchOrder();
     }
-  }, [orderId, navigate]);
+  }, [orderId, navigate, toast]);
 
   if (loading) {
     return (

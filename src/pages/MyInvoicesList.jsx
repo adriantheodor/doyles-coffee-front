@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import useToast from '../hooks/useToast';
 import EmptyState from '../components/EmptyState';
 import {
@@ -34,16 +34,9 @@ const MyInvoicesList = () => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   /**
-   * Fetch customer's invoices on component mount
-   */
-  useEffect(() => {
-    loadMyInvoices();
-  }, []);
-
-  /**
    * Load customer's invoices from API
    */
-  const loadMyInvoices = async () => {
+  const loadMyInvoices = useCallback(async () => {
     setLoading(true);
     setError('');
 
@@ -76,7 +69,14 @@ const MyInvoicesList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
+
+  /**
+   * Fetch customer's invoices on component mount
+   */
+  useEffect(() => {
+    loadMyInvoices();
+  }, [loadMyInvoices]);
 
   /**
    * Handle view details button - show modal with full invoice details

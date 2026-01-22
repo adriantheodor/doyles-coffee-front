@@ -17,7 +17,6 @@ export default function QuotePage() {
     services: [],
     notes: "",
   });
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const toggleService = (val) => {
@@ -61,10 +60,6 @@ export default function QuotePage() {
       setLoading(false);
     }
   };
-
-  if (submitted) {
-    return <QuoteConfirmation />;
-  }
 
   return (
     <form

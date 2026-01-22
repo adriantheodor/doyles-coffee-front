@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import useToast from "../hooks/useToast";
 import EmptyState from "../components/EmptyState";
@@ -11,7 +11,7 @@ const CustomerOrdersHistory = () => {
   const [loading, setLoading] = useState(true);
   const toast = useToast();
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       const res = await fetch(`${API_BASE}api/orders/my`, {
         headers: {
@@ -28,11 +28,11 @@ const CustomerOrdersHistory = () => {
       toast.error("Failed to load orders");
       setLoading(false);
     }
-  };
+  }, [toast]);
 
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [fetchOrders]);
 
   if (loading) return <div className="mobile-container"><p className="text-center">Loading your orders...</p></div>;
 

@@ -51,7 +51,7 @@ const CustomerDashPage = ({ activeSection, setActiveSection }) => {
     };
 
     fetchData();
-  }, []);
+  }, [toast]);
 
   // Render home screen
   const renderHome = () => {

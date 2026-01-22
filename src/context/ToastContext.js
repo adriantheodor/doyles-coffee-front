@@ -10,6 +10,13 @@ export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
   /**
+   * Remove a toast by ID
+   */
+  const removeToast = useCallback((id) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  }, []);
+
+  /**
    * Add a new toast notification
    * @param {object} options
    * @param {string} options.message - Toast message (required)
@@ -51,14 +58,7 @@ export const ToastProvider = ({ children }) => {
     }
 
     return id;
-  }, []);
-
-  /**
-   * Remove a toast by ID
-   */
-  const removeToast = useCallback((id) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id));
-  }, []);
+  }, [removeToast]);
 
   /**
    * Remove all toasts
