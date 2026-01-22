@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToast from "../hooks/useToast";
-import QuoteConfirmation from "./QuoteConfirmation";
+
 
 export default function QuotePage() {
   const navigate = useNavigate();
