@@ -26,6 +26,7 @@ import PlaceOrderPage from "./pages/PlaceOrderPage";
 import OrderTrackingPage from "./pages/OrderTrackingPage";
 import CustomerOrdersHistory from "./pages/CustomerOrdersHistory";
 import AdminInvoiceManagementPage from "./pages/Admin/AdminInvoiceManagementPage";
+import AdminInventoryPage from "./pages/Admin/AdminInventoryPage";
 import CustomerInvoicesPage from "./pages/CustomerInvoicesPage";
 
 import { AuthProvider } from "./context/AuthContext";
@@ -194,6 +195,16 @@ function AppWrapper() {
           element={
             <RoleBasedRoute allowedRoles={["admin"]}>
               <AdminInvoiceManagementPage />
+            </RoleBasedRoute>
+          }
+        />
+
+        {/* ADMIN INVENTORY MANAGEMENT */}
+        <Route
+          path="/admin/inventory"
+          element={
+            <RoleBasedRoute allowedRoles={["admin"]}>
+              <AdminInventoryPage />
             </RoleBasedRoute>
           }
         />
