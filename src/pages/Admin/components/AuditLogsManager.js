@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import auditService from "../../../services/auditService";
 import "./AuditLogsManager.css";
 
@@ -29,7 +29,7 @@ const AuditLogsManager = () => {
     "RESEND_EMAIL",
   ];
 
-  const fetchAuditLogs = async (newFilters = null) => {
+  const fetchAuditLogs = useCallback(async (newFilters = null) => {
     setLoading(true);
     setError(null);
 
@@ -54,11 +54,11 @@ const AuditLogsManager = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]);
 
   useEffect(() => {
     fetchAuditLogs();
-  }, []);
+  }, [fetchAuditLogs]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
