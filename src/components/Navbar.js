@@ -110,6 +110,10 @@ const Navbar = ({ activeSection, setActiveSection }) => {
             <button onClick={() => handleSectionClick("qrcodes")}>
               QR Codes
             </button>
+
+            <button onClick={() => handleSectionClick("audit")}>
+              Audit Logs
+            </button>
           </>
         )}
 
