@@ -6,6 +6,7 @@ import OrderManager from "./components/OrderManager";
 import IssueManager from "./components/IssuesManager";
 import InvoiceManager from "./components/InvoiceManager";
 import QRCodeGenerator from "./components/QRCodeGenerator";
+import AuditLogsManager from "./components/AuditLogsManager";
 import QuoteRequestsWidget from "./QuoteRequestsWidget";
 
 import { API_BASE } from "../../utils/api";
@@ -97,6 +98,8 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
         return <QRCodeGenerator />;
       case "quotes":
         return <QuoteRequestsWidget />;
+      case "audit":
+        return <AuditLogsManager />;
       default:
         return (
           <div className="dash-home">
@@ -123,6 +126,9 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
               </button>
               <button onClick={() => setActiveSection("qrcodes")}>
                 🔳 QR Codes
+              </button>
+              <button onClick={() => setActiveSection("audit")}>
+                📋 Audit Logs
               </button>
             </div>
 
