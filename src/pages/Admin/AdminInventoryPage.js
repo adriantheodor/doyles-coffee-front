@@ -177,6 +177,13 @@ export function AdminInventoryPage() {
         {/* Scanner Tab */}
         {activeTab === "scanner" && (
           <div className="tab-pane">
+            <div className="coming-soon-notice">
+              <div className="notice-icon">🔧</div>
+              <div className="notice-content">
+                <h3>QR Code Scanner Coming Soon</h3>
+                <p>This feature is currently under development. We're working hard to bring you QR code scanning functionality. Check back soon!</p>
+              </div>
+            </div>
             <QRCodeScanner />
           </div>
         )}
@@ -184,6 +191,13 @@ export function AdminInventoryPage() {
         {/* Generate QR Code Tab */}
         {activeTab === "generate" && (
           <div className="tab-pane">
+            <div className="coming-soon-notice">
+              <div className="notice-icon">🔧</div>
+              <div className="notice-content">
+                <h3>QR Code Generator Coming Soon</h3>
+                <p>This feature is currently under development. We're working hard to bring you QR code generation functionality. Check back soon!</p>
+              </div>
+            </div>
             <div className="product-selector">
               <h2>Select Product</h2>
               <div className="product-grid">
