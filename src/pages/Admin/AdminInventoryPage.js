@@ -53,17 +53,21 @@ export function AdminInventoryPage() {
 
   const fetchProducts = async () => {
     try {
+      console.log("Fetching products...");
       const response = await fetch("/api/products", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
+      console.log("Response status:", response.status);
       if (!response.ok) throw new Error("Failed to fetch products");
 
       const data = await response.json();
+      console.log("Products fetched:", data);
       setProducts(data);
     } catch (error) {
+      console.error("Error fetching products:", error);
       toast.error("Failed to load products");
     }
   };
@@ -179,9 +183,11 @@ export function AdminInventoryPage() {
 
       {/* Tab Content */}
       <div className="tab-content">
+        {console.log("Rendering tab content, activeTab:", activeTab)}
         {/* Scanner Tab */}
         {activeTab === "scanner" && (
           <div className="tab-pane">
+            {console.log("Rendering scanner tab")}
             <div className="coming-soon-notice">
               <div className="notice-icon">🔧</div>
               <div className="notice-content">
