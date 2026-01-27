@@ -54,7 +54,9 @@ export function AdminInventoryPage() {
   const fetchProducts = async () => {
     try {
       console.log("Fetching products...");
-      const response = await fetch("/api/products", {
+      const apiUrl = `${process.env.REACT_APP_API_BASE}api/products`;
+      console.log("API URL:", apiUrl);
+      const response = await fetch(apiUrl, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -65,7 +67,7 @@ export function AdminInventoryPage() {
       // Check if response is HTML instead of JSON
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("Backend server is not responding correctly. Please ensure the backend is running on port 4000.");
+        throw new Error("Backend server is not responding correctly. Please ensure the backend is running.");
       }
       
       if (!response.ok) throw new Error("Failed to fetch products");
