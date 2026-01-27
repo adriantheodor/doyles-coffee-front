@@ -18,6 +18,11 @@ export function AdminInventoryPage() {
   const [activeTab, setActiveTab] = useState("scanner");
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // Debug: Log when activeTab changes
+  useEffect(() => {
+    console.log("Active tab changed to:", activeTab);
+  }, [activeTab]);
   const [inventory, setInventory] = useState([]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
