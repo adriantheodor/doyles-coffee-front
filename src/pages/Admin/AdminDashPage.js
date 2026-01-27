@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminOverview from "./components/AdminOverview";
 import AdminManager from "./components/AdminManager";
-import InventoryManager from "./components/InventoryManager";
+import AdminInventoryPage from "./AdminInventoryPage";
 import OrderManager from "./components/OrderManager";
 import IssueManager from "./components/IssuesManager";
 import InvoiceManager from "./components/InvoiceManager";
@@ -85,7 +85,7 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
         );
 
       case "inventory":
-        return <InventoryManager />;
+        return <AdminInventoryPage />;
       case "orders":
         return <OrderManager />;
       case "issues":
