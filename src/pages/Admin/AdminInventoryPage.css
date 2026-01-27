@@ -65,6 +65,8 @@
 
 .tab-pane {
   display: block;
+  min-height: 200px;
+  padding: 20px 0;
 }
 
 /* Product Selector */
