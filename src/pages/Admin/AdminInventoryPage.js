@@ -61,6 +61,13 @@ export function AdminInventoryPage() {
       });
 
       console.log("Response status:", response.status);
+      
+      // Check if response is HTML instead of JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Backend server is not responding correctly. Please ensure the backend is running on port 4000.");
+      }
+      
       if (!response.ok) throw new Error("Failed to fetch products");
 
       const data = await response.json();
@@ -68,7 +75,7 @@ export function AdminInventoryPage() {
       setProducts(data);
     } catch (error) {
       console.error("Error fetching products:", error);
-      toast.error("Failed to load products");
+      toast.error(error.message || "Failed to load products");
     }
   };
 
