@@ -182,6 +182,11 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
     }
   };
 
+  // Render AdminInventoryPage outside the page-card for full-width display
+  if (activeSection === "inventory") {
+    return <AdminInventoryPage />;
+  }
+
   return (
     <div className="page-container">
       <div className="page-card admin-card">
