@@ -21,6 +21,7 @@ import QuotePage from "./pages/QuotePage";
 import QuoteConfirmation from "./pages/QuoteConfirmation";
 import InvoicesPage from "./pages/InvoicesPage";
 import HomePage from "./pages/HomePage";
+import GalleryPage from "./pages/GalleryPage";
 import SubmitIssuePage from "./pages/SubmitIssuePage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import OrderTrackingPage from "./pages/OrderTrackingPage";
@@ -94,6 +95,7 @@ function AppWrapper() {
       <Routes>
         {/* PUBLIC ROUTES */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/quote" element={<QuotePage />} />

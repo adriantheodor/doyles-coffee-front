@@ -1,26 +1,5 @@
 import "./HomePage.css";
 import logo from "../assets/logo.jpg";
-import pic1 from "../assets/pic1.jpeg";
-import pic2 from "../assets/pic2.jpeg";
-import pic3 from "../assets/pic3.jpeg";
-import pic4 from "../assets/pic4.jpeg";
-import pic5 from "../assets/pic5.jpeg";
-import pic6 from "../assets/pic6.jpeg";
-import pic7 from "../assets/pic7.jpeg";
-import pic8 from "../assets/pic8.jpeg";
-import pic9 from "../assets/pic9.jpeg";
-
-const breakroomImages = [
-  { src: pic6, alt: "Fresh fruit and healthy options" },
-  { src: pic1, alt: "Gourmet coffee service setup" },
-  { src: pic2, alt: "Variety of snacks and treats" },
-  { src: pic3, alt: "Modern water filtration system" },
-  { src: pic4, alt: "Clean, well-stocked pantry area" },
-  { src: pic5, alt: "Espresso machine in an office breakroom" },
-  { src: pic7, alt: "Beverage station with cold drinks" },
-  { src: pic8, alt: "Vending machine with high-end snacks" },
-  { src: pic9, alt: "Team members enjoying coffee break" },
-];
 
 const HomePage = ({ onLogin }) => {
   return (
@@ -55,48 +34,7 @@ const HomePage = ({ onLogin }) => {
               </p>
             </section>
 
-            {/* 🔥 UPDATED: Professional Carousel/Slideshow Section 🔥 */}
-            <section id="services" className="mb-5">
-              <div
-                id="breakroomCarousel"
-                className="carousel slide shadow-lg rounded-3 overflow-hidden"
-                data-bs-ride="carousel"
-              >
-                {/* Carousel Indicators (Dots at the bottom) */}
-                <div className="carousel-indicators">
-                  {breakroomImages.map((_, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      data-bs-target="#breakroomCarousel"
-                      data-bs-slide-to={index}
-                      className={index === 0 ? "active" : ""}
-                      aria-current={index === 0 ? "true" : "false"}
-                      aria-label={`Slide ${index + 1}`}
-                    ></button>
-                  ))}
-                </div>
 
-                {/* Carousel Inner (The Slides) */}
-                <div className="carousel-inner">
-                  {breakroomImages.map((image, index) => (
-                    <div
-                      key={index}
-                      className={`carousel-item ${index === 0 ? "active" : ""}`}
-                      data-bs-interval="5000"
-                    >
-                      <img
-                        src={image.src}
-                        className="d-block w-100 carousel-image"
-                        alt={image.alt}
-                      />
-                      <div className="carousel-caption d-none d-md-block bg-dark opacity-75 p-2 rounded">
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
 
             {/* Contact Section */}
             <section id="contact" className="mb-5">
