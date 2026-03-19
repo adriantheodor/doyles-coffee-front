@@ -56,9 +56,9 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               Home
             </HashLink>
 
-            <HashLink smooth to="/#about" onClick={() => setIsOpen(false)}>
+            <Link to="/about" onClick={() => setIsOpen(false)}>
               About
-            </HashLink>
+            </Link>
 
             <Link to="/gallery" onClick={() => setIsOpen(false)}>
               Gallery
