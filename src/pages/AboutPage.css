@@ -94,7 +94,7 @@
 }
 
 .about-value-copy span {
-  color: var(--text-primary);
+  color: var(--brand-green);
   line-height: 1.65;
 }
 
