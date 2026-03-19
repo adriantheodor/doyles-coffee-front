@@ -56,10 +56,6 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               Home
             </HashLink>
 
-            <Link to="/about" onClick={() => setIsOpen(false)}>
-              About
-            </Link>
-
             <Link to="/gallery" onClick={() => setIsOpen(false)}>
               Gallery
             </Link>

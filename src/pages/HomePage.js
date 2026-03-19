@@ -1,5 +1,6 @@
 import "./HomePage.css";
 import "./AboutPage.css";
+import family from "../assets/family.jpg";
 import logo from "../assets/logo.jpg";
 
 const valuePoints = [
@@ -60,6 +61,13 @@ const HomePage = ({ onLogin }) => {
           2019, I launched Doyle&apos;s Coffee &amp; Breakroom Services to bring a
           more personal, &quot;family-first&quot; philosophy to our community.
         </p>
+
+        <img
+          src={family}
+          alt="Doyle family"
+          className="about-family-photo my-4"
+        />
+
         <p>
           After 20 years of working for the big corporations, I saw exactly
           where they fall short. They&apos;ve traded real customer service for
