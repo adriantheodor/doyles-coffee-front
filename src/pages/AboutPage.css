@@ -16,6 +16,14 @@
   font-size: 1.05rem;
 }
 
+.about-family-photo {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin: 1.5rem auto;
+}
+
 .about-value-box {
   margin: 2rem 0;
   padding: 1.5rem;
