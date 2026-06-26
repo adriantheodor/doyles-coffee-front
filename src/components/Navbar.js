@@ -68,6 +68,14 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               Get a Quote
             </Link>
 
+            <a
+              href="https://link.clover.com/urlshortener/f6szWB"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsOpen(false)}
+            >
+              Order on Clover
+            </a>
             <Link to="/login" onClick={() => setIsOpen(false)}>
               Login
             </Link>
