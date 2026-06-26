@@ -28,7 +28,22 @@ import pic26 from "../assets/pic26.jpeg";
 import pic27 from "../assets/pic27.jpeg";
 import pic28 from "../assets/pic28.jpeg";
 import pic29 from "../assets/pic29.jpeg";
-import pic30 from "../assets/pic30.jpeg";     
+import pic30 from "../assets/pic30.jpeg";  
+import pic31 from "../assets/pic31.jpeg";
+import pic32 from "../assets/pic32.jpeg";
+import pic33 from "../assets/pic33.jpeg";
+import pic34 from "../assets/pic34.jpeg";
+import pic35 from "../assets/pic35.jpeg"; 
+import pic36 from "../assets/pic36.jpeg";
+import pic37 from "../assets/pic37.jpeg";
+import pic38 from "../assets/pic38.jpeg";
+import pic39 from "../assets/pic39.jpeg";   
+import pic40 from "../assets/pic40.jpeg";
+import pic41 from "../assets/pic41.jpeg";
+import pic42 from "../assets/pic42.jpeg";
+import pic43 from "../assets/pic43.jpeg"; 
+import pic44 from "../assets/pic44.jpeg";
+import pic45 from "../assets/pic45.jpeg";
 import "./GalleryPage.css";
 
 const galleryImages = [
@@ -62,7 +77,23 @@ const galleryImages = [
   { src: pic27},
   { src: pic28 },
   { src: pic29},
-  { src: pic30 }
+  { src: pic30 },
+  { src: pic31 },
+  { src: pic32 },
+  { src: pic33 },
+  { src: pic34 },
+  { src: pic35},
+  { src: pic36 },
+  { src: pic37},
+  { src: pic38 },
+  { src: pic39},
+  { src: pic40 },
+  { src: pic41 },
+  { src: pic42 },
+  { src: pic43 },
+  { src: pic44 },
+  { src: pic45},
+
 ];
 
 const GalleryPage = () => {
