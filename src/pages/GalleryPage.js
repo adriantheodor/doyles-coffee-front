@@ -44,6 +44,14 @@ import pic42 from "../assets/pic42.jpeg";
 import pic43 from "../assets/pic43.jpeg"; 
 import pic44 from "../assets/pic44.jpeg";
 import pic45 from "../assets/pic45.jpeg";
+import pic46 from "../assets/pic46.jpeg";
+import pic47 from "../assets/pic47.jpeg";
+import pic48 from "../assets/pic48.jpeg";
+import pic49 from "../assets/pic49.jpeg";
+import pic50 from "../assets/pic50.jpeg";
+import pic51 from "../assets/pic51.jpeg";
+import pic52 from "../assets/pic52.jpeg";
+import pic53 from "../assets/pic53.jpeg";
 import "./GalleryPage.css";
 
 const galleryImages = [
@@ -93,6 +101,14 @@ const galleryImages = [
   { src: pic43 },
   { src: pic44 },
   { src: pic45},
+  { src: pic46 },
+  { src: pic47 },
+  { src: pic48 },
+  { src: pic49 },
+  { src: pic50 },
+  { src: pic51 },
+  { src: pic52 },
+  { src: pic53 }
 
 ];
 
