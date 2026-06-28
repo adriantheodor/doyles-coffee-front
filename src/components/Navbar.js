@@ -74,7 +74,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               rel="noopener noreferrer"
               onClick={() => setIsOpen(false)}
             >
-              Order on Clover
+              Pay My Bill
             </a>
             <Link to="/login" onClick={() => setIsOpen(false)}>
               Login
