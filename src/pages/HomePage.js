@@ -1,5 +1,6 @@
 import "./HomePage.css";
 import "./AboutPage.css";
+import GalleryComponent from "../components/GalleryComponent";
 import family from "../assets/family.jpg";
 import logo from "../assets/logo.jpg";
 
@@ -178,6 +179,7 @@ const HomePage = ({ onLogin }) => {
                 </div>
               </div>
             </section>
+      <GalleryComponent />
       </div>
       {/* Footer */}
       <footer className="text-center py-4 bg-white border-top">

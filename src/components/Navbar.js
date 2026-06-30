@@ -115,14 +115,15 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               Invoices
             </button>
 
-            <button onClick={() => handleSectionClick("qrcodes")}>
-              QR Codes
+            <button
+              onClick={() => {
+                navigate("/admin/image-upload");
+                setIsOpen(false);
+              }}
+            >
+              Image Upload
             </button>
 
-            <button onClick={() => handleSectionClick("audit")}>
-              Audit Logs
-            </button>
-          </>
         )}
 
         {/* CUSTOMER NAV */}

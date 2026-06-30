@@ -28,6 +28,8 @@ import OrderTrackingPage from "./pages/OrderTrackingPage";
 import CustomerOrdersHistory from "./pages/CustomerOrdersHistory";
 import AdminInvoiceManagementPage from "./pages/Admin/AdminInvoiceManagementPage";
 import AdminInventoryPage from "./pages/Admin/AdminInventoryPage";
+import AdminImageUploadPage from "./pages/Admin/AdminImageUploadPage";
+import GalleryScratchPage from "./pages/GalleryScratchPage";
 import CustomerInvoicesPage from "./pages/CustomerInvoicesPage";
 
 import { AuthProvider } from "./context/AuthContext";
@@ -210,6 +212,19 @@ function AppWrapper() {
             </RoleBasedRoute>
           }
         />
+
+        {/* ADMIN IMAGE UPLOAD */}
+        <Route
+          path="/admin/image-upload"
+          element={
+            <RoleBasedRoute allowedRoles={["admin"]}>
+              <AdminImageUploadPage />
+            </RoleBasedRoute>
+          }
+        />
+
+        {/* SCRATCH GALLERY PAGE */}
+        <Route path="/scratch/gallery" element={<GalleryScratchPage />} />
 
         {/* CUSTOMER DASHBOARD */}
         <Route
