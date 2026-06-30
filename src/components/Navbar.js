@@ -123,7 +123,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
             >
               Image Upload
             </button>
-
+              </>
         )}
 
         {/* CUSTOMER NAV */}
