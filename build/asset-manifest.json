@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.083e308c.css",
-    "main.js": "/static/js/main.5d44d850.js",
+    "main.css": "/static/css/main.ac74b531.css",
+    "main.js": "/static/js/main.e7140fec.js",
     "static/js/453.46dc3e92.chunk.js": "/static/js/453.46dc3e92.chunk.js",
     "static/media/pic33.jpeg": "/static/media/pic33.f6d9720faedba7b825da.jpeg",
     "static/media/family.jpg": "/static/media/family.4cf92c45cca0c5c6920b.jpg",
@@ -13,7 +13,6 @@
     "static/media/pic19.jpeg": "/static/media/pic19.c25fb553d24c92aef27d.jpeg",
     "static/media/pic22.jpeg": "/static/media/pic22.b199d954ce2ed267dfec.jpeg",
     "static/media/pic18.jpeg": "/static/media/pic18.e3254954e97c79df0288.jpeg",
-    "static/media/pic17.jpeg": "/static/media/pic17.483398e351c160e6a6d8.jpeg",
     "static/media/pic46.jpeg": "/static/media/pic46.624e8c1979c7331eeba9.jpeg",
     "static/media/pic21.jpeg": "/static/media/pic21.7b99ff32e6c415082a97.jpeg",
     "static/media/pic20.jpeg": "/static/media/pic20.b2eecc1c9b63f3ca89dd.jpeg",
@@ -56,15 +55,16 @@
     "static/media/pic7.jpeg": "/static/media/pic7.d288636cc521472f196b.jpeg",
     "static/media/pic4.jpeg": "/static/media/pic4.14da62b8e43ba5871b5d.jpeg",
     "static/media/pic10.jpeg": "/static/media/pic10.0bcc8fbd312cb9ccdea1.jpeg",
+    "static/media/pic17.jpeg": "/static/media/pic17.7e2c7c6fff90fbe4d8a2.jpeg",
     "static/media/pic30.jpeg": "/static/media/pic30.575a94284e844c24ae5e.jpeg",
     "static/media/logo.jpg": "/static/media/logo.85cae84dcea0c416d513.jpg",
     "index.html": "/index.html",
-    "main.083e308c.css.map": "/static/css/main.083e308c.css.map",
-    "main.5d44d850.js.map": "/static/js/main.5d44d850.js.map",
+    "main.ac74b531.css.map": "/static/css/main.ac74b531.css.map",
+    "main.e7140fec.js.map": "/static/js/main.e7140fec.js.map",
     "453.46dc3e92.chunk.js.map": "/static/js/453.46dc3e92.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.083e308c.css",
-    "static/js/main.5d44d850.js"
+    "static/css/main.ac74b531.css",
+    "static/js/main.e7140fec.js"
   ]
 }

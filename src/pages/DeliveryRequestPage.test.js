@@ -1,5 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import DeliveryRequestPage from "./DeliveryRequestPage";
+
+jest.mock("../utils/api", () => ({
+  API_BASE: "/",
+}));
 
 jest.mock("../hooks/useToast", () => () => ({
   success: jest.fn(),
@@ -27,5 +31,34 @@ describe("DeliveryRequestPage", () => {
     fireEvent.change(dateInput, { target: { value: soon } });
 
     expect(screen.getByText(/must be at least 48 hours/i)).toBeInTheDocument();
+  });
+
+  it("submits the delivery request to the backend", async () => {
+    const fetchMock = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ success: true }),
+    });
+    global.fetch = fetchMock;
+
+    render(<DeliveryRequestPage />);
+
+    fireEvent.change(screen.getByLabelText(/company name/i), {
+      target: { value: "Acme Office" },
+    });
+    fireEvent.change(screen.getByLabelText(/number of jugs requested/i), {
+      target: { value: "4" },
+    });
+    fireEvent.change(screen.getByLabelText(/requested delivery date/i), {
+      target: { value: "2030-01-15" },
+    });
+    fireEvent.change(screen.getByLabelText(/optional notes/i), {
+      target: { value: "Please arrive before noon." },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /\$6\.99 flat delivery fee/i }));
+
+    await waitFor(() => {
+      expect(fetchMock).toHaveBeenCalled();
+    });
   });
 });

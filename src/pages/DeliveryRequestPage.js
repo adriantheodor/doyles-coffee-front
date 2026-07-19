@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import useToast from "../hooks/useToast";
 import pic17 from "../assets/pic17.jpeg";
+import { API_BASE } from "../utils/api";
 import "./DeliveryRequestPage.css";
 
 const initialForm = {
@@ -63,7 +64,7 @@ export default function DeliveryRequestPage() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const validationError = validateDeliveryDate(form.deliveryDate);
 
@@ -83,14 +84,41 @@ export default function DeliveryRequestPage() {
     setIsSubmitting(true);
     setSubmitMessage("");
 
-    window.setTimeout(() => {
+    try {
+      const response = await fetch(`${API_BASE}api/on-demand-orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          companyName: form.companyName.trim(),
+          jugCount: form.jugCount ? Number(form.jugCount) : undefined,
+          deliveryDate: form.deliveryDate,
+          notes: form.notes.trim(),
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        const errorMessage = data.message || "Unable to submit your request right now.";
+        setSubmitMessage(errorMessage);
+        toast.error(errorMessage);
+        return;
+      }
+
       const successMessage = "Request received. We’ll review your delivery request and follow up shortly.";
       setSubmitMessage(successMessage);
       toast.success(successMessage);
       setForm(initialForm);
       setDateError("");
+    } catch (error) {
+      const message = error.message || "Unable to submit your request right now.";
+      setSubmitMessage(message);
+      toast.error(message);
+    } finally {
       setIsSubmitting(false);
-    }, 400);
+    }
   };
 
   return (
