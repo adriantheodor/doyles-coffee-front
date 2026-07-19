@@ -106,6 +106,12 @@
   cursor: wait;
 }
 
+.delivery-notice {
+  margin: 0.5rem 0 0;
+  color: var(--brand-green);
+  font-size: 0.9rem;
+}
+
 .submit-message {
   margin: 0;
   color: var(--brand-green);
