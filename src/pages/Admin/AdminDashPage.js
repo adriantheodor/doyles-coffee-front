@@ -8,6 +8,7 @@ import InvoiceManager from "./components/InvoiceManager";
 import QRCodeGenerator from "./components/QRCodeGenerator";
 import AuditLogsManager from "./components/AuditLogsManager";
 import QuoteRequestsWidget from "./QuoteRequestsWidget";
+import OnDemandOrdersManager from "./components/OnDemandOrdersManager";
 
 import { API_BASE } from "../../utils/api";
 import "./AdminDashPage.css";
@@ -98,6 +99,8 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
         return <QRCodeGenerator />;
       case "quotes":
         return <QuoteRequestsWidget />;
+      case "on-demand-orders":
+        return <OnDemandOrdersManager />;
       case "audit":
         return <AuditLogsManager />;
       default:
@@ -123,6 +126,9 @@ const AdminDashPage = ({ activeSection, setActiveSection }) => {
               </button>
               <button onClick={() => setActiveSection("quotes")}>
                 🗂 Quote Requests
+              </button>
+              <button onClick={() => setActiveSection("on-demand-orders")}>
+                🚚 On-Demand Orders
               </button>
               <button onClick={() => setActiveSection("qrcodes")}>
                 🔳 QR Codes

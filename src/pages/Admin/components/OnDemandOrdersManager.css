@@ -1,0 +1,42 @@
+.on-demand-orders-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-subtitle {
+  margin: 0.3rem 0 0;
+  color: #6b7280;
+}
+
+.status-message {
+  color: #4b5563;
+}
+
+.status-message.error {
+  color: #b91c1c;
+}
+
+.empty-state {
+  padding: 1.25rem;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  background: #f9fafb;
+  color: #374151;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.on-demand-table td,
+.on-demand-table th {
+  white-space: nowrap;
+  max-width: 220px;
+}

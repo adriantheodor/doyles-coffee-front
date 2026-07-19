@@ -31,6 +31,7 @@ import AdminInventoryPage from "./pages/Admin/AdminInventoryPage";
 import AdminImageUploadPage from "./pages/Admin/AdminImageUploadPage";
 import GalleryScratchPage from "./pages/GalleryScratchPage";
 import CustomerInvoicesPage from "./pages/CustomerInvoicesPage";
+import DeliveryRequestPage from "./pages/DeliveryRequestPage";
 
 import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
@@ -102,6 +103,7 @@ function AppWrapper() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/quote" element={<QuotePage />} />
         <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
+        <Route path="/delivery-request" element={<DeliveryRequestPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />

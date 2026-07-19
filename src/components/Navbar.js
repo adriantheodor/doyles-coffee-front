@@ -68,6 +68,10 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               Get a Quote
             </Link>
 
+            <Link to="/delivery-request" onClick={() => setIsOpen(false)}>
+              Request Delivery
+            </Link>
+
             <a
               href="https://link.clover.com/urlshortener/f6szWB"
               target="_blank"
