@@ -107,6 +107,10 @@ const Navbar = ({ activeSection, setActiveSection }) => {
 
             <button onClick={() => handleSectionClick("quotes")}>Quotes</button>
 
+            <button onClick={() => handleSectionClick("on-demand-orders")}>
+              On-Demand Orders
+            </button>
+
             <button onClick={() => handleSectionClick("orders")}>Orders</button>
 
             <button onClick={() => handleSectionClick("issues")}>Issues</button>
