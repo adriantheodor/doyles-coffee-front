@@ -121,10 +121,9 @@ export default function QuoteRequestsWidget() {
             <strong>{r.companyName}</strong> — {r.contactName} ({r.email}) (
             {r.phone})
             <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
-              Created: {new Date(r.timestamp || r.createdAt).toLocaleString()}
+              Created: {new Date(r.timestamp || r.createdAt).toLocaleString([], { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
             </p>
-            <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>Services: {r.services.join(", ")}</p>
-            <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
+            <p>
               Status: <em>{r.status}</em>
             </p>
             {r.status === "scheduled" && r.meetingDate && (
