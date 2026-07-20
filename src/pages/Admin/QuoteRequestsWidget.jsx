@@ -114,7 +114,7 @@ export default function QuoteRequestsWidget() {
             key={r._id}
             style={{
               marginBottom: "1rem",
-              padding: "0.5rem",
+              padding: "0rem",
               borderBottom: "1px solid #eee",
             }}
           >
