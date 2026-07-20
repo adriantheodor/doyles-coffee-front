@@ -119,7 +119,11 @@ export default function QuoteRequestsWidget() {
             }}
           >
             <strong>{r.companyName}</strong> — {r.contactName} ({r.email}) (
-            {r.phone})<p>Services: {r.services.join(", ")}</p>
+            {r.phone})
+            <p>
+              Created: {new Date(r.timestamp || r.createdAt).toLocaleString()}
+            </p>
+            <p>Services: {r.services.join(", ")}</p>
             <p>
               Status: <em>{r.status}</em>
             </p>
