@@ -109,23 +109,36 @@ export default function QuoteRequestsWidget() {
       {requests.length === 0 && <p>No requests yet.</p>}
 
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {requests.map((r) => (
-          <li
-            key={r._id}
-            style={{
-              marginBottom: "1rem",
-              padding: "0rem",
-              borderBottom: "1px solid #eee",
-            }}
-          >
-            <strong>{r.companyName}</strong> — {r.contactName} ({r.email}) (
-            {r.phone})
-            <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
-              Created: {(r.timestamp).toLocaleString([], { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-            </p>
-            <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
-              Status: <em>{r.status}</em>
-            </p>
+        {requests.map((r) => {
+          const createdAt = new Date(r.timestamp || r.createdAt);
+          const createdLabel = Number.isNaN(createdAt.getTime())
+            ? "Unknown"
+            : createdAt.toLocaleString([], {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              });
+
+          return (
+            <li
+              key={r._id}
+              style={{
+                marginBottom: "1rem",
+                padding: "0rem",
+                borderBottom: "1px solid #eee",
+              }}
+            >
+              <strong>{r.companyName}</strong> — {r.contactName} ({r.email}) (
+              {r.phone})
+              <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
+                Created: {createdLabel}
+              </p>
+              <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
+                Status: <em>{r.status}</em>
+              </p>
             {r.status === "scheduled" && r.meetingDate && (
               <p>📅 Scheduled: {new Date(r.meetingDate).toLocaleString()}</p>
             )}
