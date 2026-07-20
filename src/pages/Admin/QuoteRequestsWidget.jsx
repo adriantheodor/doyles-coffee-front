@@ -139,38 +139,39 @@ export default function QuoteRequestsWidget() {
               <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
                 Status: <em>{r.status}</em>
               </p>
-            {r.status === "scheduled" && r.meetingDate && (
-              <p>📅 Scheduled: {new Date(r.meetingDate).toLocaleString()}</p>
-            )}
-            <div style={{ display: "flex", gap: "0.5rem" }}>
-              <button onClick={() => updateStatus(r._id, "contacted")}>
-                Mark Contacted
-              </button>
+              {r.status === "scheduled" && r.meetingDate && (
+                <p>📅 Scheduled: {new Date(r.meetingDate).toLocaleString()}</p>
+              )}
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                <button onClick={() => updateStatus(r._id, "contacted")}>
+                  Mark Contacted
+                </button>
 
-              <button onClick={() => setScheduleForm(r)}>
-                Schedule Meeting
-              </button>
+                <button onClick={() => setScheduleForm(r)}>
+                  Schedule Meeting
+                </button>
 
-              <button onClick={() => updateStatus(r._id, "closed")}>
-                Mark Closed
-              </button>
+                <button onClick={() => updateStatus(r._id, "closed")}>
+                  Mark Closed
+                </button>
 
-              <button
-                style={{ backgroundColor: "#4caf50", color: "white" }}
-                onClick={() => markCompleted(r._id)}
-              >
-                Mark Completed
-              </button>
+                <button
+                  style={{ backgroundColor: "#4caf50", color: "white" }}
+                  onClick={() => markCompleted(r._id)}
+                >
+                  Mark Completed
+                </button>
 
-              <button
-                style={{ backgroundColor: "#c0392b", color: "white" }}
-                onClick={() => deleteRequest(r._id)}
-              >
-                Delete
-              </button>
-            </div>
-          </li>
-        ))}
+                <button
+                  style={{ backgroundColor: "#c0392b", color: "white" }}
+                  onClick={() => deleteRequest(r._id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          );
+        })}
       </ul>
 
       {/* Scheduling Form */}
