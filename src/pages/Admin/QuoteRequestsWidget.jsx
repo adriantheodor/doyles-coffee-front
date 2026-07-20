@@ -124,7 +124,7 @@ export default function QuoteRequestsWidget() {
               Created: {new Date(r.timestamp || r.createdAt).toLocaleString()}
             </p>
             <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>Services: {r.services.join(", ")}</p>
-            <p>
+            <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
               Status: <em>{r.status}</em>
             </p>
             {r.status === "scheduled" && r.meetingDate && (
