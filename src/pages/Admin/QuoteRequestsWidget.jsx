@@ -123,7 +123,7 @@ export default function QuoteRequestsWidget() {
             <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>
               Created: {new Date(r.timestamp || r.createdAt).toLocaleString()}
             </p>
-            <p>Services: {r.services.join(", ")}</p>
+            <p style={{ fontSize: "0.9rem", color: "#0b0b0b" }}>Services: {r.services.join(", ")}</p>
             <p>
               Status: <em>{r.status}</em>
             </p>
