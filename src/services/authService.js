@@ -134,6 +134,15 @@ class AuthService {
   }
 
   /**
+   * Get all users for admin review
+   * GET /api/auth/admin/users
+   */
+  async getAllUsers() {
+    const response = await api.get("api/auth/admin/users");
+    return response.data;
+  }
+
+  /**
    * Resend verification email
    * POST /api/auth/resend-verification-email
    */

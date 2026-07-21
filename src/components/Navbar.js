@@ -115,7 +115,12 @@ const Navbar = ({ activeSection, setActiveSection }) => {
 
             <button onClick={() => handleSectionClick("issues")}>Issues</button>
 
-            <button onClick={() => handleSectionClick("users")}>
+            <button
+              onClick={() => {
+                navigate("/admin/users");
+                setIsOpen(false);
+              }}
+            >
               Admin Users
             </button>
 

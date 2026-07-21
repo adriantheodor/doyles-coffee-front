@@ -29,6 +29,7 @@ import CustomerOrdersHistory from "./pages/CustomerOrdersHistory";
 import AdminInvoiceManagementPage from "./pages/Admin/AdminInvoiceManagementPage";
 import AdminInventoryPage from "./pages/Admin/AdminInventoryPage";
 import AdminImageUploadPage from "./pages/Admin/AdminImageUploadPage";
+import AdminUsersPage from "./pages/Admin/AdminUsersPage";
 import GalleryScratchPage from "./pages/GalleryScratchPage";
 import CustomerInvoicesPage from "./pages/CustomerInvoicesPage";
 import DeliveryRequestPage from "./pages/DeliveryRequestPage";
@@ -221,6 +222,16 @@ function AppWrapper() {
           element={
             <RoleBasedRoute allowedRoles={["admin"]}>
               <AdminImageUploadPage />
+            </RoleBasedRoute>
+          }
+        />
+
+        {/* ADMIN USERS */}
+        <Route
+          path="/admin/users"
+          element={
+            <RoleBasedRoute allowedRoles={["admin"]}>
+              <AdminUsersPage />
             </RoleBasedRoute>
           }
         />
