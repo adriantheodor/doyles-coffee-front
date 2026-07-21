@@ -150,6 +150,15 @@ class AuthService {
   }
 
   /**
+   * Update a user from the admin panel
+   * PUT /api/auth/admin/users/:id
+   */
+  async updateUserByAdmin(userId, updates) {
+    const response = await api.put(`api/auth/admin/users/${userId}`, updates);
+    return response.data;
+  }
+
+  /**
    * Resend verification email
    * POST /api/auth/resend-verification-email
    */

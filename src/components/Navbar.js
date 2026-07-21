@@ -121,7 +121,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
                 setIsOpen(false);
               }}
             >
-              Admin Users
+              Users
             </button>
 
             <button onClick={() => handleSectionClick("invoices")}>

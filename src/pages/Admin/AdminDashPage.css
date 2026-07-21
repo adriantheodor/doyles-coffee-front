@@ -64,27 +64,120 @@
   width: 100%;
   background: white;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 12px;
   margin-bottom: 2rem;
   overflow-x: auto;
+  border: 1px solid #e6edf2;
+  box-shadow: 0 1px 8px rgba(15, 23, 42, 0.04);
+}
+
+.recent-table thead {
+  background: #f4f7f9;
 }
 
 .recent-table th,
 .recent-table td {
-  padding: 0.5rem 0.75rem;
+  padding: 0.6rem 0.9rem;
   text-align: left;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid #eef2f5;
 }
 
-@media (min-width: 768px) {
-  .recent-table th,
-  .recent-table td {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
+.recent-table th {
+  font-weight: 700;
+  color: #334155;
+  letter-spacing: 0.01em;
+}
+
+.recent-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.issue-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
 }
 
 .issue-list li {
-  margin-bottom: 0.5rem;
-  padding: 0.5rem 0;
+  padding: 0.85rem 1rem;
+  background: white;
+  border: 1px solid #e6edf2;
+  border-radius: 12px;
+  color: #1f2937;
 }
+
+.dash-home {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-title {
+  margin-bottom: 1rem;
+  font-size: 1.45rem;
+}
+
+.sub-title {
+  margin: 1.5rem 0 0.75rem;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 0.75rem;
+  }
+
+  .page-card {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.4rem;
+  }
+
+  .quick-links {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .quick-links button {
+    width: 100%;
+    text-align: left;
+    padding: 0.95rem 1rem;
+    font-size: 0.95rem;
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .metrics-row {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .recent-table {
+    padding: 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .recent-table th,
+  .recent-table td {
+    padding: 0.65rem 0.8rem;
+  }
+
+  .recent-table {
+    min-width: 100%;
+  }
+
+  .issue-list li {
+    padding: 0.95rem 1rem;
+  }
+}
+
