@@ -138,8 +138,15 @@ class AuthService {
    * GET /api/auth/admin/users
    */
   async getAllUsers() {
-    const response = await api.get("api/auth/admin/users");
-    return response.data;
+    try {
+      const response = await api.get("api/auth/admin/users");
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 404) {
+        return [];
+      }
+      throw error;
+    }
   }
 
   /**

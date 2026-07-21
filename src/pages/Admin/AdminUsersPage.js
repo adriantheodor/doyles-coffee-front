@@ -15,7 +15,10 @@ const AdminUsersPage = () => {
         const userList = Array.isArray(response) ? response : response?.users || [];
         setUsers(userList);
       } catch (err) {
-        setError(err.response?.data?.message || err.message || "Failed to load users");
+        const message = err.response?.status === 404
+          ? "This backend does not expose an admin users endpoint yet."
+          : err.response?.data?.message || err.message || "Failed to load users";
+        setError(message);
       } finally {
         setLoading(false);
       }
