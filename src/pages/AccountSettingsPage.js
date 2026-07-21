@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { api } from "../utils/api";
 import "./AccountSettingsPage.css";
 
 const AccountSettingsPage = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, updateProfile } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -16,8 +15,8 @@ const AccountSettingsPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    company: "",
+    phoneNumber: "",
+    companyName: "",
     address: "",
   });
 
@@ -28,9 +27,9 @@ const AccountSettingsPage = () => {
       const initialData = {
         name: user.name || "",
         email: user.email || "",
-        phone: user.phone || "",
-        company: user.company || "",
-        address: user.address || "",
+        phoneNumber: user.phoneNumber ?? user.phone ?? "",
+        companyName: user.companyName ?? user.company ?? "",
+        address: user.address ?? "",
       };
       setFormData(initialData);
       setOriginalData(initialData);
@@ -88,29 +87,40 @@ const AccountSettingsPage = () => {
     setShowConfirmation(false);
 
     try {
-      const response = await api.put("api/auth/profile", {
+      const result = await updateProfile({
         name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
+        phoneNumber: formData.phoneNumber,
+        companyName: formData.companyName,
         address: formData.address,
       });
 
-      if (response.status === 200) {
-        // Update localStorage with new user data
-        const updatedUser = response.data.user || response.data;
-        localStorage.setItem("user", JSON.stringify(updatedUser));
+      const updatedUser = result.user || result;
+      localStorage.setItem("user", JSON.stringify(updatedUser));
 
-        setOriginalData(formData);
-        setMessage("Profile updated successfully!");
-        setMessageType("success");
-        setIsEditing(false);
+      setOriginalData({
+        name: updatedUser.name || formData.name,
+        email: updatedUser.email || formData.email,
+        phoneNumber: updatedUser.phoneNumber ?? formData.phoneNumber,
+        companyName: updatedUser.companyName ?? formData.companyName,
+        address: updatedUser.address ?? formData.address,
+      });
+      setFormData((prev) => ({
+        ...prev,
+        name: updatedUser.name || prev.name,
+        email: updatedUser.email || prev.email,
+        phoneNumber: updatedUser.phoneNumber ?? prev.phoneNumber,
+        companyName: updatedUser.companyName ?? prev.companyName,
+        address: updatedUser.address ?? prev.address,
+      }));
 
-        // Auto-clear success message after 3 seconds
-        setTimeout(() => {
-          setMessage("");
-        }, 3000);
-      }
+      setMessage("Profile updated successfully!");
+      setMessageType("success");
+      setIsEditing(false);
+
+      // Auto-clear success message after 3 seconds
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     } catch (err) {
       const errorMsg =
         err.response?.data?.message ||
@@ -170,20 +180,20 @@ const AccountSettingsPage = () => {
                     <span className="new-value">{formData.email}</span>
                   </div>
                 )}
-                {formData.phone !== originalData.phone && (
+                {formData.phoneNumber !== originalData.phoneNumber && (
                   <div className="detail-change">
                     <span>Phone:</span>
-                    <span className="old-value">{originalData.phone || "—"}</span>
+                    <span className="old-value">{originalData.phoneNumber || "—"}</span>
                     <span className="arrow">→</span>
-                    <span className="new-value">{formData.phone || "—"}</span>
+                    <span className="new-value">{formData.phoneNumber || "—"}</span>
                   </div>
                 )}
-                {formData.company !== originalData.company && (
+                {formData.companyName !== originalData.companyName && (
                   <div className="detail-change">
                     <span>Company:</span>
-                    <span className="old-value">{originalData.company || "—"}</span>
+                    <span className="old-value">{originalData.companyName || "—"}</span>
                     <span className="arrow">→</span>
-                    <span className="new-value">{formData.company || "—"}</span>
+                    <span className="new-value">{formData.companyName || "—"}</span>
                   </div>
                 )}
                 {formData.address !== originalData.address && (
@@ -244,32 +254,26 @@ const AccountSettingsPage = () => {
 
             <div className="form-group">
               <label htmlFor="email">
-                Email Address <span className="required">*</span>
+                Email Address
               </label>
               <input
                 id="email"
                 type="email"
                 name="email"
                 value={formData.email}
-                onChange={handleChange}
-                disabled={!isEditing}
+                disabled
                 placeholder="your.email@example.com"
-                className={isEditing ? "" : "disabled-input"}
+                className="disabled-input"
               />
-              {isEditing && (
-                <small className="form-hint">
-                  You may need to verify your new email address
-                </small>
-              )}
             </div>
 
             <div className="form-group">
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="phoneNumber">Phone Number</label>
               <input
-                id="phone"
+                id="phoneNumber"
                 type="tel"
-                name="phone"
-                value={formData.phone}
+                name="phoneNumber"
+                value={formData.phoneNumber}
                 onChange={handleChange}
                 disabled={!isEditing}
                 placeholder="(555) 123-4567"
@@ -278,12 +282,12 @@ const AccountSettingsPage = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="company">Company Name</label>
+              <label htmlFor="companyName">Company Name</label>
               <input
-                id="company"
+                id="companyName"
                 type="text"
-                name="company"
-                value={formData.company}
+                name="companyName"
+                value={formData.companyName}
                 onChange={handleChange}
                 disabled={!isEditing}
                 placeholder="Your company name"
