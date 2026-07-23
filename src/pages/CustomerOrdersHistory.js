@@ -100,7 +100,7 @@ const CustomerOrdersHistory = () => {
       ) : (
         completedOrders.map((order) => (
         <div key={order._id} className="order-card complete" onClick={() => handleOrderClick(order._id)} style={{ cursor: "pointer" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: "black" }}>
             <div>
               <strong>Order #{order._id.slice(-6)}</strong>
               <p>Status: <b>{order.status}</b></p>
