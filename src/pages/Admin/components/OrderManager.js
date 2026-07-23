@@ -133,7 +133,7 @@ const OrderManager = () => {
                           </div>
                         ))}
                       </td>
-                      <td>${formatPrice(o.totalPrice)}</td>
+                      <td color="black">${formatPrice(o.totalPrice)}</td>
                       <td>{o.status}</td>
                       <td>{o.notes || "—"}</td>
                       <td>

@@ -64,7 +64,7 @@ const CustomerOrdersHistory = () => {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
               <strong>Order #{order._id.slice(-6)}</strong>
-              <p>Status: <b>{order.status}</b></p>
+              <p style={{ color: "black"}}>Status: <b>{order.status}</b></p>
 
               <div>
                 <h4>Items:</h4>
@@ -75,7 +75,7 @@ const CustomerOrdersHistory = () => {
                 ))}
               </div>
 
-              <p>Total: ${order.totalPrice.toFixed(2)}</p>
+              <p style={{ color: "black"}}>Total: ${order.totalPrice.toFixed(2)}</p>
             </div>
             <button className="btn-view-details" onClick={(e) => {
               e.stopPropagation();
