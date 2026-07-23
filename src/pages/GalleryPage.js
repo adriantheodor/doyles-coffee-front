@@ -107,7 +107,10 @@ const GalleryPage = () => {
       setError("");
 
       try {
+
+
         const result = await fetchGalleryImages();
+        console.log("raw gallery payload:", result);
         if (!isMounted) return;
 
         const normalizedImages = normalizeGalleryImages(result);
