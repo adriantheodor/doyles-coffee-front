@@ -10,10 +10,88 @@ const fallbackImages = imageModules.keys().map((key) => ({
 }));
 
 const getImageSource = (image) =>
-  image?.url || image?.imageUrl || image?.path || image?.src || "";
+  image?.secure_url ||
+  image?.url ||
+  image?.imageUrl ||
+  image?.path ||
+  image?.src ||
+  image?.image?.secure_url ||
+  image?.image?.url ||
+  image?.file?.secure_url ||
+  image?.file?.url ||
+  image?.image_url ||
+  image?.img_url ||
+  image?.publicUrl ||
+  "";
 
 const getImageAlt = (image, index) =>
-  image?.alt || image?.caption || image?.title || `Gallery image ${index + 1}`;
+  image?.alt ||
+  image?.caption ||
+  image?.title ||
+  image?.description ||
+  image?.filename ||
+  image?.name ||
+  image?.original_filename ||
+  image?.public_id ||
+  `Gallery image ${index + 1}`;
+
+const normalizeGalleryImages = (payload) => {
+  if (Array.isArray(payload)) {
+    return payload.map((image, index) => ({
+      ...image,
+      src: getImageSource(image),
+      alt: getImageAlt(image, index),
+    }));
+  }
+
+  if (payload && typeof payload === "object") {
+    if (Array.isArray(payload.images)) {
+      return payload.images.map((image, index) => ({
+        ...image,
+        src: getImageSource(image),
+        alt: getImageAlt(image, index),
+      }));
+    }
+
+    if (Array.isArray(payload.data)) {
+      return payload.data.map((image, index) => ({
+        ...image,
+        src: getImageSource(image),
+        alt: getImageAlt(image, index),
+      }));
+    }
+
+    if (Array.isArray(payload.gallery)) {
+      return payload.gallery.map((image, index) => ({
+        ...image,
+        src: getImageSource(image),
+        alt: getImageAlt(image, index),
+      }));
+    }
+
+    if (
+      payload.secure_url ||
+      payload.url ||
+      payload.imageUrl ||
+      payload.path ||
+      payload.src ||
+      payload.image?.secure_url ||
+      payload.image?.url ||
+      payload.file?.secure_url ||
+      payload.file?.url
+    ) {
+      return [
+        {
+          ...payload,
+          src: getImageSource(payload),
+          alt: getImageAlt(payload, 0),
+        },
+      ];
+    }
+  }
+
+  return [];
+};
 
 const GalleryPage = () => {
   const [images, setImages] = useState(fallbackImages);
@@ -32,14 +110,10 @@ const GalleryPage = () => {
         const result = await fetchGalleryImages();
         if (!isMounted) return;
 
-        if (Array.isArray(result) && result.length > 0) {
-          setImages(
-            result.map((image, index) => ({
-              ...image,
-              src: getImageSource(image),
-              alt: getImageAlt(image, index),
-            }))
-          );
+        const normalizedImages = normalizeGalleryImages(result);
+
+        if (normalizedImages.length > 0) {
+          setImages(normalizedImages);
         } else {
           setImages(fallbackImages);
         }
