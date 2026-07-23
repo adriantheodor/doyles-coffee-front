@@ -113,53 +113,173 @@ const IssuesManager = () => {
   if (loading) return <p>Loading issues...</p>;
 
   return (
-    <div className="page-container">
+    <div className="page-container issues-page">
       <div className="page-card">
-      <h2 className="page-title">Issue Reports</h2>
+        <h2 className="page-title">Issue Reports</h2>
 
-      {errorMsg && (
-        <p style={{ color: "red", fontWeight: "bold" }}>{errorMsg}</p>
-      )}
+        {errorMsg && (
+          <p style={{ color: "red", fontWeight: "bold" }}>{errorMsg}</p>
+        )}
 
-      <table
-        border="1"
-        cellPadding="8"
-        className="styled-table"
-      >
-        <thead>
-          <tr>
-            <th>Customer</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Admin Notes</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+        <div className="table-scroll">
+          <table border="1" cellPadding="8" className="styled-table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Admin Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
 
-        <tbody>
-          {issues.map((i) => (
-            <tr key={i._id}>
-              <td>{i.customer?.name || "Unknown"}</td>
-              <td>{i.title}</td>
-              <td>{i.description}</td>
-              <td>{i.status}</td>
-              <td>{i.adminNotes || "—"}</td>
+            <tbody>
+              {issues.map((i) => (
+                <tr key={i._id}>
+                  <td data-label="Customer">{i.customer?.name || "Unknown"}</td>
+                  <td data-label="Title">{i.title}</td>
+                  <td data-label="Description">{i.description}</td>
+                  <td data-label="Status">{i.status}</td>
+                  <td data-label="Admin Notes">{i.adminNotes || "—"}</td>
 
-              <td>
-                <button onClick={() => updateStatus(i._id, "In Progress")}>
-                  In Progress
-                </button>
-                <button onClick={() => updateStatus(i._id, "Resolved")}>
-                  Resolve
-                </button>
-                <button onClick={() => deleteIssue(i._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  <td data-label="Actions">
+                    <div className="action-buttons">
+                      <button onClick={() => updateStatus(i._id, "In Progress")}>
+                        In Progress
+                      </button>
+                      <button onClick={() => updateStatus(i._id, "Resolved")}>
+                        Resolve
+                      </button>
+                      <button
+                        className="danger"
+                        onClick={() => deleteIssue(i._id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {issues.length === 0 && !errorMsg && (
+            <p className="empty-state">No issues to show.</p>
+          )}
+        </div>
       </div>
+
+      {/* Scoped to .issues-page so it won't affect other tables/pages
+          reusing .page-container / .styled-table elsewhere in the app. */}
+      <style>{`
+        .issues-page .page-card {
+          box-sizing: border-box;
+        }
+
+        .issues-page .table-scroll {
+          width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .issues-page .styled-table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        .issues-page .styled-table td,
+        .issues-page .styled-table th {
+          word-break: break-word;
+        }
+
+        .issues-page .action-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+
+        .issues-page .action-buttons button {
+          padding: 8px 12px;
+          min-height: 40px;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+
+        .issues-page .action-buttons button.danger {
+          background: #e53e3e;
+          color: #fff;
+          border: none;
+        }
+
+        .issues-page .empty-state {
+          padding: 16px;
+          text-align: center;
+          color: #666;
+        }
+
+        /* Below this width, the table becomes a stacked list of cards.
+           Each <td> shows its own label (from data-label) instead of
+           relying on a header row that no longer fits. */
+        @media (max-width: 700px) {
+          .issues-page .page-card {
+            padding: 12px;
+          }
+
+          .issues-page .table-scroll {
+            overflow-x: visible;
+          }
+
+          .issues-page .styled-table thead {
+            display: none;
+          }
+
+          .issues-page .styled-table,
+          .issues-page .styled-table tbody,
+          .issues-page .styled-table tr,
+          .issues-page .styled-table td {
+            display: block;
+            width: 100%;
+          }
+
+          .issues-page .styled-table tr {
+            margin-bottom: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 8px 10px;
+          }
+
+          .issues-page .styled-table td {
+            border: none;
+            border-bottom: 1px solid #eee;
+            padding: 8px 4px;
+            text-align: left;
+          }
+
+          .issues-page .styled-table td:last-child {
+            border-bottom: none;
+          }
+
+          .issues-page .styled-table td::before {
+            content: attr(data-label);
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #888;
+            margin-bottom: 2px;
+          }
+
+          .issues-page .action-buttons {
+            margin-top: 4px;
+          }
+
+          .issues-page .action-buttons button {
+            flex: 1 1 auto;
+          }
+        }
+      `}</style>
     </div>
   );
 };
