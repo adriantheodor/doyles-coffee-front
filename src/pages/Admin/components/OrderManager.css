@@ -41,6 +41,7 @@
   border: 1px solid #d1d5db;
   border-radius: 14px;
   padding: 1rem;
+  color:#111827;
   background: #ffffff;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
 }
@@ -49,6 +50,7 @@
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  color:black;
   flex-wrap: wrap;
   align-items: flex-start;
   margin-bottom: 0.85rem;
@@ -68,12 +70,14 @@
 }
 
 .order-card-details {
+  color:black;
   display: grid;
   gap: 0.85rem;
 }
 
 .order-card-row {
   display: grid;
+  color:black;
   grid-template-columns: max-content 1fr;
   gap: 0.5rem 1rem;
   align-items: start;
@@ -96,6 +100,7 @@
 .order-card-items {
   display: grid;
   gap: 0.45rem;
+  color:black;
   padding: 0.75rem;
   border-radius: 10px;
   background: #f3f4f6;
@@ -104,6 +109,7 @@
 .order-card-actions {
   display: flex;
   gap: 0.75rem;
+  color:black;
   flex-wrap: wrap;
   margin-top: 0.5rem;
 }
