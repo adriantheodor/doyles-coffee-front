@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d422381f.css",
-    "main.js": "/static/js/main.bf95412b.js",
+    "main.css": "/static/css/main.2d19bfec.css",
+    "main.js": "/static/js/main.fb109d7a.js",
     "static/js/453.46dc3e92.chunk.js": "/static/js/453.46dc3e92.chunk.js",
     "static/media/pic33.jpeg": "/static/media/pic33.f6d9720faedba7b825da.jpeg",
     "static/media/family.jpg": "/static/media/family.4cf92c45cca0c5c6920b.jpg",
@@ -11,8 +11,10 @@
     "static/media/pic43.jpeg": "/static/media/pic43.50677e7cf2438cc2430b.jpeg",
     "static/media/pic32.jpeg": "/static/media/pic32.e0e9c8c04f1f73c6a544.jpeg",
     "static/media/pic19.jpeg": "/static/media/pic19.c25fb553d24c92aef27d.jpeg",
+    "static/media/Screen Shot 2026-07-19 at 12.11.12 PM.png": "/static/media/Screen Shot 2026-07-19 at 12.11.12 PM.4c841bd4c444b437d66a.png",
     "static/media/pic22.jpeg": "/static/media/pic22.b199d954ce2ed267dfec.jpeg",
     "static/media/pic18.jpeg": "/static/media/pic18.e3254954e97c79df0288.jpeg",
+    "static/media/pic172.jpeg": "/static/media/pic172.483398e351c160e6a6d8.jpeg",
     "static/media/pic46.jpeg": "/static/media/pic46.624e8c1979c7331eeba9.jpeg",
     "static/media/pic21.jpeg": "/static/media/pic21.7b99ff32e6c415082a97.jpeg",
     "static/media/pic20.jpeg": "/static/media/pic20.b2eecc1c9b63f3ca89dd.jpeg",
@@ -59,12 +61,12 @@
     "static/media/pic30.jpeg": "/static/media/pic30.575a94284e844c24ae5e.jpeg",
     "static/media/logo.jpg": "/static/media/logo.85cae84dcea0c416d513.jpg",
     "index.html": "/index.html",
-    "main.d422381f.css.map": "/static/css/main.d422381f.css.map",
-    "main.bf95412b.js.map": "/static/js/main.bf95412b.js.map",
+    "main.2d19bfec.css.map": "/static/css/main.2d19bfec.css.map",
+    "main.fb109d7a.js.map": "/static/js/main.fb109d7a.js.map",
     "453.46dc3e92.chunk.js.map": "/static/js/453.46dc3e92.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d422381f.css",
-    "static/js/main.bf95412b.js"
+    "static/css/main.2d19bfec.css",
+    "static/js/main.fb109d7a.js"
   ]
 }

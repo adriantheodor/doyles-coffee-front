@@ -49,17 +49,17 @@ const Navbar = ({ activeSection, setActiveSection }) => {
       </div>
 
       <div className={`navbar-links ${isOpen ? "open" : ""}`}>
+        <HashLink smooth to="/#top" onClick={() => setIsOpen(false)}>
+          Home
+        </HashLink>
+
+        <Link to="/gallery" onClick={() => setIsOpen(false)}>
+          Gallery
+        </Link>
+
         {/* PUBLIC NAV */}
         {!isAuthenticated && (
           <>
-            <HashLink smooth to="/#top" onClick={() => setIsOpen(false)}>
-              Home
-            </HashLink>
-
-            <Link to="/gallery" onClick={() => setIsOpen(false)}>
-              Gallery
-            </Link>
-
             <HashLink smooth to="/#contact" onClick={() => setIsOpen(false)}>
               Contact
             </HashLink>
