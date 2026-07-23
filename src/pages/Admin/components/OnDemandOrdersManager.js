@@ -77,16 +77,18 @@ const OnDemandOrdersManager = () => {
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id || order.id}>
-                  <td>{order.companyName || "—"}</td>
-                  <td>{order.jugCount ?? "—"}</td>
-                  <td>{formatDate(order.deliveryDate || order.requestedDate)}</td>
-                  <td>{order.status || "pending"}</td>
-                  <td>
+                  <td data-label="Company">{order.companyName || "—"}</td>
+                  <td data-label="Jugs">{order.jugCount ?? "—"}</td>
+                  <td data-label="Requested Date">
+                    {formatDate(order.deliveryDate || order.requestedDate)}
+                  </td>
+                  <td data-label="Status">{order.status || "pending"}</td>
+                  <td data-label="Fee">
                     {order.deliveryFeeAmount != null
                       ? `$${Number(order.deliveryFeeAmount).toFixed(2)}`
                       : "—"}
                   </td>
-                  <td>{order.notes || "—"}</td>
+                  <td data-label="Notes">{order.notes || "—"}</td>
                 </tr>
               ))}
             </tbody>

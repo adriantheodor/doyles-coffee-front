@@ -8,6 +8,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.section-title {
+  margin: 0;
 }
 
 .section-subtitle {
@@ -33,10 +39,72 @@
 
 .table-wrapper {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .on-demand-table td,
 .on-demand-table th {
   white-space: nowrap;
   max-width: 220px;
+}
+
+/* --- Mobile: rows become stacked cards instead of a scrolling table --- */
+@media (max-width: 640px) {
+  .on-demand-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .on-demand-table,
+  .on-demand-table tbody,
+  .on-demand-table tr,
+  .on-demand-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table-wrapper {
+    overflow-x: visible;
+  }
+
+  .on-demand-table tr {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .on-demand-table tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .on-demand-table td {
+    white-space: normal;
+    max-width: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    text-align: right;
+    border: none;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .on-demand-table td:last-child {
+    border-bottom: none;
+  }
+
+  .on-demand-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #374151;
+    text-align: left;
+  }
 }
