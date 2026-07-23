@@ -179,7 +179,6 @@ const HomePage = ({ onLogin }) => {
                 </div>
               </div>
             </section>
-      <GalleryComponent />
       </div>
       {/* Footer */}
       <footer className="text-center py-4 bg-white border-top">
