@@ -1,6 +1,5 @@
 import "./HomePage.css";
 import "./AboutPage.css";
-import GalleryComponent from "../components/GalleryComponent";
 import family from "../assets/family.jpg";
 import logo from "../assets/logo.jpg";
 
