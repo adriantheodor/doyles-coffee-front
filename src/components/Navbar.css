@@ -92,7 +92,7 @@
 
 .navbar-custom a:hover,
 .navbar-custom button:hover {
-  background-color: rgba(58, 120, 66, 0.1);
+  background-color: rgba(255, 255, 255);
   color: var(--brand-green-dark);
 }
 
@@ -279,7 +279,7 @@
 
 @media (prefers-color-scheme: dark) {
   .navbar-custom {
-    background-color: #1f2937;
+    background-color: #f2f3f5;
   }
 
   .navbar-links,
