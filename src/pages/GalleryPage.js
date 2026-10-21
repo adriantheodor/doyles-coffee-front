@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 import { fetchGalleryImages } from "../services/galleryService";
 import "./GalleryPage.css";
 
-const imageModules = require.context("../assets", false, /\.(png|jpe?g|webp)$/);
-
-const fallbackImages = imageModules.keys().map((key) => ({
-  src: imageModules(key),
-  alt: key.replace(/^\.\//, "").replace(/\.(png|jpe?g|webp)$/i, ""),
-}));
-
 const getImageSource = (image) =>
   image?.secure_url ||
   image?.url ||
@@ -34,6 +27,15 @@ const getImageAlt = (image, index) =>
   image?.original_filename ||
   image?.public_id ||
   `Gallery image ${index + 1}`;
+
+const isCloudinaryUrl = (source) => {
+  try {
+    const hostname = new URL(source).hostname.toLowerCase();
+    return hostname === "cloudinary.com" || hostname.endsWith(".cloudinary.com");
+  } catch {
+    return false;
+  }
+};
 
 const normalizeGalleryImages = (payload) => {
   if (Array.isArray(payload)) {
@@ -94,7 +96,7 @@ const normalizeGalleryImages = (payload) => {
 };
 
 const GalleryPage = () => {
-  const [images, setImages] = useState(fallbackImages);
+  const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -107,23 +109,17 @@ const GalleryPage = () => {
       setError("");
 
       try {
-
-
         const result = await fetchGalleryImages();
-        console.log("raw gallery payload:", result);
         if (!isMounted) return;
 
-        const normalizedImages = normalizeGalleryImages(result);
-
-        if (normalizedImages.length > 0) {
-          setImages(normalizedImages);
-        } else {
-          setImages(fallbackImages);
-        }
+        const normalizedImages = normalizeGalleryImages(result).filter((image) =>
+          isCloudinaryUrl(image.src)
+        );
+        setImages(normalizedImages);
       } catch (fetchError) {
         if (!isMounted) return;
         setError(fetchError.message || "Unable to load gallery images.");
-        setImages(fallbackImages);
+        setImages([]);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -156,7 +152,7 @@ const GalleryPage = () => {
     if (e.key === "Escape") closeLightbox();
   };
 
-  const visibleImages = images.length > 0 ? images : fallbackImages;
+  const visibleImages = images;
   const activeImage = visibleImages[lightboxIndex] || null;
 
   return (
