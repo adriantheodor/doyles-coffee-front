@@ -1,4 +1,5 @@
 import { API_BASE } from "../utils/api";
+import { APIError } from "../utils/errorHandling";
 
 const GALLERY_STORAGE_KEY = "adminGalleryImages";
 
@@ -41,6 +42,31 @@ export async function uploadImage({ file, caption = "", token }) {
   if (!response.ok) {
     const errorPayload = await response.json().catch(() => ({}));
     throw new Error(errorPayload.message || "Image upload failed");
+  }
+
+  return response.json();
+}
+
+export async function deleteGalleryImage(imageId, token) {
+  const authToken = token || localStorage.getItem("accessToken");
+  const response = await fetch(
+    `${API_BASE}api/images/${encodeURIComponent(imageId)}`,
+    {
+      method: "DELETE",
+      headers: authToken
+        ? {
+            Authorization: `Bearer ${authToken}`,
+          }
+        : {},
+    }
+  );
+
+  if (!response.ok) {
+    const errorPayload = await response.json().catch(() => ({}));
+    throw new APIError(
+      errorPayload.message || "Image deletion failed.",
+      response.status
+    );
   }
 
   return response.json();

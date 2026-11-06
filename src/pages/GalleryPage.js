@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { fetchGalleryImages } from "../services/galleryService";
+import { deleteGalleryImage, fetchGalleryImages } from "../services/galleryService";
+import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 import "./GalleryPage.css";
 
 const getImageSource = (image) =>
@@ -96,10 +98,13 @@ const normalizeGalleryImages = (payload) => {
 };
 
 const GalleryPage = () => {
+  const { user } = useAuth();
+  const toast = useToast();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [deletingImageIds, setDeletingImageIds] = useState(() => new Set());
 
   useEffect(() => {
     let isMounted = true;
@@ -152,8 +157,51 @@ const GalleryPage = () => {
     if (e.key === "Escape") closeLightbox();
   };
 
+  const handleDeleteImage = async (image, index) => {
+    const imageId = image._id;
+    if (!imageId || deletingImageIds.has(imageId)) return;
+
+    const imageName = getImageAlt(image, index);
+    if (
+      !window.confirm(
+        `Delete "${imageName}" from the gallery? This action cannot be undone.`
+      )
+    ) {
+      return;
+    }
+
+    setDeletingImageIds((currentIds) => new Set(currentIds).add(imageId));
+
+    try {
+      const result = await deleteGalleryImage(imageId);
+      const deletedId = result?.imageId || imageId;
+      setImages((currentImages) =>
+        currentImages.filter((currentImage) => currentImage._id !== deletedId)
+      );
+      toast.success(`"${imageName}" was deleted from the gallery.`);
+    } catch (deleteError) {
+      if (deleteError.status === 404) {
+        setImages((currentImages) =>
+          currentImages.filter((currentImage) => currentImage._id !== imageId)
+        );
+        toast.info(`"${imageName}" was already missing and has been removed from the gallery.`);
+      } else {
+        toast.error(
+          deleteError.message || `Could not delete "${imageName}". Please try again.`
+        );
+      }
+    } finally {
+      setDeletingImageIds((currentIds) => {
+        const nextIds = new Set(currentIds);
+        nextIds.delete(imageId);
+        return nextIds;
+      });
+    }
+  };
+
   const visibleImages = images;
   const activeImage = visibleImages[lightboxIndex] || null;
+  const isAdmin = user?.role === "admin";
 
   return (
     <div className="gallery-page" onKeyDown={handleKeyDown} tabIndex={-1}>
@@ -182,31 +230,51 @@ const GalleryPage = () => {
             {visibleImages.map((image, index) => (
               <div
                 key={`${image.src || image.url || image.path || index}`}
-                className="gallery-item"
-                onClick={() => openLightbox(index)}
-                role="button"
-                tabIndex={0}
-                aria-label={`View full size: ${getImageAlt(image, index)}`}
-                onKeyDown={(e) => e.key === "Enter" && openLightbox(index)}
+                className="gallery-card"
               >
-                <img src={getImageSource(image)} alt={getImageAlt(image, index)} />
-                <div className="gallery-item-overlay">
-                  <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    <line x1="11" y1="8" x2="11" y2="14" />
-                    <line x1="8" y1="11" x2="14" y2="11" />
-                  </svg>
+                <div
+                  className="gallery-item"
+                  onClick={() => openLightbox(index)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View full size: ${getImageAlt(image, index)}`}
+                  onKeyDown={(e) => e.key === "Enter" && openLightbox(index)}
+                >
+                  <img src={getImageSource(image)} alt={getImageAlt(image, index)} />
+                  <div className="gallery-item-overlay">
+                    <svg
+                      width="32"
+                      height="32"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                  </div>
                 </div>
+                {isAdmin && (
+                  <button
+                    type="button"
+                    className="gallery-delete-button"
+                    aria-label={`Delete ${getImageAlt(image, index)}`}
+                    title={
+                      image._id
+                        ? `Delete ${getImageAlt(image, index)}`
+                        : "This image cannot be deleted because its ID is unavailable"
+                    }
+                    disabled={!image._id || deletingImageIds.has(image._id)}
+                    onClick={() => handleDeleteImage(image, index)}
+                  >
+                    {deletingImageIds.has(image._id) ? "Deleting..." : "Delete"}
+                  </button>
+                )}
               </div>
             ))}
           </div>
