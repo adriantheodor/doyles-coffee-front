@@ -129,7 +129,9 @@ export default function QuotePage() {
       )}
 
       <label className="quote-field">
-        Company name <span className="quote-required-marker" aria-hidden="true">*</span>
+        <span className="quote-field-label">
+          Company name <span className="quote-required-marker" aria-hidden="true">*</span>
+        </span>
         <span className="quote-field-hint">(required)</span>
         <input
           id="quote-companyName"
@@ -149,7 +151,9 @@ export default function QuotePage() {
 
       <div className="form-row-responsive">
         <label className="quote-field">
-          Contact name <span className="quote-required-marker" aria-hidden="true">*</span>
+          <span className="quote-field-label">
+            Contact name <span className="quote-required-marker" aria-hidden="true">*</span>
+          </span>
           <span className="quote-field-hint">(required)</span>
           <input
             id="quote-contactName"
@@ -167,7 +171,9 @@ export default function QuotePage() {
           )}
         </label>
         <label className="quote-field">
-          Email address <span className="quote-required-marker" aria-hidden="true">*</span>
+          <span className="quote-field-label">
+            Email address <span className="quote-required-marker" aria-hidden="true">*</span>
+          </span>
           <span className="quote-field-hint">(required)</span>
           <input
             id="quote-email"
@@ -189,7 +195,9 @@ export default function QuotePage() {
 
       <div className="form-row-responsive">
         <label className="quote-field">
-          Phone number <span className="quote-required-marker" aria-hidden="true">*</span>
+          <span className="quote-field-label">
+            Phone number <span className="quote-required-marker" aria-hidden="true">*</span>
+          </span>
           <span className="quote-field-hint">(required)</span>
           <input
             id="quote-phone"
@@ -207,7 +215,8 @@ export default function QuotePage() {
           )}
         </label>
         <label className="quote-field">
-          Office address <span>(optional)</span>
+          <span className="quote-field-label">Office address</span>
+          <span className="quote-field-hint">(optional)</span>
           <input
             name="address"
             value={form.address}
@@ -217,7 +226,8 @@ export default function QuotePage() {
       </div>
 
       <label className="quote-field">
-        Approx. headcount <span>(optional)</span>
+        <span className="quote-field-label">Approx. headcount</span>
+        <span className="quote-field-hint">(optional)</span>
         <input
           name="headcount"
           value={form.headcount}
@@ -260,7 +270,8 @@ export default function QuotePage() {
       </fieldset>
 
       <label className="quote-field">
-        Notes <span>(optional)</span>
+        <span className="quote-field-label">Notes</span>
+        <span className="quote-field-hint">(optional)</span>
         <textarea
           name="notes"
           rows={4}
