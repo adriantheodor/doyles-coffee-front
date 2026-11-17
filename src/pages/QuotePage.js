@@ -231,7 +231,9 @@ export default function QuotePage() {
       <fieldset
         style={{ border: "1px solid #ddd", borderRadius: 8, padding: "1rem" }}
       >
-        <legend>Services</legend>
+        <legend
+        style={{color:"white"}}
+        >Services</legend>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem 0", color:"white" }}>
           {[
             "Coffee & Tea",
