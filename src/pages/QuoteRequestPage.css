@@ -22,10 +22,17 @@
   font-weight: 600;
 }
 
-.quote-field > span:first-child {
+.quote-field-hint {
   color: #5b6470;
   font-size: 0.875rem;
   font-weight: 400;
+}
+
+.quote-required-marker {
+  color: #b42318;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .quote-field input,

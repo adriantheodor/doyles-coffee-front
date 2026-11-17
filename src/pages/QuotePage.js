@@ -129,14 +129,14 @@ export default function QuotePage() {
       )}
 
       <label className="quote-field">
-        Company name <span>(required)</span>
+        Company name <span className="quote-required-marker" aria-hidden="true">*</span>
+        <span className="quote-field-hint">(required)</span>
         <input
           id="quote-companyName"
           name="companyName"
           required
           aria-invalid={Boolean(fieldErrors.companyName)}
           aria-describedby={fieldErrors.companyName ? "quote-companyName-error" : undefined}
-          placeholder="Company Name"
           value={form.companyName}
           onChange={handleFieldChange}
         />
@@ -149,14 +149,14 @@ export default function QuotePage() {
 
       <div className="form-row-responsive">
         <label className="quote-field">
-          Contact name <span>(required)</span>
+          Contact name <span className="quote-required-marker" aria-hidden="true">*</span>
+          <span className="quote-field-hint">(required)</span>
           <input
             id="quote-contactName"
             name="contactName"
             required
             aria-invalid={Boolean(fieldErrors.contactName)}
             aria-describedby={fieldErrors.contactName ? "quote-contactName-error" : undefined}
-            placeholder="Contact Name"
             value={form.contactName}
             onChange={handleFieldChange}
           />
@@ -167,7 +167,8 @@ export default function QuotePage() {
           )}
         </label>
         <label className="quote-field">
-          Email address <span>(required)</span>
+          Email address <span className="quote-required-marker" aria-hidden="true">*</span>
+          <span className="quote-field-hint">(required)</span>
           <input
             id="quote-email"
             name="email"
@@ -175,7 +176,6 @@ export default function QuotePage() {
             type="email"
             aria-invalid={Boolean(fieldErrors.email)}
             aria-describedby={fieldErrors.email ? "quote-email-error" : undefined}
-            placeholder="Email"
             value={form.email}
             onChange={handleFieldChange}
           />
@@ -189,14 +189,14 @@ export default function QuotePage() {
 
       <div className="form-row-responsive">
         <label className="quote-field">
-          Phone number <span>(required)</span>
+          Phone number <span className="quote-required-marker" aria-hidden="true">*</span>
+          <span className="quote-field-hint">(required)</span>
           <input
             id="quote-phone"
             name="phone"
             required
             aria-invalid={Boolean(fieldErrors.phone)}
             aria-describedby={fieldErrors.phone ? "quote-phone-error" : undefined}
-            placeholder="Phone"
             value={form.phone}
             onChange={handleFieldChange}
           />
@@ -210,7 +210,6 @@ export default function QuotePage() {
           Office address <span>(optional)</span>
           <input
             name="address"
-            placeholder="Office Address"
             value={form.address}
             onChange={(e) => setForm({ ...form, address: e.target.value })}
           />
@@ -221,7 +220,6 @@ export default function QuotePage() {
         Approx. headcount <span>(optional)</span>
         <input
           name="headcount"
-          placeholder="Approx. Headcount"
           value={form.headcount}
           onChange={(e) => setForm({ ...form, headcount: e.target.value })}
         />
@@ -266,7 +264,6 @@ export default function QuotePage() {
         <textarea
           name="notes"
           rows={4}
-          placeholder="Notes…"
           value={form.notes}
           onChange={(e) => setForm({ ...form, notes: e.target.value })}
         />
