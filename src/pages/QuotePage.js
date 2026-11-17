@@ -96,6 +96,7 @@ export default function QuotePage() {
       {/* 3. Paired Inputs: Phone / Address (USES GRID) */}
       <div className="form-row-responsive">
         <input
+          required
           placeholder="Phone"
           value={form.phone}
           onChange={(e) => setForm({ ...form, phone: e.target.value })}
