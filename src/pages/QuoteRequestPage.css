@@ -1,15 +1,89 @@
-/* In HomePage.css */
-
-/* Default for paired inputs: 2 columns */
 .form-row-responsive {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-/* For smaller screens: stack inputs vertically */
 @media (max-width: 576px) {
   .form-row-responsive {
-    grid-template-columns: 1fr; /* Change to 1 column */
+    grid-template-columns: 1fr;
   }
+}
+
+.quote-request-form {
+  gap: 1rem;
+}
+
+.quote-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.quote-field > span:first-child {
+  color: #5b6470;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.quote-field input,
+.quote-field textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.quote-field input:focus,
+.quote-field textarea:focus {
+  outline: 3px solid rgba(58, 120, 66, 0.25);
+  border-color: #3a7842;
+}
+
+.quote-field input[aria-invalid="true"] {
+  border: 2px solid #b42318;
+}
+
+.quote-field-error {
+  color: #b42318;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.quote-validation-summary {
+  padding: 1rem 1.25rem;
+  border: 2px solid #b42318;
+  border-left-width: 8px;
+  border-radius: 8px;
+  background: #fff1f0;
+  color: #6f1711;
+}
+
+.quote-validation-summary h2 {
+  margin-bottom: 0.4rem;
+  color: #6f1711;
+  font-size: 1.1rem;
+}
+
+.quote-validation-summary p {
+  margin-bottom: 0.4rem;
+  color: inherit;
+}
+
+.quote-validation-summary ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.quote-validation-summary a {
+  color: #6f1711;
+  text-decoration: underline;
+}
+
+.quote-validation-summary a:focus-visible {
+  outline: 3px solid #6f1711;
+  outline-offset: 2px;
 }

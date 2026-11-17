@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToast from "../hooks/useToast";
-
+import "./QuoteRequestPage.css";
 
 export default function QuotePage() {
   const navigate = useNavigate();
   const toast = useToast();
+  const [fieldErrors, setFieldErrors] = useState({});
   const [form, setForm] = useState({
     companyName: "",
     contactName: "",
@@ -19,6 +20,36 @@ export default function QuotePage() {
   });
   const [loading, setLoading] = useState(false);
 
+  const fieldLabels = {
+    companyName: "Company name",
+    contactName: "Contact name",
+    email: "Email address",
+    phone: "Phone number",
+  };
+
+  const validateField = (name, value, validity) => {
+    if (name !== "email" && !value.trim()) {
+      return `Please enter your ${fieldLabels[name].toLowerCase()}.`;
+    }
+    if (name === "email") {
+      if (!value.trim()) return "Please enter your email address.";
+      if (!validity.valid) {
+        return "Enter a valid email address (for example, name@example.com).";
+      }
+    }
+    return "";
+  };
+
+  const handleFieldChange = (event) => {
+    const { name, value, validity } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+
+    if (fieldErrors[name]) {
+      const error = validateField(name, value, validity);
+      setFieldErrors((current) => ({ ...current, [name]: error }));
+    }
+  };
+
   const toggleService = (val) => {
     setForm((f) => ({
       ...f,
@@ -30,6 +61,20 @@ export default function QuotePage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const fields = e.currentTarget.elements;
+    const errors = Object.keys(fieldLabels).reduce((result, name) => {
+      const error = validateField(name, form[name], fields[name].validity);
+      if (error) result[name] = error;
+      return result;
+    }, {});
+    setFieldErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      fields[Object.keys(errors)[0]].focus();
+      return;
+    }
+
     setLoading(true);
     const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000";
     try {
@@ -64,56 +109,123 @@ export default function QuotePage() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mobile-container mobile-stack"
+      noValidate
+      className="mobile-container mobile-stack quote-request-form"
     >
       <h1>Request a Quote</h1>
 
-      {/* 1. Single Input: Company Name (NO GRID WRAPPER NEEDED) */}
-      <input
-        required
-        placeholder="Company Name"
-        value={form.companyName}
-        onChange={(e) => setForm({ ...form, companyName: e.target.value })}
-      />
+      {Object.keys(fieldErrors).length > 0 && (
+        <div className="quote-validation-summary" role="alert" aria-live="assertive">
+          <h2>Please check your information</h2>
+          <p>We need a few corrections before we can send your request:</p>
+          <ul>
+            {Object.entries(fieldErrors).map(([name, message]) => (
+              <li key={name}>
+                <a href={`#quote-${name}`}>{fieldLabels[name]}: {message}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      {/* 2. Paired Inputs: Contact Name / Email (USES GRID) */}
+      <label className="quote-field">
+        Company name <span>(required)</span>
+        <input
+          id="quote-companyName"
+          name="companyName"
+          required
+          aria-invalid={Boolean(fieldErrors.companyName)}
+          aria-describedby={fieldErrors.companyName ? "quote-companyName-error" : undefined}
+          placeholder="Company Name"
+          value={form.companyName}
+          onChange={handleFieldChange}
+        />
+        {fieldErrors.companyName && (
+          <span id="quote-companyName-error" className="quote-field-error">
+            {fieldErrors.companyName}
+          </span>
+        )}
+      </label>
+
       <div className="form-row-responsive">
-        <input
-          required
-          placeholder="Contact Name"
-          value={form.contactName}
-          onChange={(e) => setForm({ ...form, contactName: e.target.value })}
-        />
-        <input
-          required
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
+        <label className="quote-field">
+          Contact name <span>(required)</span>
+          <input
+            id="quote-contactName"
+            name="contactName"
+            required
+            aria-invalid={Boolean(fieldErrors.contactName)}
+            aria-describedby={fieldErrors.contactName ? "quote-contactName-error" : undefined}
+            placeholder="Contact Name"
+            value={form.contactName}
+            onChange={handleFieldChange}
+          />
+          {fieldErrors.contactName && (
+            <span id="quote-contactName-error" className="quote-field-error">
+              {fieldErrors.contactName}
+            </span>
+          )}
+        </label>
+        <label className="quote-field">
+          Email address <span>(required)</span>
+          <input
+            id="quote-email"
+            name="email"
+            required
+            type="email"
+            aria-invalid={Boolean(fieldErrors.email)}
+            aria-describedby={fieldErrors.email ? "quote-email-error" : undefined}
+            placeholder="Email"
+            value={form.email}
+            onChange={handleFieldChange}
+          />
+          {fieldErrors.email && (
+            <span id="quote-email-error" className="quote-field-error">
+              {fieldErrors.email}
+            </span>
+          )}
+        </label>
       </div>
 
-      {/* 3. Paired Inputs: Phone / Address (USES GRID) */}
       <div className="form-row-responsive">
-        <input
-          required
-          placeholder="Phone"
-          value={form.phone}
-          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-        />
-        <input
-          placeholder="Office Address"
-          value={form.address}
-          onChange={(e) => setForm({ ...form, address: e.target.value })}
-        />
+        <label className="quote-field">
+          Phone number <span>(required)</span>
+          <input
+            id="quote-phone"
+            name="phone"
+            required
+            aria-invalid={Boolean(fieldErrors.phone)}
+            aria-describedby={fieldErrors.phone ? "quote-phone-error" : undefined}
+            placeholder="Phone"
+            value={form.phone}
+            onChange={handleFieldChange}
+          />
+          {fieldErrors.phone && (
+            <span id="quote-phone-error" className="quote-field-error">
+              {fieldErrors.phone}
+            </span>
+          )}
+        </label>
+        <label className="quote-field">
+          Office address <span>(optional)</span>
+          <input
+            name="address"
+            placeholder="Office Address"
+            value={form.address}
+            onChange={(e) => setForm({ ...form, address: e.target.value })}
+          />
+        </label>
       </div>
 
-      {/* 4. Single Input: Approx. Headcount (NO GRID WRAPPER NEEDED) */}
-      <input
-        placeholder="Approx. Headcount"
-        value={form.headcount}
-        onChange={(e) => setForm({ ...form, headcount: e.target.value })}
-      />
+      <label className="quote-field">
+        Approx. headcount <span>(optional)</span>
+        <input
+          name="headcount"
+          placeholder="Approx. Headcount"
+          value={form.headcount}
+          onChange={(e) => setForm({ ...form, headcount: e.target.value })}
+        />
+      </label>
 
       {/* 5. Services Fieldset (KEEP AS IS, IT'S FULL WIDTH) */}
       <fieldset
@@ -147,13 +259,16 @@ export default function QuotePage() {
         </div>
       </fieldset>
 
-      {/* 6. Textarea and Button (NO GRID WRAPPER NEEDED) */}
-      <textarea
-        rows={4}
-        placeholder="Notes…"
-        value={form.notes}
-        onChange={(e) => setForm({ ...form, notes: e.target.value })}
-      />
+      <label className="quote-field">
+        Notes <span>(optional)</span>
+        <textarea
+          name="notes"
+          rows={4}
+          placeholder="Notes…"
+          value={form.notes}
+          onChange={(e) => setForm({ ...form, notes: e.target.value })}
+        />
+      </label>
       <button disabled={loading}>
         {loading ? "Submitting…" : "Submit Request"}
       </button>
